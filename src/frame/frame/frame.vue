@@ -1,0 +1,238 @@
+<!-- created by wangjun on 2019-03-04 -->
+<template>
+  <div>
+    <div class="frame-contain">
+      <!-- 头部 -->
+      <div class="frame-header">
+        <div class="frame-title">
+          <img src="./imgs/logo.png">
+          <span>个人组件框架2.0</span>
+          <div class="frame-user">
+            <img src="./imgs/user.png">
+            <span>{{name}}</span>
+            <a>退出</a>
+          </div>
+        </div>
+      </div>
+      <div class="frame-body">
+        <!-- 导航栏 -->
+        <ul class="frame-nav">
+          <li class="frame-nav-parent"
+              v-for="(item,index) in nav"
+              :key="index">
+            <a @click="setFlag(index)"
+               :href="(item.son && item.son.length) ? null:('#/' + item.parent)"
+               :class="{triangle:item.son && item.son.length,'triangle-select':flag[index],'frame-nav-active': isActive(item.parent)}">{{item.name}}</a>
+            <ul v-if='item.son && item.son.length'
+                v-show='flag[index]'>
+              <li class="frame-nav-son"
+                  v-for='son in item.son'>
+                <a :href="'#/' + son.url"
+                   :class="{'frame-nav-active': isActive(son.url,index)}">{{son.name}}</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <!-- 面包屑 -->
+        <p class="frame-crumb"><a :href="crumb.url ? '#/' + crumb.url : null"
+             :class="{'crumb-hover': crumb.url}"
+             v-for="(crumb,index) in currentCrumb">{{crumb.name + (index === currentCrumb.length-1 ? '':' > ')}} </a></p>
+        <!-- 各路由展示内容 -->
+        <div class="frame-content">
+          <router-view />
+        </div>
+        <!-- 页脚 -->
+        <div class="frame-footer">
+          <p>@copyright wangjun 2019</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import Vue from 'vue'
+import navConfig from './navConfig.js'
+export default {
+  name: 'frame',
+  data () {
+    return {
+      name: '未登录',
+      nav: null,
+      map: null,
+      crumbs: null,
+      flag: [],
+      isUpdate: false,
+      currentCrumb: null
+    }
+  },
+  methods: {
+    init: function () {
+      this.name = sessionStorage.username || this.name
+      this.nav = navConfig.list
+      this.map = navConfig.activeMap
+      this.crumbs = navConfig.crumbs
+      this.getCrumb()
+    },
+    getCrumb: function () {
+      let url = this.$route
+      let hash = url.path.substr(1, url.path.length - 1)
+      this.currentCrumb = this.crumbs[hash]
+    },
+    setFlag: function (idx) {
+      let value = this.flag[idx]
+      Vue.set(this.flag, idx, !value)
+    },
+    isActive: function (url, index = undefined) {
+      let hash = location.hash
+      if (hash === '#/' + url) {
+        if (index !== undefined && !this.isUpdate) {
+          this.isUpdate = true
+          Vue.set(this.flag, index, true)
+        }
+        return true
+      }
+      return this.activeMap(hash, url, index)
+    },
+    activeMap: function (hash, url, index) {
+      /**
+      * @author: wangjun
+      * @date: 2019-03-05 17:17:17
+      * @desc: 如果当前页面hash不在导航栏，则根据映射规则激活相应导航选项
+      */
+      hash = hash.substr(2, hash.length - 2)
+      let mapping = this.map[hash]
+      if (mapping === url) {
+        if (index !== undefined && !this.isUpdate) {
+          this.isUpdate = true
+          Vue.set(this.flag, index, true)
+        }
+        return true
+      }
+    }
+  },
+  mounted () {
+    this.init()
+  },
+  watch: {
+    '$route': function (to, from) {
+      this.getCrumb()
+    }
+  }
+}
+</script>
+<style scoped>
+.frame-contain {
+  font-size: 14px;
+  min-width: 1200px;
+  background-color: #edf0f5;
+}
+.frame-header {
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  background-color: #3896f8;
+  color: #fff;
+}
+.frame-title {
+  margin-left: 50px;
+}
+.frame-title img {
+  position: relative;
+  top: 10px;
+}
+.frame-title > span {
+  font-size: 20px;
+  font-weight: bolder;
+  margin-left: 10px;
+}
+.frame-user {
+  float: right;
+  margin-right: 20px;
+  user-select: none;
+}
+.frame-user > span {
+  position: relative;
+  bottom: 4px;
+  padding: 0 20px;
+  border-right: 2px solid #fff;
+}
+.frame-user > a {
+  position: relative;
+  bottom: 4px;
+  padding: 0 20px;
+  cursor: pointer;
+}
+.frame-body {
+  position: relative;
+  min-height: 878px;
+  font-size: 16px;
+}
+.frame-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 200px;
+  box-sizing: border-box;
+  background-color: #222d43;
+  padding-top: 30px;
+  user-select: none;
+}
+.frame-nav li {
+  cursor: pointer;
+}
+.frame-nav-parent a {
+  position: relative;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+  text-indent: 30px;
+  width: 100%;
+  height: 100%;
+  color: rgb(108, 125, 163);
+  border-left: 4px solid #222d43;
+  box-sizing: border-box;
+}
+.frame-nav-son a {
+  position: relative;
+  display: inline-block;
+  height: 40px;
+  color: #fff;
+  font-size: 14px;
+  text-indent: 50px;
+  border-left: 4px solid #222d43;
+}
+.frame-nav-active {
+  border-left: 4px solid #3896f8 !important;
+  background-color: #162035;
+}
+.frame-crumb {
+  margin-left: 220px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 14px;
+}
+.frame-crumb a {
+  color: #999;
+}
+.crumb-hover:hover {
+  color: #3896f8;
+}
+.frame-content {
+  position: relative;
+  margin-left: 220px;
+  margin-right: 20px;
+  min-height: 788px;
+  background-color: #fff;
+  font-size: 14px;
+}
+.frame-footer {
+  margin-left: 220px;
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
+  color: #bbb;
+  font-size: 14px;
+}
+</style>
