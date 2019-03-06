@@ -1,15 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+//  导入具体业务组件
+import select from '@/business/select'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path: '/select',
+      component: select
+    },
+    {
+      path: '/pagination',
+      component: select
+    },
+    {
+      path: '*',
+      redirect: '/select'
     }
   ]
 })

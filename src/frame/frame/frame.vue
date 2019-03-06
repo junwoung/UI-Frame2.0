@@ -26,7 +26,7 @@
             <ul v-if='item.son && item.son.length'
                 v-show='flag[index]'>
               <li class="frame-nav-son"
-                  v-for='son in item.son'>
+                  v-for='(son,idx) in item.son' :key="idx">
                 <a :href="'#/' + son.url"
                    :class="{'frame-nav-active': isActive(son.url,index)}">{{son.name}}</a>
               </li>
@@ -36,7 +36,7 @@
         <!-- 面包屑 -->
         <p class="frame-crumb"><a :href="crumb.url ? '#/' + crumb.url : null"
              :class="{'crumb-hover': crumb.url}"
-             v-for="(crumb,index) in currentCrumb">{{crumb.name + (index === currentCrumb.length-1 ? '':' > ')}} </a></p>
+             v-for="(crumb,index) in currentCrumb" :key="index">{{crumb.name + (index === currentCrumb.length-1 ? '':' > ')}} </a></p>
         <!-- 各路由展示内容 -->
         <div class="frame-content">
           <router-view />
@@ -121,6 +121,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
 .frame-contain {
   font-size: 14px;
@@ -226,6 +227,8 @@ export default {
   min-height: 788px;
   background-color: #fff;
   font-size: 14px;
+  box-sizing: border-box;
+  padding: 20px;
 }
 .frame-footer {
   margin-left: 220px;

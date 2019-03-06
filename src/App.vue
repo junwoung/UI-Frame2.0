@@ -5,14 +5,14 @@
 </template>
 
 <script>
-//  引入重置样式/公共样式
-import resetCss from './frame/common/reset.css'
-import commonCss from './frame/common/common.css'
 export default {
   name: 'App'
 }
 </script>
 <style>
+/**  引入重置样式/公共样式  **/
+@import "./frame/common/reset.css";
+@import "./frame/common/common.css";
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

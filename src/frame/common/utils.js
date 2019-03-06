@@ -1,7 +1,7 @@
 /**
  * Created by wangjun on 2018-8-24.javascript
  */
-function getUrlParam() {
+function getUrlParam () {
   /**
    1、判断url参数个数，为空则直接返回空；
    2、判断传入的参数是否为空，
@@ -49,7 +49,7 @@ function getUrlParam() {
   }
 }
 
-function getFormatDate() {
+function getFormatDate () {
   /*
    1、参数1代表传进来的日期格式，可以是日期对象，也可以是日期的value数值
    2、参数2代表最终返回结果，year、month、day、hour、minute、second 分表表示精确到对应位，week表示输出星期几
@@ -100,7 +100,7 @@ function getFormatDate() {
   }
 }
 
-function setLocal(key, value, expire) {
+function setLocal (key, value, expire) {
   let keyTimestamp = key + 'TimeStamp'
   let nowTimestamp = (new Date()).valueOf()
   let time = expire ? (nowTimestamp + expire * 24 * 60 * 60 * 1000) : (nowTimestamp + 24 * 60 * 60 * 1000)
@@ -108,12 +108,12 @@ function setLocal(key, value, expire) {
   window.localStorage[keyTimestamp] = time
 }
 
-function removeLocal(key) {
+function removeLocal (key) {
   window.localStorage.removeItem(key)
   window.localStorage.removeItem(key + 'TimeStamp')
 }
 
-function getLocal(key) {
+function getLocal (key) {
   let nowTimestamp = (new Date()).valueOf()
   let keyTimestamp = window.localStorage[key + 'TimeStamp']
   if (nowTimestamp > keyTimestamp) {
@@ -124,7 +124,7 @@ function getLocal(key) {
   }
 }
 
-function removeDuplicate(arr) {
+function removeDuplicate (arr) {
   /**
    * 利用对象的特性达到数组去重，性能很好
    * */
@@ -140,7 +140,7 @@ function removeDuplicate(arr) {
   return data
 }
 
-function sort(arr) {
+function sort (arr) {
   /**
    * 数值数组的排序
    * */
@@ -149,11 +149,11 @@ function sort(arr) {
   return arr
 }
 
-function compare(val1, val2) {
+function compare (val1, val2) {
   return val1 - val2
 }
 
-function flattenStr(arr) {
+function flattenStr (arr) {
   /**
    * 先将数组转化为字符串，再将字符串分割
    * */
@@ -161,7 +161,7 @@ function flattenStr(arr) {
   return str.split(',')
 }
 
-function flatten(arr) {
+function flatten (arr) {
   /**
    * 一个个出栈数组的元素
    * 判断元素是否是数组
@@ -181,14 +181,14 @@ function flatten(arr) {
   return data
 }
 
-function copy(arr) {
+function copy (arr) {
   /*
    *深拷贝数组
    */
   return JSON.parse(JSON.stringify(arr))
 }
 
-function getRandom(num1, num2) {
+function getRandom (num1, num2) {
   /**
    * 返回num1、num2之间的随机整数
    **/
@@ -201,7 +201,7 @@ function getRandom(num1, num2) {
   return Math.round(Math.random() * (n2 - n1) + n1)
 }
 
-function getCookie(name) {
+function getCookie (name) {
   // 获取name在Cookie中起止位置
   let start = document.cookie.indexOf(name + '=')
   if (start !== -1) {
@@ -217,7 +217,7 @@ function getCookie(name) {
   return ''
 }
 
-function setCookie(name, value, expdays) {
+function setCookie (name, value, expdays) {
   let expdate = new Date()
   //  设置Cookie过期日期
   expdate.setDate(expdate.getDate() + expdays)
@@ -225,14 +225,14 @@ function setCookie(name, value, expdays) {
   document.cookie = name + '=' + escape(value) + ';expires=' + expdate.toUTCString() + ';path=/'
 }
 
-function delCookie(name) {
+function delCookie (name) {
   this.setCookie(name, '', -1)
 }
 
 /**
  * 封装原生ajax
  */
-function ajax(method, url, data, success, error) {
+function ajax (method, url, data, success, error) {
   if (arguments.length === 1 && typeof arguments[0] === 'object') {
     // 兼容多种格式传参
     let send = arguments[0]
@@ -249,7 +249,8 @@ function ajax(method, url, data, success, error) {
   if (XMLHttpRequest) {
     request = new XMLHttpRequest()
   } else {
-    request = new ActiveXObject()
+    return
+    // request = new ActiveXObject()
   }
   request.onreadystatechange = function () {
     if (request.readyState === 4) {
@@ -306,7 +307,7 @@ window.ajax = ajax // 赋值给全局变量ajax
  * @param md5fn 加签方法（前提是前端需要引入md5算法）
  * @param salt 加密盐值
  */
-function checkSign(url, params, md5fn, salt) {
+function checkSign (url, params, md5fn, salt) {
   if (!url || !params || !md5fn) return
   if (url.indexOf('?') === -1) return
   if (!(params instanceof Array)) return
