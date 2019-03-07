@@ -178,6 +178,7 @@ export default {
   background-color: #fff;
   max-height: 150px;
   overflow-y: auto;
+  z-index: 1;
 }
 .v-select-option{
   display: block;
