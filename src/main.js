@@ -3,9 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+//  导入框架组件和公用组件
 import utils from './frame/common/utils'
 import vFrame from './frame/frame/frame.js'
 import vSelect from './components/vSelect/select.js'
+import vCheckbox from './components/vCheckbox/checkbox.js'
+import vRadio from './components/vRadio/radio.js'
 
 Vue.config.productionTip = false
 
@@ -13,9 +16,10 @@ Vue.config.productionTip = false
 Vue.prototype.$utils = utils
 
 //  导入框架组件和公用组件
-
 Vue.use(vFrame)
 Vue.use(vSelect)
+Vue.use(vCheckbox)
+Vue.use(vRadio)
 
 /* eslint-disable no-new */
 new Vue({

@@ -13,6 +13,14 @@ const list = [
         url: 'select'
       },
       {
+        name: '单选/复选',
+        url: 'checkbox'
+      },
+      {
+        name: 'tab',
+        url: 'tab'
+      },
+      {
         name: '分页',
         url: 'pagination'
       },
@@ -97,6 +105,14 @@ const crumbs = {
     },
     {
       name: '新建选择'
+    }
+  ],
+  checkbox: [
+    {
+      name: '组件'
+    },
+    {
+      name: '单选/复选'
     }
   ],
   pagination: [
