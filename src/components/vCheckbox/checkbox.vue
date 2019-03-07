@@ -64,21 +64,21 @@ export default {
     getClassName: function (item) {
       if (!this.checkbox || !this.selected) return
       let id = item[this.id]
-      let className = ''
+      let classN = ''
       let idx = this.selected.indexOf(id)
       if (idx !== -1) {
-        className = 'ck-checked'
+        classN = 'ck-checked'
       }
       if (this.checkbox.disable === 'all') {
-        if(idx === -1) className += ' ck-disable'
-        else className += ' ck-checked-disable'
+        if (idx === -1) classN += ' ck-disable'
+        else classN += ' ck-checked-disable'
       }
       if (this.checkbox.disable === 'part') {
         if (this.part.indexOf(id) !== -1) {
-          className += ' ck-checked-disable'
+          classN += ' ck-checked-disable'
         }
       }
-      return className
+      return classN
     }
   },
   created () {
