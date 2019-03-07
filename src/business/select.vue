@@ -5,10 +5,16 @@
       <v-select :select='select' @callback='getSelect'></v-select>
       <button class="btn btn-default btn-small" @click="change">change</button>
     </div>
+    <div class="form-control clearfix" style="margin: 20px 0;">
+      <label class="label">使用</label>
+      <textarea class="textarea" style="width:450px;height:50px;" disabled><v-select :select='select' @callback='getSelect'></v-select></textarea>
+      <span class="tips">select对象包含如下列表参数；callback选择触发回调(非必须)</span>
+    </div>
     <table class="table">
+      <caption>select对应属性</caption>
       <thead class="thead">
         <tr>
-          <th v-for="(item,index) in theader" :key="index">
+          <th v-for="(item,index) in theader" :key="index" :style="{'width': item.width}">
             {{item.name}}
           </th>
         </tr>
@@ -29,6 +35,7 @@
 
 <script>
 import theader from './config/table.js'
+import data from './config/array.js'
 export default {
   name: '',
   data () {
@@ -44,24 +51,7 @@ export default {
           'border-radius': '2px',
           'background-color': '#fff'
         },
-        data: [
-          {
-            idx: 0,
-            namex: 'AAAA'
-          },
-          {
-            idx: 1,
-            namex: 'BBBB'
-          },
-          {
-            idx: 4,
-            namex: 'EEEE'
-          },
-          {
-            idx: 2,
-            namex: 'CCCC'
-          }
-        ],
+        data: data.unnormal,
         selected: undefined,
         placeholder: '请选择字母',
         disable: false,
@@ -84,9 +74,11 @@ export default {
       // this.select.disable = true
       this.select.data.push({
         idx: '56',
-        namex: '哈哈哈A个多月就很烦会计师发货看的世界观'
+        namex: '这是新增加的'
       })
-      this.select.selected = '56'
+      // this.select.selected = '56'
+      // this.config = null
+      // this.select.data = data.normal
     },
     defineBody: function () {
       this.tbody = [

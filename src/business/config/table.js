@@ -15,7 +15,7 @@ const table = {
     },
     {
       name: '说明',
-      width: '50%'
+      width: '30%'
     },
     {
       name: '必填项',
@@ -23,7 +23,7 @@ const table = {
     },
     {
       name: '样例值',
-      width: '10%'
+      width: '30%'
     },
     {
       name: '默认值',
