@@ -115,6 +115,14 @@ const crumbs = {
       name: '单选/复选'
     }
   ],
+  tab: [
+    {
+      name: '组件'
+    },
+    {
+      name: 'tab'
+    }
+  ],
   pagination: [
     {
       name: '组件'

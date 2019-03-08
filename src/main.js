@@ -9,6 +9,7 @@ import vFrame from './frame/frame/frame.js'
 import vSelect from './components/vSelect/select.js'
 import vCheckbox from './components/vCheckbox/checkbox.js'
 import vRadio from './components/vRadio/radio.js'
+import vTab from './components/vTab/tab.js'
 
 Vue.config.productionTip = false
 
@@ -20,6 +21,7 @@ Vue.use(vFrame)
 Vue.use(vSelect)
 Vue.use(vCheckbox)
 Vue.use(vRadio)
+Vue.use(vTab)
 
 /* eslint-disable no-new */
 new Vue({
