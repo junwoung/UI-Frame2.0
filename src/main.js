@@ -10,6 +10,7 @@ import vSelect from './components/vSelect/select.js'
 import vCheckbox from './components/vCheckbox/checkbox.js'
 import vRadio from './components/vRadio/radio.js'
 import vTab from './components/vTab/tab.js'
+import vPagination from './components/vPagination/pagination.js'
 
 Vue.config.productionTip = false
 
@@ -22,6 +23,7 @@ Vue.use(vSelect)
 Vue.use(vCheckbox)
 Vue.use(vRadio)
 Vue.use(vTab)
+Vue.use(vPagination)
 
 /* eslint-disable no-new */
 new Vue({

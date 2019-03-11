@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import select from '@/business/select'
 import checkbox from '@/business/checkbox'
 import tab from '@/business/tab'
+import pagination from '@/business/pagination'
 
 Vue.use(Router)
 
@@ -23,7 +24,7 @@ export default new Router({
     },
     {
       path: '/pagination',
-      component: select
+      component: pagination
     },
     {
       path: '*',
