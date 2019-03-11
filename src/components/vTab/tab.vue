@@ -67,20 +67,20 @@ export default {
   name: '',
   data () {
     return {
-      id: 'id',
-      name: 'name',
-      multiple: true,
+      id: 'id', // id映射
+      name: 'name', //  name映射
+      multiple: true, //  是否复选（暂未用上）
       flag: {
-        all: true,
-        more: true,
-        allShow: false,
-        allHide: true,
-        idx: null,
-        timeout: null,
-        selectedIdx: null,
-        selectedTimeout: null
+        all: true, //  标识 全选/返选
+        more: true, //  是否显示更多
+        allShow: false, //  显示  全选、反选 选项列表
+        allHide: true, //  和`allShow`搭配使用，主要用来控制切换动画
+        idx: null, //  记录 选项被选中，hover显示关闭按钮 id
+        timeout: null, //  搭配`idx`使用，解决关闭按钮闪现问题
+        selectedIdx: null, //  记录`已选`区域 ，功能同`idx`类似
+        selectedTimeout: null //  搭配`selectedIdx`使用，解决关闭按钮闪现问题
       },
-      selected: null,
+      selected: null, //  存放选中项的id列表
       selectedWhole: [] //  存放完整版选择项
     }
   },
@@ -289,21 +289,7 @@ export default {
   },
   watch: {
     'tab.selected': function (newVal, oldVal) {
-      // this.selected = []
       this.init()
-    //   console.log(newVal, oldVal)
-    //   let arr = JSON.parse(JSON.stringify(this.tab.data))
-    //   this.tab.data = null
-    //   //  初始化已选项
-    //   if (this.tab && this.tab.selected) {
-    //     if (this.tab.selected instanceof Array) {
-    //       this.selected = this.tab.selected
-    //       this.tab.data = arr
-    //       this.getWhole()
-    //     }
-    //   } else {
-    //     this.selected = []
-    //   }
     }
   }
 }
@@ -435,12 +421,4 @@ export default {
   border-radius: 50%;
   color: #fff;
 }
-/* .v-tab-cancel::after{
-  content: 'x';
-  display: inline-block;
-  position: absolute;
-  padding: 5px;
-  background-color: #d9534f;
-
-} */
 </style>
