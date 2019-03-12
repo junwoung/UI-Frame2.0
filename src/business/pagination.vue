@@ -64,7 +64,7 @@ export default {
     },
     change: function () {
       // this.pagination.current = 10
-      this.pagination.pagesize = 8
+      // this.pagination.pagesize = 8
       this.pagination.total = 398
     },
     getList: function (page) {
