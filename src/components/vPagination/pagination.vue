@@ -149,13 +149,13 @@ export default {
       setTimeout(() => {
         this.flag.position = null
         this.flag.show = false
-      }, 100)
+      }, 200)
     },
     changePagesize: function (num) {
       //  改变分页尺寸
       this.pagination.pagesize = num
       this.pagination.current = 1
-      this.init()
+      // this.init()
     },
     getDetail: function () {
       //  获取具体分页展示信息
@@ -252,7 +252,6 @@ export default {
   transform: rotate(0);
   transition: transform 0.2s;
 }
-.v-pagination-size-active {}
 .v-pagination-size-active::after{
   transform: rotate(180deg)!important;
 }
