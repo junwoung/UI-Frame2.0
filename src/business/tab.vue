@@ -10,6 +10,13 @@
       <textarea class="textarea" style="width:450px;height:50px;" disabled><v-tab :tab="tab" @callback = 'getSelected'></v-tab></textarea>
       <span class="tips">tab对象包含如下列表参数；callback选择触发回调(非必须)</span>
     </div>
+    <div class="form-control clearfix">
+      <label class="label">使用说明</label>
+      <div>
+        开发者可以利用 this.tab.selected 获取选中选项id列表<br>
+        也可以通过回调函数返回的参数获取选中项详细信息列表
+      </div>
+    </div>
     <table class="table">
       <caption>tab对应属性</caption>
       <thead class="thead">
