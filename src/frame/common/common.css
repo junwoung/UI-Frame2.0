@@ -124,8 +124,6 @@ body {
   cursor: pointer;
 }
 
-.a-hover {}
-
 .a-hover:hover {
   border-bottom: 1px solid #3896f8;
   cursor: pointer;
@@ -158,8 +156,6 @@ body {
   right: -8px;
   top: 0;
 }
-
-.label-require {}
 
 /**带必填星号**/
 .label-require::before {
@@ -700,7 +696,6 @@ table>caption {
 }
 
 /** 三角形 **/
-.triangle {}
 
 .triangle::after {
   content: '';
@@ -715,8 +710,6 @@ table>caption {
   transform: rotate(0);
   transition: transform 0.3s;
 }
-
-.triangle-select {}
 
 .triangle-select::after {
   transform: rotate(180deg);
