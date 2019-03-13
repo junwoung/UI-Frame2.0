@@ -19,6 +19,13 @@
       <textarea class="textarea" disabled><v-radio :radio='radio' @callback='getRadio'></v-radio></textarea>
       <span class="tips">checkbox/radio对象包含如下属性，callback选择触发回调(非必传)</span>
     </div>
+    <div class="form-control clearfix">
+      <label class="label">使用说明</label>
+      <div>
+        开发者可以利用 this.checkbox.selected / this.radio.selected 获取选中选项id(列表)<br>
+        也可以通过回调函数返回的参数获取选中项详细信息(列表)
+      </div>
+    </div>
     <table class="table">
       <caption>checkbox/radio对象对应属性</caption>
       <thead class="thead">
