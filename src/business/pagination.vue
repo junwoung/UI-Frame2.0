@@ -5,30 +5,36 @@
     <button @click="change" class="btn btn-default btn-small">change</button>
     <div style="height: 700px;">
       <div class="form-control clearfix" style="margin: 20px 0;">
-      <label class="label">使用</label>
-      <textarea class="textarea" style="width:500px;height:80px;" disabled><v-pagination :pagination='pagination' @callback='getList'></v-pagination></textarea>
-      <span class="tips">pagination对象包含如下列表参数；callback选择触发回调(非必须)</span>
-    </div>
-    <table class="table">
-      <caption>pagination对应属性</caption>
-      <thead class="thead">
-        <tr>
-          <th v-for="(item,index) in theader" :key="index" :style="{'width': item.width}">
-            {{item.name}}
-          </th>
-        </tr>
-      </thead>
-      <tbody class="tbody">
-        <tr v-for="(item,index) in tbody" :key="index">
-          <td>{{item.arg}}</td>
-          <td>{{item.type}}</td>
-          <td>{{item.desc}}</td>
-          <td>{{item.must}}</td>
-          <td>{{item.exp}}</td>
-          <td>{{item.default}}</td>
-        </tr>
-      </tbody>
-    </table>
+        <label class="label">使用</label>
+        <textarea class="textarea" style="width:500px;height:80px;" disabled><v-pagination :pagination='pagination' @callback='getList'></v-pagination></textarea>
+        <span class="tips">pagination对象包含如下列表参数；callback选择触发回调(非必须)</span>
+      </div>
+      <div class="form-control clearfix">
+        <label class="label">使用说明</label>
+        <div>
+          开发者可以利用 this.pagination 对象获取相应地分页信息<br>也可以通过回调函数返回的参数获取所需信息
+        </div>
+      </div>
+      <table class="table">
+        <caption>pagination对应属性</caption>
+        <thead class="thead">
+          <tr>
+            <th v-for="(item,index) in theader" :key="index" :style="{'width': item.width}">
+              {{item.name}}
+            </th>
+          </tr>
+        </thead>
+        <tbody class="tbody">
+          <tr v-for="(item,index) in tbody" :key="index">
+            <td>{{item.arg}}</td>
+            <td>{{item.type}}</td>
+            <td>{{item.desc}}</td>
+            <td>{{item.must}}</td>
+            <td>{{item.exp}}</td>
+            <td>{{item.default}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <v-pagination :pagination='pagination2'></v-pagination>
   </div>
