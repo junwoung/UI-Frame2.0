@@ -459,7 +459,8 @@ table>caption {
 }
 
 .tbody td {
-  height: 60px;
+  height: 40px;
+  padding: 10px;
 }
 
 .tbody tr:hover {

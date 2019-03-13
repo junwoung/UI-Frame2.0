@@ -11,6 +11,7 @@ import vCheckbox from './components/vCheckbox/checkbox.js'
 import vRadio from './components/vRadio/radio.js'
 import vTab from './components/vTab/tab.js'
 import vPagination from './components/vPagination/pagination.js'
+import vUpload from './components/vUpload/upload.js'
 
 Vue.config.productionTip = false
 
@@ -24,6 +25,7 @@ Vue.use(vCheckbox)
 Vue.use(vRadio)
 Vue.use(vTab)
 Vue.use(vPagination)
+Vue.use(vUpload)
 
 /* eslint-disable no-new */
 new Vue({
