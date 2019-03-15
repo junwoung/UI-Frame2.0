@@ -6,6 +6,7 @@ import checkbox from '@/business/checkbox'
 import tab from '@/business/tab'
 import pagination from '@/business/pagination'
 import upload from '@/business/upload'
+import time from '@/business/time'
 
 Vue.use(Router)
 
@@ -30,6 +31,10 @@ export default new Router({
     {
       path: '/upload',
       component: upload
+    },
+    {
+      path: '/time',
+      component: time
     },
     {
       path: '*',

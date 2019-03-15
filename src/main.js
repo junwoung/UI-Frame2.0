@@ -12,6 +12,7 @@ import vRadio from './components/vRadio/radio.js'
 import vTab from './components/vTab/tab.js'
 import vPagination from './components/vPagination/pagination.js'
 import vUpload from './components/vUpload/upload.js'
+import vTime from './components/vTime/time.js'
 
 Vue.config.productionTip = false
 
@@ -26,6 +27,7 @@ Vue.use(vRadio)
 Vue.use(vTab)
 Vue.use(vPagination)
 Vue.use(vUpload)
+Vue.use(vTime)
 
 /* eslint-disable no-new */
 new Vue({
