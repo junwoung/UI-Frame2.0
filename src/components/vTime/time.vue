@@ -1,13 +1,10 @@
 <!-- created by wangjun on 2019-03-13 -->
-import func from './vue-temp/vue-editor-bridge';
-import { clearTimeout } from 'timers';
-import { setTimeout } from 'timers';
-import { setTimeout } from 'timers';
 <template>
   <div class="v-time" v-if="time">
     <span
      class="v-time-txt"
      @click="activeInput"
+     :class="{'v-time-disable-whole': time.disable}"
      :style="time.style">{{time.selected || time.placeholder || '请选择时间'}}</span>
     <input type="text"
      ref="vTimeInput"
@@ -22,7 +19,7 @@ import { setTimeout } from 'timers';
         </div>
         <div class="v-time-year-month" v-if="flag.type !== 'times'">
           <span @click="calculateYears" title="选择年份">{{selected.year}}年</span>&nbsp;
-          <span @click="flag.type = 'monthes'" title="选择月份">{{selected.month}}月</span>
+          <span v-show='flag.type !== "years"' @click="flag.type = 'monthes'" title="选择月份">{{selected.month}}月</span>
         </div>
         <div class="v-time-arrow-right" v-if="flag.type !== 'times'">
           <span v-if="flag.type === 'dates'" title="月份+1" @click="changeOptions(1,'m')">&gt;</span>&nbsp;
@@ -41,7 +38,7 @@ import { setTimeout } from 'timers';
             <span
             v-for="(date,index) in dates"
             @click="setDate(date)"
-            :class="{'v-time-date-selected': selected.date === date.date,'v-time-date-gray': !date.flag,'v-time-date-today': today === date.date}"
+            :class="{'v-time-date-selected': selected.date === date.date ,'v-time-disable': (time.max && date.date > time.max) || (time.min && date.date < time.min),'v-time-date-gray': !date.flag,'v-time-date-today': today === date.date}"
             :key="index">
               {{date.day}}
             </span>
@@ -105,7 +102,9 @@ import { setTimeout } from 'timers';
          @click="generateHMS"
          :class="{'v-time-disable': !this.time.format || flag.timesCan.indexOf(time.format) === -1}">{{flag.type === 'times' ? '返回日期':'选择时分秒'}}</label>
         <span @click="doFunc('ensure')">确定</span>
-        <span @click="doFunc('now')">现在</span>
+        <span
+         @click="doFunc('now')"
+         :class="{'v-time-disable': !flag.canToday}">现在</span>
         <span @click="doFunc('clear')">清空</span>
       </div>
     </div>
@@ -138,7 +137,8 @@ export default {
         timeout: null, //  定时器，控制日历面板隐藏时用（动画效果和取消隐藏）
         imediate: false, //  是否立即隐藏
         timesCan: ['hour', 'minute', 'second'], //  可以选择具体时分秒的条件
-        type: 'dates' //  日历面板展示的选项类型[ 具体日期 / 年份 / 月份 / 时分秒]
+        type: 'dates', //  日历面板展示的选项类型[ 具体日期 / 年份 / 月份 / 时分秒]
+        canToday: true // 今天是否可用
       }
     }
   },
@@ -150,7 +150,15 @@ export default {
   },
   methods: {
     init: function () {
+      let formats = ['year', 'month', 'day', 'hour', 'minute', 'second']
       if (!this.time) return
+      //  初始化format
+      if (!this.time.format || formats.indexOf(this.time.format) === -1) this.time.format = 'day'
+      //  标准化max / min
+      if (this.time.max) this.time.max = this.getRegularDate(this.time.max, true)
+      if (this.time.min) this.time.min = this.getRegularDate(this.time.min, true)
+      //  初始化today是否可用
+      if ((this.time.max && this.time.max < this.today) || (this.time.min && this.time.min > this.today)) this.flag.canToday = false
       //  初始化日历面板选择时间、展示时间；如果未传入初始化时间，则只初始化日历面板选择时间
       if (this.time.selected === undefined) {
         //  未传入selected属性，表示不初始化展示
@@ -162,8 +170,12 @@ export default {
           this.selected.date = this.getDate('')
           this.time.selected = this.getDate('', this.time.format)
         } else {
+          this.time.selected = this.getRegularDate(this.time.selected)
           //  传入具体值，做相应的初始化
-          this.selected.date = this.getDate(this.time.selected)
+          if (this.time.format === 'year') {
+            //  如果仅仅传入年份，在转换的时候会有问题，故人为将其转为yyyy-01-01
+            this.selected.date = this.time.selected.toString().split('-')[0] + '-01-01'
+          } else this.selected.date = this.getDate(this.time.selected)
           //  初始化时分秒
           let d = this.getDate(this.time.selected, this.time.format)
           if (this.time.format && this.flag.timesCan.indexOf(this.time.format) !== -1 && d.indexOf(' ') !== -1) {
@@ -174,9 +186,29 @@ export default {
           }
         }
       }
-      this.calculateDates(this.selected.date)
-      // console.log(this.selected.date)
+      this.initCalender(this.time.format)
       this.setYmd(this.selected.date)
+    },
+    initCalender: function (format = 'day') {
+      /**
+      * @author: wangjun
+      * @date: 2019-03-15 12:09:28
+      * @desc: 根据传入的格式来初始化日历
+      * @param: year 初始化为年份选择；month 初始化为月份选择； 其他 均初始化成日期选择
+      */
+      switch (format) {
+        case 'year': {
+          this.calculateYears()
+          break
+        }
+        case 'month': {
+          this.flag.type = 'monthes'
+          break
+        }
+        default: {
+          this.calculateDates(this.selected.date)
+        }
+      }
     },
     calculateDates: function (obj = undefined) {
       //  计算日历面板当前展示日期选项
@@ -234,10 +266,14 @@ export default {
     },
     setDate: function (date) {
       //  点击日历某个日期触发
+      if ((this.time.max && this.time.max < date.date) || (this.time.min && this.time.min > date.date)) return
       if (!date.flag) {
         this.calculateDates(date.date)
       }
       this.setYmd(date.date)
+      if (date.flag && (!this.time.format || this.time.format === 'day')) {
+        this.doFunc('ensure')
+      }
     },
     setYmd: function (date) {
       //  设置年月日等，date: yyyy-mm-dd
@@ -306,16 +342,28 @@ export default {
       this.selected.year = year
       this.selected.date = `${year}-${this.selected.month}-01`
       this.calculateDates(this.selected.date)
-      this.flag.type = 'dates'
+      //  如果精确到年，则直接关闭日历
+      if (this.time.format === 'year') {
+        this.doFunc('ensure')
+      } else if (this.time.format === 'month') {
+        //  如果精确到月，则选完年份之后选月份
+        this.flag.type = 'monthes'
+      } else {
+        this.flag.type = 'dates'
+      }
     },
     setMonth: function (month) {
       //  设置月份
       this.selected.month = month > 9 ? month : ('0' + month)
       this.selected.date = `${this.selected.year}-${this.selected.month}-01`
       this.calculateDates(this.selected.date)
-      this.flag.type = 'dates'
+      if (this.time.format === 'month') {
+        //  如果是精确到月份则直接关闭日历
+        this.doFunc('ensure')
+      } else this.flag.type = 'dates'
     },
     generateHMS: function () {
+      if (this.flag.timesCan.indexOf(this.time.format) === -1) return
       this.flag.type = this.flag.type === 'times' ? 'dates' : 'times'
       setTimeout(() => {
         this.triggerScroll()
@@ -368,15 +416,24 @@ export default {
       switch (type) {
         case 'clear': {
           this.time.selected = undefined
+          this.$emit('callback', this.time.selected)
           break
         }
         case 'now': {
-          this.time.selected = this.getDate('', this.time.format)
+          if (this.flag.canToday) {
+            this.time.selected = this.getDate('', this.time.format)
+            this.$emit('callback', this.time.selected)
+          }
           break
         }
         case 'ensure': {
-          this.time.selected = this.getFormatValue(this.time.format)
-          break
+          if (!this.flag.canToday && ((this.time.max && this.time.max < this.selected.date) || (this.time.min && this.time.min > this.selected.date))) {
+            break
+          } else {
+            this.time.selected = this.getFormatValue(this.time.format)
+            this.$emit('callback', this.time.selected)
+            break
+          }
         }
       }
       this.calculateDates(this.time.selected)
@@ -397,6 +454,7 @@ export default {
     },
     activeInput: function () {
       //  激活文本框，显示日历选择
+      if (this.time.disable) return
       if (this.flag.timeout) return
       this.$refs.vTimeInput.focus()
       this.init()
@@ -405,9 +463,14 @@ export default {
       //  显示日历选择面板
       this.flag.show = true
       setTimeout(() => {
+        //  当日期插件位于页面底部则点击触发显示在文本框上方
         let dom = this.$refs.vTimeBody
+        let rect = this.$refs.vTimeInput.getBoundingClientRect()
+        let h = dom.getBoundingClientRect().height
+        let wh = window.innerHeight || document.documentElement.clientHeight
         if (dom) {
-          dom.style.top = '120%'
+          if (wh - rect.top <= h) dom.style.top = '-330px'
+          else dom.style.top = '120%'
           dom.style.opacity = '1'
         }
       }, 10)
@@ -450,10 +513,70 @@ export default {
       //  关闭日历，还原各变量值
       this.flag.type = 'dates'
       this.flag.imediate = false
+    },
+    getRegularDate: function (date = undefined, flag = false) {
+      //  当传入日期不符合期望时，主动将其转化为可接受标准日期
+      if (!date) return
+      let type = typeof date
+      let str = ''
+      switch (type) {
+        case 'string': {
+          if (isNaN(parseInt(date))) {
+            /**
+            * @author: wangjun
+            * @date: 2019-03-15 18:13:35
+            * @desc: 特殊日期英文转化为日期字符串
+            */
+            if (date === 'today') {
+              str = this.getDate('', this.time.format)
+            }
+            if (date === 'yesterday') {
+              str = this.getDate((new Date()).valueOf() - 24 * 3600 * 1000, this.time.format)
+            }
+            if (date === 'tomorrow') {
+              str = this.getDate((new Date()).valueOf() + 24 * 3600 * 1000, this.time.format)
+            }
+          } else {
+            str = date
+          }
+          break
+        }
+        case 'number': {
+          /**
+          * @author: wangjun
+          * @date: 2019-03-15 18:14:17
+          * @desc: 支持100 * 365（10年内数字日期转化）；
+          * 超过 100 * 365 ；当时间戳处理，转化为日期字符串
+          */
+          if (date < 100 * 365) {
+            str = this.getDate((new Date()).valueOf() + date * 24 * 3600 * 1000, this.time.format)
+          } else {
+            str = this.getDate(date, this.time.format)
+          }
+          break
+        }
+        case 'object': {
+          //  支持日期对象转化为日期字符串
+          str = this.getDate(date, this.time.format)
+          break
+        }
+      }
+      if (flag) {
+        str = str.split(' ')[0]
+      }
+      return str
     }
   },
   mounted () {
     this.init()
+  },
+  watch: {
+    'time.max': function (newVal) {
+      this.time.max = this.getRegularDate(newVal, true)
+    },
+    'time.min': function (newVal) {
+      this.time.min = this.getRegularDate(newVal, true)
+    }
   }
 }
 </script>
@@ -464,11 +587,13 @@ export default {
   position: relative;
   font-size: 14px;
   user-select: none;
+  background-color: #fff;
 }
 .v-time-txt {
   display: inline-block;
   box-sizing: border-box;
   width: 200px;
+  min-width: 180px;
   height: 34px;
   min-height: 30px;
   line-height: 32px;
@@ -501,6 +626,8 @@ export default {
   border-radius: 1px;
   opacity: 0;
   transition: top .2s,opacity 0.2s;
+  background-color: #fff;
+  z-index: 9999999;
 }
 .v-time-header {
   height: 40px;
@@ -641,7 +768,12 @@ export default {
 }
 .v-time-disable {
   color: #d2d2d2 !important;
-  cursor: not-allowed;
+  cursor: not-allowed !important;
   background-color: #fff!important;
+}
+.v-time-disable-whole {
+  color: #bbb !important;
+  cursor: not-allowed !important;
+  background-color: #efefef!important;
 }
 </style>
