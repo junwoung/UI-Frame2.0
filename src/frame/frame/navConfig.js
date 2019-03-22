@@ -43,6 +43,10 @@ const list = [
     ]
   },
   {
+    parent: 'query',
+    name: 'query'
+  },
+  {
     parent: 'dialog',
     name: '对话框'
   },
@@ -209,6 +213,9 @@ const crumbs = {
   ],
   unknown: [{
     name: '待补充'
+  }],
+  query: [{
+    name: 'query'
   }]
 }
 

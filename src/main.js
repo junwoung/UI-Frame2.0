@@ -14,6 +14,10 @@ import vPagination from './components/vPagination/pagination.js'
 import vUpload from './components/vUpload/upload.js'
 import vTime from './components/vTime/time.js'
 
+//  引入query插件
+import vQuery from './components/vQuery/query'
+Vue.use(vQuery)
+
 Vue.config.productionTip = false
 
 //  引入自定义公用方法

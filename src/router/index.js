@@ -7,6 +7,7 @@ import tab from '@/business/tab'
 import pagination from '@/business/pagination'
 import upload from '@/business/upload'
 import time from '@/business/time'
+import query from '@/business/query'
 
 Vue.use(Router)
 
@@ -35,6 +36,10 @@ export default new Router({
     {
       path: '/time',
       component: time
+    },
+    {
+      path: '/query',
+      component: query
     },
     {
       path: '*',
