@@ -1,0 +1,129 @@
+/* 清除样式 */
+.clearfix {
+  zoom: 1;
+}
+.clearfix:after,
+.clearfix:before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+.clearfix:after {
+  clear: both;
+}
+
+.v-query {
+  color: #111;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  /* padding-left: 15px; */
+  border-radius: 3px;
+  min-width: 1100px;
+}
+.v-query > .v-query-container:nth-child(n+2) {
+  border-top: 1px solid #ddd;
+}
+.v-dimen {
+  padding-left: 15px;
+}
+.v-query-label,.v-query-more {
+  float: left;
+  width: 60px;
+  height: 30px;
+  line-height: 30px;
+  background-color: #efefef;
+  border-radius: 3px;
+  text-align: center;
+  margin-top: 15px;
+  user-select: none;
+  color: #666;
+}
+.v-query-more {
+  cursor: pointer;
+  float: right;
+  margin-right: 15px;
+}
+.v-query-options {
+  float: left;
+  width: 85%;
+  margin: 0 0 0 15px;
+  padding-top: 15px;
+}
+.v-query-options > span {
+  display: inline-block;
+  position: relative;
+  height: 30px;
+  padding: 0 12px;
+  line-height: 30px;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  margin: 0 10px 10px 0;
+}
+.v-query-options > span:hover {
+  border: 1px solid #88cdfa;
+  color: #88cdfa;
+}
+.v-query-less {
+  height: 42px;
+  overflow: hidden;
+}
+.v-query-checked {
+  color: #fff!important;
+  background-color: #88cdfa!important;
+  border: 1px solid #88cdfa!important;
+}
+.v-query-cancel {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  /* background-color: #F08080;
+  color: #fff; */
+  background: url(./imgs/close.png) no-repeat center center;
+  top: -8px;
+  right: -8px;
+}
+
+.v-dimen-select-area {
+  background-color: rgba(245, 249, 253, 1);
+  border-top: 1px solid #ddd;
+  padding-left: 15px;
+}
+.v-dimen-slelected-options {
+  float: left;
+  width: 85%;
+  margin: 0 0 0 15px;
+  padding-top: 15px;
+}
+.v-dimen-slelected-options > span {
+  display: inline-block;
+  position: relative;
+  /* height: 30px; */
+  line-height: 30px;
+  padding: 0 12px;
+  background-color: #f6f6f6;
+  border: 1px solid #dadada;
+  margin: 0 10px 10px 0;
+  cursor: pointer;
+  border-radius: 3px;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+.v-dimen-slelected-options > span:hover {
+  border: 1px solid #88cdfa;
+  color: #88cdfa;
+}
+.v-dimen-clearAll {
+  float: right;
+  width: 60px;
+  height: 30px;
+  line-height: 30px;
+  margin: 15px 15px 0 0;
+  background-color: #d43f3a;
+  color: #fff;
+  text-align: center;
+  border-radius: 3px;
+  cursor: pointer;
+}
