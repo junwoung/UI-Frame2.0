@@ -103,8 +103,15 @@ export default {
       */
       this.checked[options[0]] = options[1]
       this.checkedJson[options[0]] = options[2]
+      let jsonArr = JSON.parse(JSON.stringify(this.checkedJson))
+      //  过滤掉空选项以及list为空数组的项
+      for (let i = jsonArr.length - 1; i >= 0; i--) {
+        if (!jsonArr[i] || !jsonArr[i].list.length) {
+          jsonArr.splice(i, 1)
+        }
+      }
       //  拼接checkedJson字符串
-      let checkedJsonStr = JSON.stringify(this.checkedJson)
+      let checkedJsonStr = JSON.stringify(jsonArr)
       this.$emit('callback', checkedJsonStr)
       let arr = []
       for (let key in this.checked) {

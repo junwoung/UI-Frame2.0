@@ -22,7 +22,7 @@
           <em
            v-if="item.checked == '1' && flags[idx].uuid === item.uuid"
            class="v-query-cancel"
-           @click.stop="cancelItem(item, index, idx)"></em>
+           @click.stop="cancelItem(item, idx)"></em>
         </span>
       </div>
       <span
@@ -94,7 +94,12 @@ export default {
       //  存放要展示的选项
       showText: [],
       //  已选中选项当前hover对象
-      showTextFlag: null
+      showTextFlag: null,
+      //  checkedJson对象
+      checkedJson: {
+        code: null,
+        list: []
+      }
     }
   },
   props: {
@@ -207,7 +212,7 @@ export default {
         if (item.checked === '0') {
           this.step[pidx] = item.title
           this.steps.push(JSON.parse(JSON.stringify(this.step)))
-          this.getSelected()
+          this.getSelected(true)
         }
         //  清除之前的操作信息
         this.last.state = undefined
@@ -372,7 +377,7 @@ export default {
       }
       if (this.checked[0] && this.checked[0].length) this.getSelected()
     },
-    cancelItem: function (item, index, pidx) {
+    cancelItem: function (item, pidx, flag) {
       //  取消某个选项
       //  存储取消的索引对象，（避免边删除边循环造成相互影响）
       if (this.disable) return
@@ -434,8 +439,9 @@ export default {
           }
         })
         //  抛出相关信息
-        this.$emit('callback', [this.index, arr, this.getCheckedJson()])
+        // this.$emit('callback', [this.index, arr, this.getCheckedJson()])
         this.showText = arr
+        this.getCheckedJson()
       }
     },
     getSelectedFun: function () {
@@ -528,7 +534,8 @@ export default {
       //  将第一项文本赋值给展示已选数据
       this.showText = textArr[0]
       //  抛出相关已选信息
-      this.$emit('callback', [this.index, textArr[0], this.getCheckedJson()])
+      this.getCheckedJson()
+      // this.$emit('callback', [this.index, textArr[0], this.getCheckedJson()])
       function removeNull (arr) {
         //  去除数组中空的部分
         return arr.filter(item => {
@@ -538,17 +545,14 @@ export default {
     },
     getCheckedJson: function () {
       //  获取checkedJson
-      let code = Number(this.codes[this.deep - 1])
+      this.checkedJson.code = Number(this.codes[this.deep - 1])
       if (!this.checked[this.deep - 1]) return
       let list = this.checked[this.deep - 1].map(item => {
         return {
           uuid: item.uuid
         }
       })
-      return {
-        code: code,
-        list: list
-      }
+      this.checkedJson.list = list
     },
     removeError: function () {
       //  获取选中文本前，先过滤一下数据
@@ -581,6 +585,9 @@ export default {
           this.clearAll()
         } else this.canceSelected(newVal)
       }
+    },
+    'checkedJson.list.length': function (newVal, oldVal) {
+      this.$emit('callback', [this.index, this.showText, this.checkedJson])
     }
   }
 }
