@@ -12,11 +12,12 @@ export default {
     return {
       query: {
         src: 'http://172.20.4.230:8080/web-services/dimension/initCondition.do',
+        // src: 'http://172.20.4.230:8080/web-services/dimension/initCondition4YIUI7ConfigPower.do',
         params: {
           businessid: '711000',
-          // businessid: '000002',
-          beanid: '',
-          dimension: 1
+          // businessid: '612000',
+          beanid: ''
+          // beanid: '200'
         },
         disable: false
       }
