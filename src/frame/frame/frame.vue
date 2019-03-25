@@ -43,7 +43,7 @@
         </div>
         <!-- 页脚 -->
         <div class="frame-footer">
-          <p>@copyright wangjun 2019</p>
+          <p>&copy;copyright wangjun 2019</p>
         </div>
       </div>
     </div>
@@ -52,6 +52,7 @@
 
 <script>
 import Vue from 'vue'
+//  引入配置的相关资源
 import navConfig from './navConfig.js'
 export default {
   name: 'frame',
@@ -68,6 +69,7 @@ export default {
   },
   methods: {
     init: function () {
+      //  初始化相关数据
       this.name = sessionStorage.username || this.name
       this.nav = navConfig.list
       this.map = navConfig.activeMap
@@ -75,15 +77,18 @@ export default {
       this.getCrumb()
     },
     getCrumb: function () {
+      //  获取当前页的面包屑
       let url = this.$route
       let hash = url.path.substr(1, url.path.length - 1)
       this.currentCrumb = this.crumbs[hash]
     },
     setFlag: function (idx) {
+      //  显示/隐藏 导航列表子项
       let value = this.flag[idx]
       Vue.set(this.flag, idx, !value)
     },
     isActive: function (url, index = undefined) {
+      //  判断当前hash是否为当前激活页hash
       let hash = location.hash
       if (hash === '#/' + url) {
         if (index !== undefined && !this.isUpdate) {
@@ -92,6 +97,7 @@ export default {
         }
         return true
       }
+      //  如果当前hash不在导航列表则去配置的映射关系表去查找
       return this.activeMap(hash, url, index)
     },
     activeMap: function (hash, url, index) {
