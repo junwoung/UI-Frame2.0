@@ -56,6 +56,7 @@ export default {
     init: function () {
       let q = this.query
       if (!q || !q.src) return
+      // q.callback && q.callback()
       //  请求数据
       this.ajax(q.src, q.params)
     },
@@ -102,6 +103,7 @@ export default {
       */
       this.checked[options[0]] = options[1]
       this.checkedJson[options[0]] = options[2]
+      //  拼接checkedJson字符串
       let checkedJsonStr = JSON.stringify(this.checkedJson)
       this.$emit('callback', checkedJsonStr)
       let arr = []

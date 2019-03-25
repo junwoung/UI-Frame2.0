@@ -119,7 +119,6 @@ export default {
       this.initData = JSON.parse(JSON.stringify(this.dimension))
       //  设置层级深度 和 是否是多选 以及维度的code码
       this.deep = this.getDeep(this.initData)
-      console.log(this.codes)
       this.multiple = this.initData[0].multiple === '1'
       //  初始化dimens数组和flags数组
       this.dimens.push({
@@ -130,6 +129,8 @@ export default {
         more: false,
         uuid: null
       })
+      //  初始化已选项
+      this.initChecked(this.dimension)
     },
     getDeep: function (dimen) {
       //  获取维度层级 及 每层对应的code
@@ -146,6 +147,48 @@ export default {
         }
       }
       return i
+    },
+    initChecked: function (dimen) {
+      /**
+      * @author: wangjun
+      * @date: 2019-03-25 09:18:11
+      * @desc: 初始化已选，主要初始化 checked 数组
+      */
+      let i = 0
+      let checked = []
+      //  先过滤第一层已选
+      checked[i] = dimen[0].particleList.filter(item => {
+        if (item.checked === '1') {
+          return item
+        }
+      })
+      //  之后每一层级已选项只需要在上一层级已选项中过滤
+      while (i < this.deep) {
+        if (!checked[i] || !checked[i].length) return
+        i++
+        checked[i - 1].map(item => {
+          if (item.dimension) {
+            item.dimension.particleList.filter(son => {
+              //  如果是选择全部则与其他选项互斥，然后将其他选项选择状态置位0
+              if (son.id === -1 && son.checked === '1') resetStatus(item.dimension.particleList)
+              if (son.checked === '1') {
+                if (!checked[i]) checked[i] = []
+                checked[i].push(son)
+              }
+            })
+          }
+        })
+      }
+      this.checked = checked
+      this.getSelected()
+      function resetStatus (items) {
+        //  重置其他选项选择状态
+        items.map(item => {
+          if (item.id !== -1) {
+            item.checked = '0'
+          }
+        })
+      }
     },
     select: function (item, index, pidx) {
       /**
