@@ -1,0 +1,221 @@
+/**
+ * 2019-03-26
+ * 对话框样式控制
+ */
+ button {
+   outline: none;
+ }
+.v-modal {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 1, 26, 0.4);
+  font-size: 18px;
+  color: #333;
+  letter-spacing: 1px;
+  user-select: none;
+  z-index: 99999999;
+  opacity: 0;
+  top: -100px;
+  transition: opacity .2s, top .2s;
+}
+.v-dialog-close {
+  position: relative;
+  width: 100%;
+  height: 0;
+  color: #fff;
+}
+.v-dialog-close:after {
+  content: '';
+  width: 32px;
+  height: 32px;
+  background: url(./imgs/close.png);
+  position: absolute;
+  cursor: pointer;
+  font-size: 28px;
+  left: 103%;
+  top: -6px;
+}
+.v-dialog-body {
+  width: 400px;
+  min-height: 250px;
+  background: #fff;
+  border-radius: 5px;
+  margin-bottom: 15%;
+  font-weight: 400;
+  box-shadow: 0 0 5px 0 #999;
+  transform: scale(100%);
+  transition: transform .1s;
+}
+.v-loading{
+  width: 250px;
+  height: 150px;
+  min-height: 150px;
+  box-shadow: 0 0 5px 0 #ddd;
+}
+.v-alert {
+  background-image: url(./imgs/alert.png);
+  background-repeat: no-repeat;
+  background-position: center 15%;
+}
+.v-confirm {
+  background-image: url(./imgs/confirm.png);
+  background-repeat: no-repeat;
+  background-position: center 15%;
+}
+.v-alert-msg {
+  margin-top: 25%;
+  padding: 0 10%;
+  width: 80%;
+  min-height: 60px;
+  text-align: center;
+}
+.v-dialog-control {
+  text-align: center;
+  padding: 20px 0;
+}
+.v-dialog-control > button {
+  width: 100px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 15px;
+  font-size: 16px;
+  letter-spacing: 5px;
+}
+.v-dialog-ensure {
+  background-color: rgb(151, 208, 241);
+  color: #fff;
+}
+.v-dialog-control > button:hover {
+  opacity: 0.8;
+}
+.v-dialog-cancel {
+  background-color: #ddd;
+  color: #fff;
+}
+
+/** 定义loading动画 **/
+.v-loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  margin: 25px auto;
+  text-align: center;
+}
+.v-loading-container > span {
+  display: inline-block;
+  width: 8px;
+  height: 50px;
+  background-color: rgba(151, 208, 241, 1);
+  margin: 0 3px;
+  animation: pulse 1s infinite linear normal;
+}
+.v-loading-container > span:nth-child(2) {
+  animation-delay: .2s;
+}
+.v-loading-container > span:last-child {
+  animation-delay: .4s;
+}
+.v-loading-msg {
+  text-align: center;
+  overflow: hidden;
+  font-size: 16px;
+  padding: 0 20px;
+}
+.v-loading-msg > span {
+  /* text-align: center;
+  font-size: 16px;
+  background-image: linear-gradient(left, #111, #555 25%, #999 50%, #bbb 75%, #ddd);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 100%;
+  animation: masked 2s infinite linear; */
+  
+  background-image: -webkit-linear-gradient(left, #555, #333 15%, #111 30%, #333 45%, #555 60%, #777 75%, #999 90%, #aaa);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-background-size: 400% 100%;
+  -webkit-animation: masked 2s infinite linear;
+}
+.v-success,.v-error,.v-msg {
+  position: fixed;
+  min-width: 200px;
+  max-width: 300px;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px 10px;
+  text-align: center;
+  font-size: 16px;
+  box-shadow: 0 0 5px 0 #ddd;
+  cursor: pointer;
+  margin: 20% auto;
+  right: 0;
+  left: 0;
+  z-index: 999999999;
+  opacity: 0;
+  top: -100px;
+  transition: opacity .2s, top .2s;
+}
+.v-success > span::before,.v-error > span::before {
+  content: '';
+  position: relative;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  right: 10px;
+  top: 3px;
+}
+.v-success > span::before {
+  background-image: url(./imgs/success.png);
+}
+.v-error > span::before {
+  background-image: url(./imgs/error.png);
+}
+.v-msg {
+  background-color: rgba(0, 0, 0, .55);
+  color: #fff;
+}
+
+
+
+
+
+@keyframes pulse {
+  10% {
+    height: 45px;
+    background-color: rgba(151, 208, 241, .8);
+  }
+  20% {
+    height: 40px;
+    background-color: rgba(151, 208, 241, .6);
+  }
+  30% {
+    height: 33px;
+    background-color: rgba(151, 208, 241, .4);
+  }
+  40% {
+    height: 26px;
+    background-color: rgba(151, 208, 241, .5);
+  }
+  50% {
+    height: 18px;
+    background-color: rgba(151, 208, 241, .7);
+  }
+  60% {
+    height: 10px;
+    background-color: rgba(151, 208, 241, .9);
+  }
+}
+@keyframes masked {
+  0%{ background-position: 0 0;}
+  100% { background-position: -100% 0;}
+}
