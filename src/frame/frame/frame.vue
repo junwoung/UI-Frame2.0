@@ -213,6 +213,7 @@ export default {
 .frame-nav-active {
   border-left: 4px solid #3896f8 !important;
   background-color: #162035;
+  color: #fff!important;
 }
 .frame-crumb {
   margin-left: 220px;

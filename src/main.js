@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 //  导入框架组件和公用组件
 import utils from './frame/common/utils'
+import dialog from './components/dialog/dialog.js'
 import vFrame from './frame/frame/frame.js'
 import vSelect from './components/vSelect/select.js'
 import vCheckbox from './components/vCheckbox/checkbox.js'
@@ -20,6 +21,9 @@ Vue.use(vQuery)
 
 Vue.config.productionTip = false
 
+//  引入自定义对话框
+Vue.prototype.$dialog = dialog
+console.log(Vue.prototype.$dialog)
 //  引入自定义公用方法
 Vue.prototype.$utils = utils
 

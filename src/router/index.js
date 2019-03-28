@@ -8,6 +8,7 @@ import pagination from '@/business/pagination'
 import upload from '@/business/upload'
 import time from '@/business/time'
 import query from '@/business/query'
+import dialog from '@/business/dialog'
 
 Vue.use(Router)
 
@@ -40,6 +41,10 @@ export default new Router({
     {
       path: '/query',
       component: query
+    },
+    {
+      path: '/dialog',
+      component: dialog
     },
     {
       path: '*',
