@@ -339,6 +339,36 @@ function checkSign (url, params, md5fn, salt) {
   }
 }
 
+/**
+* @author: wangjun
+* @date: 2019-04-08 15:38:44
+* @desc: 校验各种值类型
+* @desc: 只收集一些常规参数的校验，特殊需求还需另外整理
+*/
+function test (type, val) {
+  /**
+  * @param[type]: 校验类型，必须输入以下枚举类型
+  * @param[val]: 要校验的参数值
+  */
+  let check = {
+    num: /^[0-9]*$/, //  数字
+    str: /^[A-Za-z]+$/, //  字母
+    strNum: /^[A-Za-z0-9]+$/, //  数字+字母
+    chinese: /^[\u4e00-\u9fa5],{0,}$/, //  验证汉字
+    password: /^[a-zA-Z]\w{5,17}$/, //  以字母开头，长度在6-18之间，只能包含字符、数字和下划线
+    email: /^(\w+[-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/, //  验证邮箱
+    url: /^((https|http|ftp|rtsp|mms)?:\/\/)?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?(([0-9]{1,3}.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z].[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/, //  验证url
+    phone: /^(\d3,4|\d{3,4}-)?\d{7,8}$/, //  验证电话号码，正确格式为：XXXX-XXXXXXX，XXXX-XXXXXXXX，XXX-XXXXXXX，XXX-XXXXXXXX，XXXXXXX，XXXXXXXX
+    id: /^\d{15}|\d{}18$/ //  验证身份证号
+  }
+  if (!type || !check[type]) {
+    console.log('请输入有效的参数校验类型')
+    return
+  }
+  let reg = new RegExp(check[type])
+  return reg.test(val)
+}
+
 const util = {
   'A_tips': {
     getUrlParam: '获取url链接后的参数',
@@ -353,7 +383,8 @@ const util = {
     copy: '数组拷贝',
     getRandom: '获取指定范围的随机整数',
     checkSign: '参数校验',
-    ajax: '原生ajax'
+    ajax: '原生ajax',
+    test: '正则表达式校验，[num / str / strNum / chinese / password / email / url / phone / id]'
   },
   'getUrlParam': getUrlParam,
   'getFormatDate': getFormatDate,
@@ -370,6 +401,7 @@ const util = {
   'setCookie': setCookie,
   'delCookie': delCookie,
   'checkSign': checkSign,
-  'ajax': ajax
+  'ajax': ajax,
+  'test': test
 }
 export default util
