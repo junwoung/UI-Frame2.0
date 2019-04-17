@@ -44,19 +44,35 @@ export default {
       })
     },
     openSuccess: function () {
-      this.$dialog.success('该选项已不存在，请知悉！')
+      this.$dialog.success('该选项已不存在，请知悉！', 4000, () => {
+        console.log('success')
+      })
     },
     openError: function () {
-      this.$dialog.error('该选项已不存在，请知悉！')
+      this.$dialog.error('该选项已不存在，请知悉！该选项已不存在，请知悉！', 8000, () => {
+        console.log('error')
+      })
     },
     openMsg: function () {
-      this.$dialog.msg('该选项已不存在，请知悉！')
+      this.$dialog.msg('该选项已不存在，请知悉！', 2000, () => {
+        console.log('msg')
+      })
     },
     openPrompt: function () {
-      this.$dialog.prompt()
+      this.$dialog.prompt('请输入姓名:', 'wj', (val) => {
+        console.log(val)
+      }, () => {
+        console.log('prompt cancel')
+      })
     },
     openProgress: function () {
-      this.$dialog.progress()
+      let id = this.$dialog.progress('当前上传进度', '', 2, () => {
+        console.log('progress over')
+      })
+      console.log(id)
+      // setTimeout(() => {
+      //   this.$dialog.changeProgress(id, 192, 109)
+      // }, 1000)
     }
   },
   mounted () {
