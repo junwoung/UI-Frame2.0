@@ -55,7 +55,6 @@ const outer = {
     cancel && inner.addCancelHandler(id, cancel)
     setTimeout(() => {
       let input = document.querySelector(`#${id} input`)
-      console.log(input)
       input && input.focus()
     }, 300)
     return id
