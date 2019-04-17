@@ -43,7 +43,7 @@
 }
 .v-dialog-body {
   width: 400px;
-  min-height: 250px;
+  min-height: 200px;
   background: #fff;
   border-radius: 5px;
   margin-bottom: 15%;
@@ -100,6 +100,27 @@
   background-color: #ddd;
   color: #fff;
 }
+.v-prompt-label {
+  height: 40px;
+  line-height: 40px;
+  margin-top: 30px;
+  text-align: center;
+}
+.v-prompt-input {
+  padding: 20px;
+}
+.v-prompt-input > input {
+  height: 35px;
+  width: 94%;
+  outline: none;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 0 3%;
+  color: #555;
+}
+.v-prompt-input > input:hover,.v-prompt-input > input:focus {
+  border: 1px solid rgb(151, 208, 241);
+}
 
 /** 定义loading动画 **/
 .v-loading-container {
@@ -152,7 +173,7 @@
   max-width: 300px;
   background-color: #fff;
   border-radius: 5px;
-  padding: 20px 10px;
+  padding: 20px 20px;
   text-align: center;
   font-size: 16px;
   box-shadow: 0 0 5px 0 #ddd;
@@ -163,7 +184,7 @@
   z-index: 999999999;
   opacity: 0;
   top: -100px;
-  transition: opacity .2s, top .2s;
+  transition: opacity .3s, top .2s, margin .3s;
 }
 .v-success > span::before,.v-error > span::before {
   content: '';
@@ -184,7 +205,28 @@
   background-color: rgba(0, 0, 0, .55);
   color: #fff;
 }
-
+.v-progress-msg {
+  text-align: center;
+  margin-top: 30px;
+}
+.v-progress-line,.v-progress-detail {
+  position: relative;
+  padding: 30px 5% 20px 5%;
+  font-size: 12px;
+  color: #777;
+}
+.v-progress-line > span {
+  display: inline-block;
+  position: absolute;
+  width: 90%;
+  height: 6px;
+  background-color: #eee;
+  border-radius: 6px;
+}
+.v-progress-color {
+  background-color: rgb(93, 223, 93)!important;
+  transition: width .2s;
+}
 
 
 
