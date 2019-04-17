@@ -24,6 +24,7 @@
     <button @click="triggerClick" v-if="upload.btnType === 'btn'" class="btn btn-default btn-small" style="width:auto;padding: 0 10px;">{{upload.btnTxt || '点击上传'}}</button>
     <input type="file" ref="vUploadFile" @change="getFile($event)">
     <span v-if="error" class="tips tips-error" style="align-self: flex-end;">{{error}}</span>
+    <span v-if="!error" class="tips" style="align-self: flex-end;">{{upload.tips}}</span>
     <div v-if="flag.show" title="点击关闭" @click="flag.show=false" class="v-upload-showImg">
       <img :src="flag.url">
     </div>
