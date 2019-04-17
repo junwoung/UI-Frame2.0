@@ -69,7 +69,8 @@ export default {
         init: [{
           name: 'cat',
           src: 'https://profile.csdnimg.cn/6/F/F/1_huxiweng'
-        }]
+        }],
+        tips: '请上传1080*1920'
       },
       upload2: {
         // btnType: 'file',
