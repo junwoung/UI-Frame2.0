@@ -10,6 +10,21 @@ import './dialog.css'
 
 //  接收外部调用方法
 const outer = {
+  open: function (obj) {
+    //  解构赋值
+    let {type, msg, ensure, cancel, close, callback, time, val, total, current} = obj
+    switch (type) {
+      case 'alert': return this.alert(msg, ensure, close)
+      case 'confirm': return this.confirm(msg, ensure, cancel, close)
+      case 'loading': return this.loading(msg, close, callback)
+      case 'success': return this.success(msg, time, callback)
+      case 'error': return this.error(msg, time, callback)
+      case 'msg': return this.msg(msg, time, callback)
+      case 'prompt': return this.prompt(msg, val, ensure, cancel)
+      case 'progress': return this.progress(msg, total, current, close, callback)
+      default: return this.msg('请输入正确type')
+    }
+  },
   alert: (msg, ensure, close = true) => {
     let id = inner.create('alert', msg)
     ensure && inner.addEnsureHandler(id, ensure)
@@ -59,13 +74,15 @@ const outer = {
     }, 300)
     return id
   },
-  progress: (msg, total, current, callback) => {
+  progress: (msg, total, current, close, callback) => {
     if (!total) {
       total = '100%'
       current = 0
     }
     let id = inner.create('progress', msg, total, current)
-    callback && inner.addCloseHandler(id, callback)
+    if (close) {
+      callback && inner.addCloseHandler(id, callback)
+    }
     if (total === '100%') {
       let process = autoClose()
       let i = 0
@@ -115,11 +132,12 @@ const outer = {
     totalDom && (totalDom.innerHTML = total)
     currentDom && (currentDom.innerHTML = current)
     percentDom && (percentDom.innerHTML = percent)
+    //  如果进度达到100%，则一定时间后关闭进度事件，触发回调
     if (percent === '100%' || percent === '100.00%') {
       setTimeout(() => {
         outer.close(id)
         callback && callback()
-      }, 400)
+      }, 600)
     }
   },
   close: (id) => {
@@ -139,6 +157,14 @@ const outer = {
         dom.parentNode && dom.parentNode.removeChild(dom)
       }, 100)
     }
+  },
+  closeAll: () => {
+    let doms = document.querySelectorAll('.v-dialog')
+    //  因为doms是伪数组，利用以下方法将其转化为数组，再调用map方法
+    let domsArr = Array.prototype.slice.call(doms)
+    domsArr.map((item) => {
+      item.parentNode.removeChild(item)
+    })
   }
 }
 
@@ -228,6 +254,7 @@ const inner = {
     let id = this.generateId(type)
     let dom = document.createElement('div')
     dom.id = id
+    dom.className = 'v-dialog'
     dom.innerHTML = temp
     document.body.appendChild(dom)
     let modal = dom.firstChild
