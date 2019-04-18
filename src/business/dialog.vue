@@ -117,28 +117,28 @@ export default {
         console.log('progress over')
       })
       console.log(id)
-      setTimeout(() => {
-        this.$dialog.changeProgress(id, 192, 12)
-        this.$dialog.closeAll()
-      }, 1000)
-      this.$dialog.open({
-        type: 'progress',
-        msg: 'open打开的',
-        val: 'hhhhhaaaaa',
-        time: 4000,
-        close: true,
-        total: 29,
-        current: 17,
-        callback: () => {
-          console.log('open dakai de ')
-        },
-        ensure: () => {
-          console.log('open ensure pressed')
-        },
-        cancel: () => {
-          console.log('open cancel pressed')
-        }
-      })
+      // setTimeout(() => {
+      //   this.$dialog.changeProgress(id, 192, 12)
+      //   this.$dialog.closeAll()
+      // }, 1000)
+      // this.$dialog.open({
+      //   type: 'progress',
+      //   msg: 'open打开的',
+      //   val: 'hhhhhaaaaa',
+      //   time: 4000,
+      //   close: true,
+      //   total: 29,
+      //   current: 17,
+      //   callback: () => {
+      //     console.log('open dakai de ')
+      //   },
+      //   ensure: () => {
+      //     console.log('open ensure pressed')
+      //   },
+      //   cancel: () => {
+      //     console.log('open cancel pressed')
+      //   }
+      // })
     },
     generateBody: function () {
       this.tbody = [
