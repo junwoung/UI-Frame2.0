@@ -23,6 +23,7 @@
          placeholder="请输入过滤内容"
          @focus="showOptions(true)"
          @blur="hideOptions"
+         @keydown="watchKeys"
          v-model='query'
          ref="search">
         </div>
@@ -31,6 +32,7 @@
        :class="{'v-select-option-checked': item[id] === select.selected}"
        v-for="(item,index) in select.data"
        @click.stop="selectOption(item)"
+       @mouseover="hoverOption(item)"
        v-if="item[name] && item[name].indexOf(query) !== -1"
        :key="index">{{item[name]}}</span>
     </div>
@@ -48,7 +50,9 @@ export default {
       id: 'id', //  id映射
       name: 'name', //  name映射
       timeout: null, //  用于记录定时器，方便清除
-      query: '' //  绑定搜索框的值
+      query: '', //  绑定搜索框的值
+      hoverFlag: false, //  监听键盘上下键事件
+      hoverDom: null //  存放上下键事件而产生的当前dom
     }
   },
   props: {
@@ -100,6 +104,33 @@ export default {
       this.timeout = setTimeout(() => {
         this.flag = false
       }, 200)
+    },
+    watchKeys: function () {
+      //  监听过滤输入框键盘事件，支持键盘上下和enter事件
+      //  40: 向下按键；38: 向上按键，13: enter事件
+      let e = event || window.event
+      let keyCode = e.keyCode
+      let options = document.querySelector('.v-select-options')
+      if (!options) return
+      this.hoverFlag = true
+      switch (keyCode) {
+        case 40: return options.scrollBy(0, 25)
+        case 38: return options.scrollBy(0, -25)
+        case 13: {
+          this.hoverDom && this.hoverDom.click()
+          setTimeout(() => {
+            this.flag = false
+          }, 100)
+          break
+        }
+        default: {}
+      }
+    },
+    hoverOption: function (item) {
+      //  暂存因键盘事件产生的dom
+      if (!this.hoverFlag) return
+      let e = event || window.event
+      this.hoverDom = e.target
     }
   },
   mounted () {
