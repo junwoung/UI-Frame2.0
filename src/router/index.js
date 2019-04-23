@@ -9,6 +9,8 @@ import upload from '@/business/upload'
 import time from '@/business/time'
 import query from '@/business/query'
 import dialog from '@/business/dialog'
+import carousel from '@/business/carousel'
+import newTime from '@/business/newTime'
 
 Vue.use(Router)
 
@@ -39,12 +41,20 @@ export default new Router({
       component: time
     },
     {
+      path: '/newTime',
+      component: newTime
+    },
+    {
       path: '/query',
       component: query
     },
     {
       path: '/dialog',
       component: dialog
+    },
+    {
+      path: '/carousel',
+      component: carousel
     },
     {
       path: '*',

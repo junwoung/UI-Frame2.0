@@ -14,6 +14,7 @@ import vTab from './components/vTab/tab.js'
 import vPagination from './components/vPagination/pagination.js'
 import vUpload from './components/vUpload/upload.js'
 import vTime from './components/vTime/time.js'
+import vCarousel from './components/vCarousel/carousel.js'
 
 //  引入query插件
 import vQuery from './components/vQuery/query'
@@ -36,6 +37,7 @@ Vue.use(vTab)
 Vue.use(vPagination)
 Vue.use(vUpload)
 Vue.use(vTime)
+Vue.use(vCarousel)
 
 /* eslint-disable no-new */
 new Vue({
