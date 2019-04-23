@@ -69,12 +69,16 @@ export default {
         this.name = this.select.config.name || this.name
       }
       //  初始化选项展示
-      if (this.select && this.select.data && this.select.selected !== undefined) {
-        this.select.data.map(item => {
-          if (item[this.id] === this.select.selected) {
-            this.text = item[this.name]
-          }
-        })
+      if (this.select && this.select.data) {
+        if (this.select.selected !== undefined && this.select.selected !== null && this.select.selected !== '') {
+          this.select.data.map(item => {
+            if (item[this.id] === this.select.selected) {
+              this.text = item[this.name]
+            }
+          })
+        } else {
+          this.text = null
+        }
       }
     },
     selectOption: function (item) {
