@@ -4,6 +4,7 @@
     <div class="div">
       <v-select :select='select' @callback='getSelect'></v-select>
       <button class="btn btn-default btn-small" @click="change">change</button>
+      <button class="btn btn-danger btn-small" @click="clear">clear</button>
     </div>
     <div class="form-control clearfix" style="margin: 20px 0;">
       <label class="label">使用</label>
@@ -76,6 +77,9 @@ export default {
     },
     getSelect: function (item) {
       console.log(item)
+    },
+    clear: function () {
+      this.select.selected = 0
     },
     change: function () {
       // this.select.disable = true
