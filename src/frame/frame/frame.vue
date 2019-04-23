@@ -90,6 +90,7 @@ export default {
     isActive: function (url, index = undefined) {
       //  判断当前hash是否为当前激活页hash
       let hash = location.hash
+      hash && (hash = hash.split('?')[0])
       if (hash === '#/' + url) {
         if (index !== undefined && !this.isUpdate) {
           this.isUpdate = true
