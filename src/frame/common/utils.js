@@ -369,6 +369,40 @@ function test (type, val) {
   return reg.test(val)
 }
 
+/**
+ * @name 函数防抖
+ * @desc 一段时间内，最近一次操作会覆盖上一次操作
+ * @param fn: 要防抖的函数；wait: 等待的时间
+ * @date 2019-04-24
+ */
+function debouncing (fn, wait = 20) {
+  var timer = null
+  return function () {
+    if (timer) clearTimeout(timer)
+    timer = setTimeout(() => {
+      fn.call(this, arguments)
+    }, wait)
+  }
+}
+
+/**
+ * @name 函数节流
+ * @desc 一段时间内，该事件只能被触发一次
+ * @param fn: 要节流的函数；wait: 等待的时间
+ * @date 2019-04-24
+ */
+function throttling (fn, wait = 20) {
+  var timer = null;
+  return function () {
+    if (!timer) {
+      timer = setTimeout(() => {
+        fn.call(this, arguments)
+        timer = null
+      }, wait)
+    }
+  }
+}
+
 const util = {
   'A_tips': {
     getUrlParam: '获取url链接后的参数',
