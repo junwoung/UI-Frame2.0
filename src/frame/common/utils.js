@@ -392,7 +392,7 @@ function debouncing (fn, wait = 20) {
  * @date 2019-04-24
  */
 function throttling (fn, wait = 20) {
-  var timer = null;
+  var timer = null
   return function () {
     if (!timer) {
       timer = setTimeout(() => {
@@ -436,6 +436,8 @@ const util = {
   'delCookie': delCookie,
   'checkSign': checkSign,
   'ajax': ajax,
-  'test': test
+  'test': test,
+  'debouncing': debouncing,
+  'throttling': throttling
 }
 export default util
