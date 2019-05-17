@@ -25,6 +25,10 @@ export default new Router({
       component: checkbox
     },
     {
+      path: '/checkbox/:id',
+      component: checkbox
+    },
+    {
       path: '/tab',
       component: tab
     },
@@ -37,7 +41,7 @@ export default new Router({
       component: upload
     },
     {
-      path: '/time',
+      path: `/time`,
       component: time
     },
     {
@@ -55,10 +59,11 @@ export default new Router({
     {
       path: '/carousel',
       component: carousel
-    },
-    {
-      path: '*',
-      redirect: '/select'
     }
+    // ,
+    // {
+    //   path: '*',
+    //   redirect: '/select'
+    // }
   ]
 })

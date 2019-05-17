@@ -89,8 +89,7 @@ export default {
     },
     isActive: function (url, index = undefined) {
       //  判断当前hash是否为当前激活页hash
-      let hash = location.hash
-      hash && (hash = hash.split('?')[0])
+      let hash = dealHash()
       if (hash === '#/' + url) {
         if (index !== undefined && !this.isUpdate) {
           this.isUpdate = true
@@ -100,6 +99,19 @@ export default {
       }
       //  如果当前hash不在导航列表则去配置的映射关系表去查找
       return this.activeMap(hash, url, index)
+      function dealHash () {
+        //  处理hash不纯净的状况：1、携带参数?id=1；2、携带参数/1
+        let pureHash = location.hash
+        pureHash && (pureHash = pureHash.split('?')[0])
+        /**
+        * @author: wangjun
+        * @date: 2019-05-16 20:48:40
+        * @desc: 专门处理`#/detail/1`情形
+        * @desc: 路由控制配合修改，需同时设置`/detail`和`/detail/:id`指向同一个组件。当然：如果只做详情展示只需设置后者
+        */
+        pureHash = pureHash.replace(/\/\d+$/g, '')
+        return pureHash
+      }
     },
     activeMap: function (hash, url, index) {
       /**
@@ -124,6 +136,8 @@ export default {
   watch: {
     '$route': function (to, from) {
       this.getCrumb()
+      console.log(to, from)
+      console.log(this.$route)
     }
   }
 }
