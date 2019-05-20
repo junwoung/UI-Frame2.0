@@ -43,6 +43,7 @@ const outer = {
   loading: (msg, close = false, callback) => {
     let id = inner.create('loading', msg)
     close && callback && inner.addCloseHandler(id, callback)
+    inner.banScroll()
     return id
   },
   success: (msg, time = 3000, callback) => {
@@ -75,6 +76,7 @@ const outer = {
     return id
   },
   progress: (msg, total, current, close, callback) => {
+    inner.banScroll()
     if (!total) {
       total = '100%'
       current = 0
@@ -142,6 +144,7 @@ const outer = {
   },
   close: (id) => {
     //  关闭指定对话框
+    inner.reScroll()
     inner.removeAllHandler(id)
     let dom = document.querySelector(`#${id}`)
     if (dom && dom.firstChild) {
@@ -311,6 +314,18 @@ const inner = {
     if (dom) {
       dom.parentNode.removeChild(dom)
     }
+  },
+  banScroll: function () {
+    //  禁用鼠标滑动事件
+    window.onwheel = this.scroll
+  },
+  reScroll: function () {
+    //  取消禁止滑动
+    window.onwheel = null
+  },
+  scroll: function (e) {
+    e = e || window.event
+    e.preventDefault()
   }
 }
 
