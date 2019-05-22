@@ -38,7 +38,7 @@
             <span
             v-for="(date,index) in dates"
             @click="setDate(date)"
-            :class="{'v-time-date-selected': selected.date === date.date ,'v-time-disable': (time.max && date.date > time.max) || (time.min && date.date < time.min),'v-time-date-gray': !date.flag,'v-time-date-today': today === date.date}"
+            :class="{'v-time-date-selected': selected.date === date.date ,'v-time-disable': (time.max && date.date > dealDate(time.max)) || (time.min && date.date < dealDate(time.min)),'v-time-date-gray': !date.flag,'v-time-date-today': today === date.date}"
             :key="index">
               {{date.day}}
             </span>
@@ -139,6 +139,11 @@ export default {
         timesCan: ['hour', 'minute', 'second'], //  可以选择具体时分秒的条件
         type: 'dates', //  日历面板展示的选项类型[ 具体日期 / 年份 / 月份 / 时分秒]
         canToday: true // 今天是否可用
+      },
+      timeCtrl: {
+        //  起始时间控制，全格式，只用于内部逻辑判断
+        max: null,
+        min: null
       }
     }
   },
@@ -155,8 +160,12 @@ export default {
       //  初始化format
       if (!this.time.format || formats.indexOf(this.time.format) === -1) this.time.format = 'day'
       //  标准化max / min
-      if (this.time.max) this.time.max = this.getRegularDate(this.time.max, true)
-      if (this.time.min) this.time.min = this.getRegularDate(this.time.min, true)
+      if (this.time.max) {
+        this.time.max = this.getRegularDate(this.time.max, false)
+      }
+      if (this.time.min) {
+        this.time.min = this.getRegularDate(this.time.min, false)
+      }
       //  初始化today是否可用
       if ((this.time.max && this.time.max < this.today) || (this.time.min && this.time.min > this.today)) this.flag.canToday = false
       //  初始化日历面板选择时间、展示时间；如果未传入初始化时间，则只初始化日历面板选择时间
@@ -241,7 +250,7 @@ export default {
       //  获取指定格式的日期
       if (!obj) obj = new Date()
       if (typeof obj === 'number') obj = new Date(obj)
-      if (typeof obj === 'string') obj = new Date(obj)
+      if (typeof obj === 'string') obj = new Date(this.dealDate(obj, true))
       let year = obj.getFullYear()
       let month = obj.getMonth() + 1
       let day = obj.getDate()
@@ -413,6 +422,16 @@ export default {
     },
     doFunc: function (type) {
       //  按钮组不同按钮功能定义
+      const getEnsureable = () => {
+        //  判断确定按钮是否可用
+        // if (this.flag.canToday) {
+        let selected = `${this.selected.date} ${this.selected.hour}:${this.selected.minute}:${this.selected.second}`
+        selected = this.getDate(selected, this.time.format)
+        if ((!this.time.max || (this.time.max >= selected)) && (!this.time.min || (this.time.min <= selected))) {
+          return true
+        }
+      }
+      // }
       switch (type) {
         case 'clear': {
           this.time.selected = undefined
@@ -427,8 +446,9 @@ export default {
           break
         }
         case 'ensure': {
-          if (!this.flag.canToday && ((this.time.max && this.time.max < this.selected.date) || (this.time.min && this.time.min > this.selected.date))) {
-            break
+          // if (!this.flag.canToday && ((this.time.max && this.time.max < this.selected.date) || (this.time.min && this.time.min > this.selected.date))) {
+          if (!getEnsureable()) {
+            return
           } else {
             this.time.selected = this.getFormatValue(this.time.format)
             this.$emit('callback', this.time.selected)
@@ -562,9 +582,27 @@ export default {
         }
       }
       if (flag) {
-        str = str.split(' ')[0]
+        let arr = JSON.parse(JSON.stringify(str.split(' ')))
+        str = arr[0]
       }
       return str
+    },
+    dealDate: function (date, full = false) {
+      if (!full) return date.split(' ')[0]
+      else {
+        let times = date.split(' ')[1]
+        if (times) {
+          let len = times.split(':').length
+          switch (len) {
+            case 3: return date
+            case 2: return date + ':00'
+            case 1: return date + ':00:00'
+            default: break
+          }
+        } else {
+          return date + ' 00:00:00'
+        }
+      }
     }
   },
   mounted () {
@@ -572,10 +610,10 @@ export default {
   },
   watch: {
     'time.max': function (newVal) {
-      this.time.max = this.getRegularDate(newVal, true)
+      this.time.max = this.getRegularDate(newVal, false)
     },
     'time.min': function (newVal) {
-      this.time.min = this.getRegularDate(newVal, true)
+      this.time.min = this.getRegularDate(newVal, false)
     }
   }
 }
