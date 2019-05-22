@@ -161,10 +161,10 @@ export default {
       if (!this.time.format || formats.indexOf(this.time.format) === -1) this.time.format = 'day'
       //  标准化max / min
       if (this.time.max) {
-        this.time.max = this.getRegularDate(this.time.max, false)
+        this.time.max = this.getDate(this.getRegularDate(this.time.max, false), this.time.format)
       }
       if (this.time.min) {
-        this.time.min = this.getRegularDate(this.time.min, false)
+        this.time.min = this.getDate(this.getRegularDate(this.time.min, false), this.time.format)
       }
       //  初始化today是否可用
       if ((this.time.max && this.time.max < this.today) || (this.time.min && this.time.min > this.today)) this.flag.canToday = false
@@ -275,7 +275,8 @@ export default {
     },
     setDate: function (date) {
       //  点击日历某个日期触发
-      if ((this.time.max && this.time.max < date.date) || (this.time.min && this.time.min > date.date)) return
+      let [max, min] = [this.getDate(this.time.max, this.time.format), this.getDate(this.time.min, 'day')]
+      if ((max && max < date.date) || (min && min > date.date)) return
       if (!date.flag) {
         this.calculateDates(date.date)
       }

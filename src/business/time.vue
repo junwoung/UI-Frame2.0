@@ -58,10 +58,10 @@ export default {
         //   cursor: 'not-allowed'
         // },
         placeholder: '请选择开始时间',
-        selected: '',
-        format: 'hour',
+        selected: 'today',
+        format: 'second',
         // max: 'tomorrow',
-        // min: 'yesterday',
+        min: '2019-05-23 14:54:07',
         disable: false
       },
       time2: {
