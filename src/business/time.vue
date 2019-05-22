@@ -58,10 +58,10 @@ export default {
         //   cursor: 'not-allowed'
         // },
         placeholder: '请选择开始时间',
-        selected: new Date((new Date()).valueOf() + 20 * 24 * 3600000),
-        format: 'day',
-        max: 'tomorrow',
-        min: 'yesterday',
+        selected: '',
+        format: 'hour',
+        // max: 'tomorrow',
+        // min: 'yesterday',
         disable: false
       },
       time2: {
@@ -74,7 +74,7 @@ export default {
         //   cursor: 'not-allowed'
         // },
         placeholder: '请选择开始时间',
-        selected: '2019-03-14 16:44:20',
+        selected: 20,
         format: 'second',
         // max: '2019-04-12',
         // min: '2019-02-28',
@@ -88,7 +88,7 @@ export default {
     },
     getTime: function (time) {
       console.log(time)
-      this.change()
+      // this.change()
     },
     change: function () {
       // this.time.max = '2019-04-01'
@@ -148,7 +148,7 @@ export default {
         {
           arg: 'max',
           type: 'String / Number / Object',
-          desc: `最大可选时间控制（只支持天月日控制，暂不支持时分秒控制，开发者可自行根据业务需要在业务层面进行控制）；
+          desc: `最大可选时间控制；
           初始化值的格式参考 selected 属性`,
           must: false,
           exp: 10,
@@ -175,6 +175,14 @@ export default {
   },
   mounted () {
     this.init()
+  },
+  watch: {
+    'time.selected': function (val) {
+      this.time2.min = val
+    },
+    'time2.selected': function (val) {
+      this.time.max = val
+    }
   }
 }
 </script>
