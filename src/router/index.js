@@ -11,6 +11,7 @@ import query from '@/business/query'
 import dialog from '@/business/dialog'
 import carousel from '@/business/carousel'
 import newTime from '@/business/newTime'
+import direcNumber from '@/business/input'
 
 Vue.use(Router)
 
@@ -59,6 +60,10 @@ export default new Router({
     {
       path: '/carousel',
       component: carousel
+    },
+    {
+      path: '/direc_number',
+      component: direcNumber
     }
     // ,
     // {

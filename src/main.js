@@ -20,6 +20,9 @@ import vCarousel from './components/vCarousel/carousel.js'
 import vQuery from './components/vQuery/query'
 Vue.use(vQuery)
 
+//  引入自定义指令
+require('./directives/injection.js')
+
 Vue.config.productionTip = false
 
 //  引入自定义对话框

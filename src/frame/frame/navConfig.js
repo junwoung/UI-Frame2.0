@@ -39,6 +39,10 @@ const list = [
       {
         name: '轮播',
         url: 'carousel'
+      },
+      {
+        name: '特殊文本框',
+        url: 'input'
       }
     ]
   },
@@ -57,6 +61,10 @@ const list = [
       {
         name: '懒加载',
         url: 'lazyLoad'
+      },
+      {
+        name: '数值输入指令',
+        url: 'direc_number'
       }
     ]
   },
@@ -216,6 +224,12 @@ const crumbs = {
   }],
   query: [{
     name: 'query'
+  }],
+  direc_number: [{
+    name: '指令'
+  },
+  {
+    name: '数值文本框'
   }]
 }
 
