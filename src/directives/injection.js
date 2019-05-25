@@ -5,8 +5,10 @@
 */
 
 import Vue from 'vue'
-import focus from './resources/focus.js'
+import focus from './resources/focus'
 import number from './resources/number'
+import top from './resources/top'
 
 focus(Vue)
 number(Vue)
+top(Vue)
