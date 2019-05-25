@@ -39,10 +39,6 @@ const list = [
       {
         name: '轮播',
         url: 'carousel'
-      },
-      {
-        name: '特殊文本框',
-        url: 'input'
       }
     ]
   },
