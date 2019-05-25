@@ -11,7 +11,10 @@ import query from '@/business/query'
 import dialog from '@/business/dialog'
 import carousel from '@/business/carousel'
 import newTime from '@/business/newTime'
+
+//  导入具体指令业务
 import direcNumber from '@/business/input'
+import direcTop from '@/business/top'
 
 Vue.use(Router)
 
@@ -64,6 +67,10 @@ export default new Router({
     {
       path: '/direc_number',
       component: direcNumber
+    },
+    {
+      path: '/direc_top',
+      component: direcTop
     }
     // ,
     // {

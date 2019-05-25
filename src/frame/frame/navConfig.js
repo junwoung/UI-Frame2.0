@@ -61,6 +61,10 @@ const list = [
       {
         name: '数值输入指令',
         url: 'direc_number'
+      },
+      {
+        name: 'top指令',
+        url: 'direc_top'
       }
     ]
   },
@@ -226,7 +230,15 @@ const crumbs = {
   },
   {
     name: '数值文本框'
-  }]
+  }],
+  direc_top: [
+    {
+      name: '指令'
+    },
+    {
+      name: 'Top指令'
+    }
+  ]
 }
 
 /**
