@@ -7,6 +7,7 @@
 export default (Vue) => {
   //  存放元素节点
   let items = []
+  //  scroll事件绑定标志
   let bindFlag = false
   Vue.directive('lazyload', {
     inserted: function (el, binding) {
@@ -33,7 +34,6 @@ export default (Vue) => {
   //  判断图片是否滚动到浏览器视口，是则展示图片，数组删除相关节点
   function setImgUrl () {
     console.log('throttle')
-    // !items.length && window.
     let newItems = []
     //  获取浏览器视口高度
     let browserHeight = window.innerHeight
