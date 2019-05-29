@@ -8,7 +8,9 @@ import Vue from 'vue'
 import focus from './resources/focus'
 import number from './resources/number'
 import top from './resources/top'
+import lazyload from './resources/lazyload'
 
 focus(Vue)
 number(Vue)
 top(Vue)
+lazyload(Vue)
