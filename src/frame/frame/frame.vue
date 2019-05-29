@@ -136,8 +136,6 @@ export default {
   watch: {
     '$route': function (to, from) {
       this.getCrumb()
-      console.log(to, from)
-      console.log(this.$route)
     }
   }
 }

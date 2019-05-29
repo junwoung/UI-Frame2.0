@@ -180,7 +180,7 @@ const crumbs = {
       name: '对话框'
     }
   ],
-  lazyload: [
+  lazyLoad: [
     {
       name: '指令'
     }, {
