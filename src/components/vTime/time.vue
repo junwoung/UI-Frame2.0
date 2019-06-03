@@ -184,7 +184,9 @@ export default {
           if (this.time.format === 'year') {
             //  如果仅仅传入年份，在转换的时候会有问题，故人为将其转为yyyy-01-01
             this.selected.date = this.time.selected.toString().split('-')[0] + '-01-01'
-          } else this.selected.date = this.getDate(this.time.selected)
+          } else {
+            this.selected.date = this.getDate(this.time.selected)
+          }
           //  初始化时分秒
           let d = this.getDate(this.time.selected, this.time.format)
           if (this.time.format && this.flag.timesCan.indexOf(this.time.format) !== -1 && d.indexOf(' ') !== -1) {
@@ -225,7 +227,7 @@ export default {
       if (typeof obj === 'number') obj = new Date(obj)
       if (typeof obj === 'string') obj = new Date(obj)
       //  获取当月的第一天
-      let first = `${obj.getFullYear()}-${obj.getMonth() + 1}-01`
+      let first = `${obj.getFullYear()}/${obj.getMonth() + 1}/01`
       first = new Date(first)
       let day = first.getDay()
       let month = first.getMonth()
@@ -250,7 +252,10 @@ export default {
       //  获取指定格式的日期
       if (!obj) obj = new Date()
       if (typeof obj === 'number') obj = new Date(obj)
-      if (typeof obj === 'string') obj = new Date(this.dealDate(obj, true))
+      if (typeof obj === 'string') {
+        obj = obj.replace(/-/g, '/')
+        obj = new Date(this.dealDate(obj, true))
+      }
       let year = obj.getFullYear()
       let month = obj.getMonth() + 1
       let day = obj.getDate()
@@ -275,7 +280,8 @@ export default {
     },
     setDate: function (date) {
       //  点击日历某个日期触发
-      let [max, min] = [this.getDate(this.time.max, this.time.format), this.getDate(this.time.min, 'day')]
+      //  注意只格式化明确控制大小日期的参数，不格式化空值等，避免造成影响
+      let [max, min] = [this.time.max && this.getDate(this.time.max, this.time.format), this.time.min && this.getDate(this.time.min, 'day')]
       if ((max && max < date.date) || (min && min > date.date)) return
       if (!date.flag) {
         this.calculateDates(date.date)
