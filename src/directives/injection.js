@@ -9,8 +9,10 @@ import focus from './resources/focus'
 import number from './resources/number'
 import top from './resources/top'
 import lazyload from './resources/lazyload'
+import tips from './resources/tip/tip'
 
 focus(Vue)
 number(Vue)
 top(Vue)
 lazyload(Vue)
+tips(Vue)
