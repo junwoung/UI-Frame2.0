@@ -16,6 +16,7 @@ import newTime from '@/business/newTime'
 import direcNumber from '@/business/input'
 import direcTop from '@/business/top'
 import lazyload from '@/business/lazyload'
+import direcTips from '@/business/tips'
 
 Vue.use(Router)
 
@@ -76,6 +77,10 @@ export default new Router({
     {
       path: '/lazyLoad',
       component: lazyload
+    },
+    {
+      path: '/direc_tips',
+      component: direcTips
     }
     // ,
     // {

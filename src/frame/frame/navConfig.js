@@ -65,6 +65,10 @@ const list = [
       {
         name: 'top指令',
         url: 'direc_top'
+      },
+      {
+        name: 'tips指令',
+        url: 'direc_tips'
       }
     ]
   },
@@ -237,6 +241,14 @@ const crumbs = {
     },
     {
       name: 'Top指令'
+    }
+  ],
+  direc_tips: [
+    {
+      name: '指令'
+    },
+    {
+      name: 'Tips指令'
     }
   ]
 }
