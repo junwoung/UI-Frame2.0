@@ -65,4 +65,7 @@ export default (Vue) => {
       }
     }
   }
+  window.addEventListener('hashchange', () => {
+    console.log(location.hash)
+  })
 }
