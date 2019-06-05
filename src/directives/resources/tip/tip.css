@@ -1,0 +1,25 @@
+.v-direc-tip {
+  position: fixed;
+  padding: 10px 12px;
+  margin-top: 10px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, .75);
+  color: #fff;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s;
+}
+.v-direc-tip::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  border-bottom: 8px solid rgba(0, 0, 0, .75);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  top: 0;
+  z-index: 10000;
+  transform: translate(0, -100%);
+}
