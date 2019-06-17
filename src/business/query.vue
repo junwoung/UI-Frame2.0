@@ -11,13 +11,13 @@ export default {
   data () {
     return {
       query: {
-        src: 'http://172.20.4.230:8080/web-services/dimension/initCondition.do',
-        // src: 'http://172.20.4.230:8080/web-services/dimension/initCondition4YIUI7ConfigPower.do',
+        // src: 'http://172.20.4.230:8080/web-services/dimension/initCondition.do',
+        src: 'http://172.20.4.230:8080/web-services/dimension/initCondition4YIUI7ConfigPower.do',
         params: {
-          businessid: '711000',
-          // businessid: '612000',
-          beanid: ''
-          // beanid: '200'
+          // businessid: '711000',
+          businessid: '612000',
+          // beanid: ''
+          beanid: '200'
         },
         disable: false
       }
