@@ -586,7 +586,7 @@ export default {
         } else this.canceSelected(newVal)
       }
     },
-    'checkedJson.list.length': function (newVal, oldVal) {
+    'checkedJson.list': function (newVal, oldVal) {
       this.$emit('callback', [this.index, this.showText, this.checkedJson])
     }
   }
