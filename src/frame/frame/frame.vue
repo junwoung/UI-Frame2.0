@@ -10,7 +10,7 @@
           <div class="frame-user">
             <img src="./imgs/user.png">
             <span>{{name}}</span>
-            <a>退出</a>
+            <a href="#/login">退出</a>
           </div>
         </div>
       </div>
@@ -70,7 +70,7 @@ export default {
   methods: {
     init: function () {
       //  初始化相关数据
-      this.name = sessionStorage.username || this.name
+      this.name = sessionStorage.NICKNAME || this.name
       this.nav = navConfig.list
       this.map = navConfig.activeMap
       this.crumbs = navConfig.crumbs
@@ -181,6 +181,7 @@ export default {
   position: relative;
   bottom: 4px;
   padding: 0 20px;
+  color: #fff;
   cursor: pointer;
 }
 .frame-body {
