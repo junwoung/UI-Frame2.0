@@ -17,6 +17,7 @@
     "inspector": "^0.5.0",
     "jshint": "^2.10.1",
     "vue": "^2.5.2",
+    "vue-baidu-map": "^0.21.20",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
