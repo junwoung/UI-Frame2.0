@@ -1,12 +1,15 @@
 <template>
   <div id="app">
-    <v-frame></v-frame>
+    <!-- <v-frame></v-frame> -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
+import router from './router/index'
 export default {
-  name: 'App'
+  name: 'App',
+  router
 }
 </script>
 <style>

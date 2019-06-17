@@ -15,10 +15,16 @@ import vPagination from './components/vPagination/pagination.js'
 import vUpload from './components/vUpload/upload.js'
 import vTime from './components/vTime/time.js'
 import vCarousel from './components/vCarousel/carousel.js'
+import BaiduMap from 'vue-baidu-map'
 
 //  引入query插件
 import vQuery from './components/vQuery/query'
 Vue.use(vQuery)
+
+//  引入地图
+Vue.use(BaiduMap, {
+  ak: 'WK3q5xVxKVXBDSgZ0gt8bmFkZbePNkKg'
+})
 
 //  引入自定义指令
 require('./directives/injection.js')
@@ -30,6 +36,9 @@ Vue.prototype.$dialog = dialog
 console.log(Vue.prototype.$dialog)
 //  引入自定义公用方法
 Vue.prototype.$utils = utils
+
+//  判断登陆问题
+require('./router/login')
 
 //  导入框架组件和公用组件
 Vue.use(vFrame)
@@ -49,5 +58,6 @@ new Vue({
   components: {
     App
   },
-  template: '<App/>'
+  template: '<App/>',
+  render: h => h(App)
 })
