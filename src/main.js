@@ -17,6 +17,9 @@ import vTime from './components/vTime/time.js'
 import vCarousel from './components/vCarousel/carousel.js'
 import BaiduMap from 'vue-baidu-map'
 
+//  引入axios
+import apis from './apis/apis'
+
 //  引入query插件
 import vQuery from './components/vQuery/query'
 Vue.use(vQuery)
@@ -33,9 +36,13 @@ Vue.config.productionTip = false
 
 //  引入自定义对话框
 Vue.prototype.$dialog = dialog
-console.log(Vue.prototype.$dialog)
+
 //  引入自定义公用方法
 Vue.prototype.$utils = utils
+
+//  挂载接口到原型上
+Vue.prototype.$apis = apis
+console.log(Vue.prototype.$apis)
 
 //  判断登陆问题
 require('./router/login')
