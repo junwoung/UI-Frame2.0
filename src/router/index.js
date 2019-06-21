@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import loginPage from '../login/login/login.vue'
+import loginPage from '../login/index'
 import login from './loginRouter'
 import business from './businessRouter'
 import frame from '../frame/frame/frame.vue'
@@ -19,6 +19,10 @@ export default new Router({
       path: '/index',
       component: frame,
       children: business
+    },
+    {
+      path: '/',
+      redirect: '/index'
     }
   ]
 })
