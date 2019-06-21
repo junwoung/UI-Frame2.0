@@ -21,6 +21,9 @@
             <span class="no-content"></span>
             <button id="submit" class="btn-login">Login</button>
           </div>
+          <div>
+            <a href="#/register" class="a a-register">用户注册>></a>
+          </div>
         </div>
     </div>
   </div>
@@ -36,7 +39,7 @@ export default {
   },
   methods: {
     init: function () {
-      let url = 'http://localhost:8080/public/index.php/user/login/login'
+      let url = '/user/login/login'
       //  控制请求不被多次提交
       let timer = null
       document.querySelector('#submit').onclick = function () {
@@ -192,7 +195,7 @@ export default {
 }
 .btn-login {
   outline: none;
-  width: 250px;
+  width: 270px;
   height: 50px;
   font-size: 20px;
   background-color: #ccc;
@@ -212,6 +215,15 @@ export default {
 }
 .tip-error,.p-error-tip {
   color: #ee4000;
+}
+.a-register {
+  position: relative;
+  left: 120px;
+  top: -30px;
+  cursor: pointer;
+}
+.a-register:hover {
+  text-decoration: underline;
 }
 .p-error-tip {
   padding-left: 120px;
