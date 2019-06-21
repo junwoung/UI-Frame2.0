@@ -10,7 +10,7 @@
           <div class="frame-user">
             <img src="./imgs/user.png">
             <span>{{name}}</span>
-            <a href="#/login">退出</a>
+            <a href="#/login" @click="clearAll">退出</a>
           </div>
         </div>
       </div>
@@ -128,6 +128,9 @@ export default {
         }
         return true
       }
+    },
+    clearAll: function () {
+      sessionStorage.clear()
     }
   },
   mounted () {
