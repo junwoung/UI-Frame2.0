@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     init: function () {
-
+      this.$store.commit('setName', {name: 'wangjun8'})
     }
   },
   mounted () {
