@@ -202,7 +202,7 @@
   background-image: url(./imgs/error.png);
 }
 .v-msg {
-  background-color: rgba(0, 0, 0, .55);
+  background-color: rgba(0, 0, 0, .75);
   color: #fff;
 }
 .v-progress-msg {
