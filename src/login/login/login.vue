@@ -42,6 +42,8 @@ export default {
       let url = '/user/login/login'
       //  控制请求不被多次提交
       let timer = null
+      // let _this = this
+      // console.log(_this)
       document.querySelector('#submit').onclick = function () {
         if (timer) return
         let doms = {
@@ -92,9 +94,16 @@ export default {
                   e.target.innerText = 'Success'
                   errorTip.style = ''
                   //  将登陆信息写入会话缓存
+                  // _this.$store.commit({
+                  //   type: 'setName',
+                  //   username: res.data.user_name,
+                  //   nickname: res.data.nick_name,
+                  //   usertype: res.data.type
+                  // })
                   sessionStorage.USERNAME = res.data.user_name
                   sessionStorage.NICKNAME = res.data.nick_name
                   sessionStorage.USERTYPE = res.data.type
+                  sessionStorage.USERAVATAR = res.data.avatar
                   location.href = '#/index'
                 } else {
                   //  登陆失败

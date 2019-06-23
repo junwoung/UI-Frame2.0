@@ -8,7 +8,7 @@
           <img src="./imgs/logo.png">
           <span>个人组件框架2.0</span>
           <div class="frame-user">
-            <img src="./imgs/user.png">
+            <img class="frame-avatar" :src="avatar">
             <span>{{name}}</span>
             <a href="#/login" @click="clearAll">退出</a>
           </div>
@@ -59,6 +59,7 @@ export default {
   data () {
     return {
       name: '未登录',
+      defaultAvatar: './imgs/user.png',
       nav: null,
       map: null,
       crumbs: null,
@@ -67,10 +68,21 @@ export default {
       currentCrumb: null
     }
   },
+  computed: {
+    // name () {
+    //   console.log(this.$store.state)
+    //   return this.$store.state.nickname || '未登录'
+    // }
+    avatar () {
+      //  获取用户头像
+      if (sessionStorage.USERAVATAR) return this.$store.state.config.pic_server + sessionStorage.USERAVATAR
+      return this.defaultAvatar
+    }
+  },
   methods: {
     init: function () {
       //  初始化相关数据
-      this.name = sessionStorage.NICKNAME || this.name
+      this.name = sessionStorage.NICKNAME
       this.nav = navConfig.list
       this.map = navConfig.activeMap
       this.crumbs = navConfig.crumbs
@@ -168,6 +180,11 @@ export default {
   font-size: 20px;
   font-weight: bolder;
   margin-left: 10px;
+}
+.frame-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
 }
 .frame-user {
   float: right;
