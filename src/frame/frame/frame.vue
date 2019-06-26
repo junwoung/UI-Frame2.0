@@ -38,7 +38,7 @@
              :class="{'crumb-hover': crumb.url}"
              v-for="(crumb,index) in currentCrumb" :key="index">{{crumb.name + (index === currentCrumb.length-1 ? '':' > ')}} </a></p>
         <!-- 各路由展示内容 -->
-        <div class="frame-content">
+        <div class="frame-content" :style="setHeight()">
           <router-view />
         </div>
         <!-- 页脚 -->
@@ -143,6 +143,12 @@ export default {
     },
     clearAll: function () {
       sessionStorage.clear()
+    },
+    //  根据浏览器视口高度，计算页面高度，使其至少能够填充整个视口
+    setHeight () {
+      let height = window.innerHeight
+      //  减去头部、脚部、面包屑的高度，得到content的高度
+      return {'min-height': height - 60 - 40 - 50 + 'px'}
     }
   },
   mounted () {
@@ -206,7 +212,7 @@ export default {
 }
 .frame-body {
   position: relative;
-  min-height: 878px;
+  /* min-height: 878px; */
   font-size: 16px;
 }
 .frame-nav {
@@ -265,7 +271,7 @@ export default {
   position: relative;
   margin-left: 220px;
   margin-right: 20px;
-  min-height: 788px;
+  /* min-height: 788px; */
   background-color: #fff;
   font-size: 14px;
   box-sizing: border-box;
