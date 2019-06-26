@@ -15,9 +15,12 @@ export default (Vue) => {
   Vue.directive('tips', {
     inserted: function (el, bingding) {
       let msg = bingding.value
-      //  绑定该指令的节点，如果定位有特殊要求，则需要以内嵌的形式声明，不然会被替换为relative定位
-      if (el.style.position === '') el.style.position = 'relative'
+      //  绑定该指令的节点，如果定位无特殊要求（static），则会被替换为relative定位
+      let style = window.getComputedStyle(el)
+      console.log(style.position)
+      if (el.style.position === '' && style.position === 'static') el.style.position = 'relative'
       init(el, msg)
+      // console.log(style.position)
     }
   })
   //  初始化绑定指令
