@@ -39,7 +39,7 @@ export default (Vue) => {
     if (height === undefined) return
     //  回到顶部
     if (height === 0) {
-      height = document.scrollTop || document.documentElement.scrollTop
+      height = document.body.scrollTop || document.documentElement.scrollTop
       height = -height
     }
     //  设置总滑动时间为200ms
