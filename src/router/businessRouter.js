@@ -10,6 +10,7 @@ import query from '@/business/query'
 import dialog from '@/business/dialog'
 import carousel from '@/business/carousel'
 import newTime from '@/business/newTime'
+import landmark from '@/business/landmark'
 
 //  导入具体指令业务
 import direcNumber from '@/business/input'
@@ -79,6 +80,10 @@ export default [
   {
     path: '/direc_tips',
     component: direcTips
+  },
+  {
+    path: '/landmark',
+    component: landmark
   }
   // ,
   // {

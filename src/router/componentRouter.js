@@ -12,6 +12,8 @@ import vPagination from '../components/vPagination/pagination.js'
 import vUpload from '../components/vUpload/upload.js'
 import vTime from '../components/vTime/time.js'
 import vCarousel from '../components/vCarousel/carousel.js'
+import vLandmark from '../components/vLandmark/landmark.js'
+import vStep from '../components/vStep/step.js'
 
 import BaiduMap from 'vue-baidu-map'
 //  引入query插件
@@ -39,3 +41,5 @@ Vue.use(vPagination)
 Vue.use(vUpload)
 Vue.use(vTime)
 Vue.use(vCarousel)
+Vue.use(vLandmark)
+Vue.use(vStep)

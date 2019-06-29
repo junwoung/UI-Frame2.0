@@ -39,6 +39,10 @@ const list = [
       {
         name: '轮播',
         url: 'carousel'
+      },
+      {
+        name: '里程碑',
+        url: 'landmark'
       }
     ]
   },
@@ -250,6 +254,10 @@ const crumbs = {
     {
       name: 'Tips指令'
     }
+  ],
+  landmark: [
+    {name: '组件'},
+    {name: '里程碑'}
   ]
 }
 
