@@ -15,7 +15,7 @@
     </div>
     <div class="form-control">
       <button class="btn btn-small btn-default" @click='ok'>确定</button>
-      <button class="btn btn-small btn-minor">取消</button>
+      <button class="btn btn-small btn-minor" @click='cancel'>取消</button>
     </div>
   </div>
 </template>
@@ -24,11 +24,10 @@
 export default {
   props: {
     //  这边定义传入的变量
-    parent: {
-      type: Object,
-      default: function () {
-        return {}
-      }
+    //  表单id
+    windowId: {
+      type: String,
+      default: null
     },
     form: {
       type: Object,
@@ -37,15 +36,18 @@ export default {
     time: {
       type: Object,
       default: () => {}
-    },
-    ensure: {
-
     }
   },
   methods: {
     ok () {
       if (this.form.name === '') return this.$dialog.msg('姓名不可为空')
-      this.$EventBus.$emit('testFormOk')
+      this.$EventBus.$emit('testFormOk', {
+        form: this.form,
+        time: this.time.selected
+      })
+    },
+    cancel () {
+      this.$window.close(this.windowId)
     }
   },
   mounted () {

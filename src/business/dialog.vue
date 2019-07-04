@@ -261,8 +261,8 @@ export default {
   },
   mounted () {
     this.init()
-    this.$EventBus.$on(`testFormOk`, () => {
-      console.log('got it')
+    this.$EventBus.$on(`testFormOk`, (obj) => {
+      console.log(obj)
       console.log(this.openForm)
       this.$window.close(this.id)
     })
