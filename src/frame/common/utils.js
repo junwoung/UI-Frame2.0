@@ -408,9 +408,3 @@ export default class utils {
     return str.replace(/\s/g, '')
   }
 }
-
-let str = ` adbb cd    hhhhh h
- j jgg  `
-console.log(str)
-console.log(str.trim())
-console.log(utils.trim(str))
