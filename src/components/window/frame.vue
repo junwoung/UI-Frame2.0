@@ -52,10 +52,8 @@ export default {
     },
     getContent () {
       setTimeout(() => {
-        // let propsData = JSON.parse(JSON.stringify(this.options.content.data))
         let propsData = this.options.content.data
-        this.options.content.ensure && (propsData['ensure'] = this.options.content.ensure)
-        console.log(propsData)
+        propsData['windowId'] = this.options.id
         let Conctructor = this.options.content.content
         let instance = new Conctructor({
           parent: this.options.content.parent,
