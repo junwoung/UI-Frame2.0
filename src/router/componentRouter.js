@@ -1,7 +1,6 @@
 //  批量引入组件并注册
 import Vue from 'vue'
 
-import utils from '../frame/common/utils'
 import dialog from '../components/dialog/dialog.js'
 import vFrame from '../frame/frame/frame.js'
 import vSelect from '../components/vSelect/select.js'
@@ -29,9 +28,6 @@ Vue.use(BaiduMap, {
 //  引入自定义对话框
 Vue.prototype.$dialog = dialog
 Vue.prototype.$window = $window
-
-//  引入自定义公用方法
-Vue.prototype.$utils = utils
 
 //  导入框架组件和公用组件
 Vue.use(vFrame)
