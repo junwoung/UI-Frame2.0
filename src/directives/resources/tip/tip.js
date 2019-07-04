@@ -17,7 +17,6 @@ export default (Vue) => {
       let msg = bingding.value
       //  绑定该指令的节点，如果定位无特殊要求（static），则会被替换为relative定位
       let style = window.getComputedStyle(el)
-      console.log(style.position)
       if (el.style.position === '' && style.position === 'static') el.style.position = 'relative'
       init(el, msg)
       // console.log(style.position)
@@ -45,16 +44,16 @@ export default (Vue) => {
     let showFlag = false
     el.addEventListener('mouseover', showTip)
     el.addEventListener('mouseleave', hideTip)
-    el.addEventListener('click', stayShow)
+    // el.addEventListener('dbclick', stayShow)
     tip.addEventListener('mouseover', showTip)
     tip.addEventListener('mouseleave', hideTip)
 
     //  点击事件控制显示隐藏tip
-    function stayShow () {
-      showFlag = !showFlag
-      if (showFlag) showTip()
-      else hideTip()
-    }
+    // function stayShow () {
+    //   showFlag = !showFlag
+    //   if (showFlag) showTip()
+    //   else hideTip()
+    // }
 
     //  显示tip信息
     function showTip () {
