@@ -14,6 +14,7 @@ import vTime from '../components/vTime/time.js'
 import vCarousel from '../components/vCarousel/carousel.js'
 import vLandmark from '../components/vLandmark/landmark.js'
 import vStep from '../components/vStep/step.js'
+import $window from '../components/window/window.js'
 
 import BaiduMap from 'vue-baidu-map'
 //  引入query插件
@@ -27,6 +28,7 @@ Vue.use(BaiduMap, {
 
 //  引入自定义对话框
 Vue.prototype.$dialog = dialog
+Vue.prototype.$window = $window
 
 //  引入自定义公用方法
 Vue.prototype.$utils = utils
