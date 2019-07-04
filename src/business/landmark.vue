@@ -65,7 +65,6 @@ export default {
   },
   methods: {
     init () {
-      console.log(111)
     },
     hello () {
       console.log('hello')
