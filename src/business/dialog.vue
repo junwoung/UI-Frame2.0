@@ -259,7 +259,8 @@ export default {
       ]
     }
   },
-  mounted () {
+  async mounted () {
+    console.log(this.$utils.getFormatDate('', '', '/'))
     this.init()
     this.$EventBus.$on(`testFormOk`, (obj) => {
       console.log(obj)
