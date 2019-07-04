@@ -6,6 +6,7 @@ import App from './App'
 import store from './vuex/vuex'
 import router from './router'
 
+import utils from './frame/common/utils'
 //  引入apis并将axios挂载到Vue.prototype.$axios
 import apis from './apis/apis'
 
@@ -16,6 +17,8 @@ require('./directives/injection.js')
 
 Vue.config.productionTip = false
 
+//  引入自定义公用方法
+Vue.prototype.$utils = utils
 //  挂载接口到原型上
 Vue.prototype.$apis = apis
 console.log(Vue.prototype.$apis)
