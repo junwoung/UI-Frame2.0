@@ -40,7 +40,7 @@ const template = {
     return `<div class='v-error'><span class='v-words'>${words}</span></div>`
   },
   msg: (words = 'error') => {
-    return `<div class='v-msg'><span class='v-words'>${words}</span></div>`
+    return `<div class='v-msg'><span class='v-words'><span>${words}</span></span></div>`
   },
   prompt: (label = '请输入:', value = '') => {
     return `<div class='v-modal'>

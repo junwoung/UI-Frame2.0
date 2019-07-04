@@ -167,16 +167,15 @@
   -webkit-background-size: 400% 100%;
   -webkit-animation: masked 2s infinite linear;
 }
-.v-success,.v-error,.v-msg {
+.v-success,.v-error {
   position: fixed;
-  min-width: 200px;
   max-width: 300px;
   background-color: #fff;
   border-radius: 5px;
   padding: 20px 20px;
   text-align: center;
   font-size: 16px;
-  box-shadow: 0 0 5px 0 #ddd;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, .5);
   cursor: pointer;
   margin: 20% auto;
   right: 0;
@@ -184,6 +183,8 @@
   z-index: 999999999;
   opacity: 0;
   top: -100px;
+  max-height: 200px;
+  overflow-y: scroll;
   transition: opacity .3s, top .2s, margin .3s;
 }
 .v-success > span::before,.v-error > span::before {
@@ -202,8 +203,29 @@
   background-image: url(./imgs/error.png);
 }
 .v-msg {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: 16px;
+  margin: 20% auto;
+  right: 0;
+  left: 0;
+  z-index: 999999999;
+  opacity: 0;
+  top: -100px;
+  transition: opacity .3s, top .2s, margin .3s;
+}
+.v-msg > .v-words > span {
+  float: left;
   background-color: rgba(0, 0, 0, .75);
   color: #fff;
+  padding: 20px 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  max-height: 200px;
+  overflow-y: scroll;
+  cursor: pointer;
 }
 .v-progress-msg {
   text-align: center;
