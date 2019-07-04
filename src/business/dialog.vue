@@ -10,6 +10,7 @@
       <button class="btn btn-small btn-default" @click="openMsg">msg</button>
       <button class="btn btn-small btn-default" @click="openPrompt">prompt</button>
       <button class="btn btn-small btn-default" @click="openProgress">progress</button>
+      <button class="btn btn-small btn-default" @click="open">$open</button>
     </div>
     <div class="form-control clearfix" style="margin: 20px 0;">
       <label class="label">使用</label>
@@ -54,11 +55,13 @@
         </tr>
       </tbody>
     </table>
+    <button class="btn btn-small btn-default" @click="open">$open</button>
   </div>
 </template>
 
 <script>
 import theader from './config/table.js'
+import temp from './dialogs/test.vue'
 export default {
   name: '',
   data () {
@@ -66,16 +69,69 @@ export default {
       msg: 'alert ok!',
       theader: theader,
       tbody: [],
-      tbody2: []
+      tbody2: [],
+      openForm: {
+        form: {
+          name: 'wangjun8',
+          phone: '15013890200'
+        },
+        time: {
+          style: {
+            'border': '1px solid #bbb',
+            'border-radius': '2px',
+            'height': '36px'
+          },
+          selected: 1,
+          max: 10,
+          min: -2
+        }
+      },
+      id: null
     }
+  },
+  components: {
+    'base-form': temp
   },
   methods: {
     init: function () {
       this.generateBody()
     },
+    open: function () {
+      this.id = this.$window.open({
+        //  弹窗打开的具体内容
+        content: {
+          //  模板文件
+          content: temp,
+          //  父作用域
+          parent: this,
+          //  传入的数据
+          data: this.openForm,
+          cancel: () => {
+            console.log('hhhh')
+            return this.$dialog.confirm.bind(this, '确认要关闭弹窗吗？')
+          }
+        },
+        //  设置弹窗标题
+        title: '请填写表单',
+        // title: null,
+        //  设置弹窗基本样式
+        style: {
+          // 'height': '400px',
+          'width': '600px',
+          // 'background-color': '#efefef',
+          'font-size': '14px'
+        },
+        //  modal是否显示
+        modal: false,
+        //  打开弹窗是否允许父级页面滑动
+        scroll: true
+      })
+    },
     openAlert: function () {
+      this.openForm.form.name = 'wj9876'
       this.$dialog.alert('该选项已不存在，请知悉！', () => {
         console.log(this.msg)
+        console.log(this.openForm)
       })
     },
     openConfirm: function () {
@@ -205,6 +261,11 @@ export default {
   },
   mounted () {
     this.init()
+    this.$EventBus.$on(`testFormOk`, () => {
+      console.log('got it')
+      console.log(this.openForm)
+      this.$window.close(this.id)
+    })
   }
 }
 </script>
