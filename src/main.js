@@ -20,6 +20,9 @@ Vue.config.productionTip = false
 Vue.prototype.$apis = apis
 console.log(Vue.prototype.$apis)
 
+//  挂载EventBus
+Vue.prototype.$EventBus = new Vue()
+
 //  判断登陆问题
 require('./router/login')
 
