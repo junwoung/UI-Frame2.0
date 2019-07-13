@@ -20,6 +20,7 @@
  * @getType {[对象参数]} @desc 获取数据类型
  * @sleep {[毫秒数]} @desc 睡眠指定毫秒数
  * @flatten {[数组]} @desc 数组扁平化
+ * @merge {[参与merge的对象]} @desc 合并多个对象，并返回新对象
  */
 
 export default class utils {
@@ -367,7 +368,7 @@ export default class utils {
     let newObj = obj instanceof Array ? [] : {}
     for (let key in obj) {
       if (typeof obj[key] !== 'object') newObj[key] = obj[key]
-      else newObj[key] = this.deepClone(obj[key])
+      else newObj[key] = utils.deepClone(obj[key])
     }
     return newObj
   }
@@ -406,5 +407,24 @@ export default class utils {
   static trim (str) {
     if (typeof str !== 'string') return str
     return str.replace(/\s/g, '')
+  }
+
+  /**
+   * @date: 2019-07-12 18:10:55
+   * @desc: 合并多个对象，按重要程度从前往后
+   */
+  static merge () {
+    let objs = [...arguments]
+    if (objs.length === 0) return
+    let ret = {...objs[0]}
+    objs[0] = ret
+    return objs.reduce((ret, cur) => {
+      for (let key in cur) {
+        if (cur.hasOwnProperty(key) && ret[key] === undefined) {
+          ret[key] = utils.deepClone(cur[key])
+        }
+      }
+      return ret
+    })
   }
 }
