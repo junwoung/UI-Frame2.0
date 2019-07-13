@@ -43,6 +43,14 @@ const list = [
       {
         name: '里程碑',
         url: 'landmark'
+      },
+      {
+        name: '表单',
+        url: 'form'
+      },
+      {
+        name: '表格',
+        url: 'table'
       }
     ]
   },
@@ -258,6 +266,14 @@ const crumbs = {
   landmark: [
     {name: '组件'},
     {name: '里程碑'}
+  ],
+  form: [
+    {name: '组件'},
+    {name: '表单'}
+  ],
+  table: [
+    {name: '组件'},
+    {name: '表格'}
   ]
 }
 

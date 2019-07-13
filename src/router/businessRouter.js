@@ -11,6 +11,8 @@ import dialog from '@/business/dialog'
 import carousel from '@/business/carousel'
 import newTime from '@/business/newTime'
 import landmark from '@/business/landmark'
+import form from '@/business/form'
+import table from '@/business/table'
 
 //  导入具体指令业务
 import direcNumber from '@/business/input'
@@ -84,6 +86,14 @@ export default [
   {
     path: '/landmark',
     component: landmark
+  },
+  {
+    path: '/form',
+    component: form
+  },
+  {
+    path: '/table',
+    component: table
   }
   // ,
   // {

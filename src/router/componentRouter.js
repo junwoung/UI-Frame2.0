@@ -14,6 +14,11 @@ import vCarousel from '../components/vCarousel/carousel.js'
 import vLandmark from '../components/vLandmark/landmark.js'
 import vStep from '../components/vStep/step.js'
 import $window from '../components/window/window.js'
+import vInput from '../components/vInput/input.js'
+//  表单组件及其附属组件已一起注册，这边直接引入
+import '../components/vForm/inject.js'
+//  表格组件及其附属组件已一起注册，直接引入
+import '../components/vTable/inject.js'
 
 import BaiduMap from 'vue-baidu-map'
 //  引入query插件
@@ -41,3 +46,4 @@ Vue.use(vTime)
 Vue.use(vCarousel)
 Vue.use(vLandmark)
 Vue.use(vStep)
+Vue.use(vInput)
