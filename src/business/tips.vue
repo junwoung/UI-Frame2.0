@@ -2,8 +2,10 @@
 <template>
   <div>
     <span class="sp" v-tips='"恭喜！你已经成功看到我了"'>查看提示信息</span>
-    <span style="position:absolute;float:right;" v-tips='"hhhh恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了aaaa"'>查看提示信息</span>
+    <span style="float:right;" v-tips='"hhhh恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了aaaa"'>查看提示信息</span>
     <span style="float:left;margin-top: 600px;" v-tips='"hhhh恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了aaaa"'>查看提示信息</span>
+    <!-- <span style="float:left;margin-top: 600px;" v-tips='"hhhh恭喜！"'>查看提示信息</span> -->
+    <!-- <span style="float:right;margin-top: 600px;" v-tips='"hhhh恭喜！"'>查看提示信息</span> -->
     <span style="float:right;margin-top: 600px;" v-tips='"hhhh恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了恭喜！你已经成功看到我了aaaa"'>查看提示信息</span>
   </div>
 </template>
