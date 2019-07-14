@@ -51,6 +51,10 @@ const list = [
       {
         name: '表格',
         url: 'table'
+      },
+      {
+        name: '按钮组',
+        url: 'btnGroup'
       }
     ]
   },
@@ -274,6 +278,10 @@ const crumbs = {
   table: [
     {name: '组件'},
     {name: '表格'}
+  ],
+  btnGroup: [
+    {name: '组件'},
+    {name: '按钮组'}
   ]
 }
 

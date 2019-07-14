@@ -19,6 +19,8 @@ import vInput from '../components/vInput/input.js'
 import '../components/vForm/inject.js'
 //  表格组件及其附属组件已一起注册，直接引入
 import '../components/vTable/inject.js'
+//  按钮组件及按钮组注册
+import '../components/vBtnGroup/inject.js'
 
 import BaiduMap from 'vue-baidu-map'
 //  引入query插件

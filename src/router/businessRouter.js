@@ -13,6 +13,7 @@ import newTime from '@/business/newTime'
 import landmark from '@/business/landmark'
 import form from '@/business/form'
 import table from '@/business/table'
+import btnGroup from '@/business/btnGroup'
 
 //  导入具体指令业务
 import direcNumber from '@/business/input'
@@ -94,6 +95,10 @@ export default [
   {
     path: '/table',
     component: table
+  },
+  {
+    path: '/btnGroup',
+    component: btnGroup
   }
   // ,
   // {
