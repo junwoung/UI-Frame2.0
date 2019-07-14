@@ -2,7 +2,7 @@
 <template>
   <table class="v-table">
     <!-- 列表加载数据动画显示 -->
-    <div v-if="!over" class="v-data-loading">
+    <div v-if="loading" class="v-data-loading">
       <svg viewBox="25 25 50 50" class="cirular">
         <circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
       </svg>
@@ -31,12 +31,10 @@
         v-for="h in header"
         :key="h + idx">
           <!-- 将要替换的显示信息包含在slot插槽闭口内，可以被替换 -->
-          <slot :name="h" :item="item">
+          <!-- 过滤掉default插槽，避免参数名为default而引入匿名插槽 -->
+          <slot :name="h === 'default' ? '' : h" :item="item">
             <span>{{item[h]}}</span>
           </slot>
-        </td>
-        <td>
-          <slot name="operations" :item="item"></slot>
         </td>
       </tr>
       <!-- 如果有需要固定底部，可以在这配置 -->
@@ -72,9 +70,9 @@ export default {
       default: null
     },
     //  表格数据是否在加载
-    over: {
+    loading: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
   methods: {
