@@ -1,7 +1,7 @@
 <!-- created by wangjun on 2019-07-10 -->
 <template>
   <div>
-    <v-table :data='tableData' :header='tableHeader' :over='status'>
+    <v-table :data='tableData' :header='tableHeader' :loading='status'>
       <template slot="caption">
         <span>表格测试</span>
       </template>
@@ -31,6 +31,26 @@
         <td style="color: #000;font-size: 26px;">emmmm</td>
       </template> -->
     </v-table>
+
+    <v-table :data='table.data' :header='table.header' :loading='false'>
+      <template slot="caption">
+        <p style="text-align: center;">v-table 使用介绍</p>
+      </template>
+      <v-thead-col width="10%">参数</v-thead-col>
+      <v-thead-col width="10%">类型</v-thead-col>
+      <v-thead-col width="20%">说明</v-thead-col>
+      <v-thead-col width="10%">必填项</v-thead-col>
+      <v-thead-col width="40%">样例值</v-thead-col>
+      <v-thead-col width="10%">默认值</v-thead-col>
+    </v-table>
+    <p><span class="tips">列表按照配置规则可以渲染常规列表。有特殊字段或者特殊操作的，可以通过配置slot并指定name(与要替换的列键名相同)，来自定义列显示；<br/>可以配置slot并指定name为caption/footerRow来设置表头和表尾</span></p>
+
+    <v-table :data='table.data'>
+      <template slot="caption">
+        <p style="text-align: center;">v-thead-col 使用介绍</p>
+      </template>
+      <v-thead-col width="100%">设置列表标题项，可以指定列宽(width="10%")</v-thead-col>
+    </v-table>
   </div>
 </template>
 
@@ -40,22 +60,30 @@ export default {
   data () {
     return {
       tableData: [],
-      tableHeader: ['name', 'addr', 'phone'],
-      status: true
+      tableHeader: ['name', 'addr', 'phone', 'operations'],
+      status: true,
+      table: {
+        header: ['arg', 'type', 'desc', 'must', 'exp', 'default'],
+        data: [
+          {arg: 'data', type: 'Array', desc: '要渲染的数组', must: 'true', exp: `[{id: 1, name: '王俊', addr: '安徽省合肥市', phone: 15013890200},{id: 2, name: 'WANGJUN', addr: '广东省深圳市', phone: 15271924481}]`, default: 'null'},
+          {arg: 'header', type: 'Array', desc: '要渲染的键名', must: 'true', exp: `['name', 'addr', 'phone', 'operations']`, default: 'null'},
+          {arg: 'loading', type: 'Boolean', desc: '列表内置加载状态', must: 'false', exp: 'true', default: 'false'}
+        ]
+      }
     }
   },
   methods: {
     init: function () {
-      this.status = false
+      this.status = true
       setTimeout(() => {
-        this.status = true
+        this.status = false
         this.getData()
       }, 3000)
       setTimeout(() => {
-        this.status = false
+        this.status = true
         setTimeout(() => {
           this.getData()
-          this.status = true
+          this.status = false
         }, 5000)
       }, 6000)
     },
