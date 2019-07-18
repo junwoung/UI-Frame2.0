@@ -33,4 +33,5 @@
 27、 2019-06-29 上传landmark和step组件；修改v-tip指令样式
 28、 2019-07-04 上传动态打开自定义表单窗口组件；优化三类信息提示框样式；使用eventBus
 29、 2019-07-13 上传form、table、input组件；修改tips指令；丰富button样式以及utils功能
+30、 2019-07-14 上传bthGroup组件；优化table组件
 ```
