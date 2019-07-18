@@ -34,4 +34,5 @@
 28、 2019-07-04 上传动态打开自定义表单窗口组件；优化三类信息提示框样式；使用eventBus
 29、 2019-07-13 上传form、table、input组件；修改tips指令；丰富button样式以及utils功能
 30、 2019-07-14 上传bthGroup组件；优化table组件
+31、 2019-07-18 完善input组件；优化table组件
 ```
