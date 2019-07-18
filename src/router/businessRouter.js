@@ -14,6 +14,7 @@ import landmark from '@/business/landmark'
 import form from '@/business/form'
 import table from '@/business/table'
 import btnGroup from '@/business/btnGroup'
+import input from '@/business/text'
 
 //  导入具体指令业务
 import direcNumber from '@/business/input'
@@ -99,6 +100,10 @@ export default [
   {
     path: '/btnGroup',
     component: btnGroup
+  },
+  {
+    path: '/input',
+    component: input
   }
   // ,
   // {

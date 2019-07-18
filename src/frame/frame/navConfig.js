@@ -55,6 +55,10 @@ const list = [
       {
         name: '按钮组',
         url: 'btnGroup'
+      },
+      {
+        name: '输入框',
+        url: 'input'
       }
     ]
   },
@@ -282,6 +286,10 @@ const crumbs = {
   btnGroup: [
     {name: '组件'},
     {name: '按钮组'}
+  ],
+  input: [
+    {name: '组件'},
+    {name: '输入框'}
   ]
 }
 
