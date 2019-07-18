@@ -921,3 +921,189 @@ table {
 .triangle-select::after {
   transform: rotate(180deg);
 }
+
+/**
+ * 布局相关
+ * 左右浮动
+ * 字体对齐
+ * 外边距、内边距设置
+ */
+.float-left {float: left;}
+.float-right {float: right;}
+
+.text-left {text-align: left;}
+.text-center {text-align: center;}
+.text-right {text-align: right;}
+
+.margint-10 {margin-top: 10px;}
+.margint-20 {margin-top: 20px;}
+.margint-30 {margin-top: 30px;}
+.margint-40 {margin-top: 40px;}
+.margint-50 {margin-top: 50px;}
+.margint-60 {margin-top: 60px;}
+.margint-70 {margin-top: 70px;}
+.margint-80 {margin-top: 80px;}
+.margint-90 {margin-top: 90px;}
+.margint-100 {margin-top: 100px;}
+
+.marginl-10 {margin-left: 10px;}
+.marginl-20 {margin-left: 20px;}
+.marginl-30 {margin-left: 30px;}
+.marginl-40 {margin-left: 40px;}
+.marginl-50 {margin-left: 50px;}
+.marginl-60 {margin-left: 60px;}
+.marginl-70 {margin-left: 70px;}
+.marginl-80 {margin-left: 80px;}
+.marginl-90 {margin-left: 90px;}
+.marginl-100 {margin-left: 100px;}
+
+.marginb-10 {margin-bottom: 10px;}
+.marginb-20 {margin-bottom: 20px;}
+.marginb-30 {margin-bottom: 30px;}
+.marginb-40 {margin-bottom: 40px;}
+.marginb-50 {margin-bottom: 50px;}
+.marginb-60 {margin-bottom: 60px;}
+.marginb-70 {margin-bottom: 70px;}
+.marginb-80 {margin-bottom: 80px;}
+.marginb-90 {margin-bottom: 90px;}
+.marginb-100 {margin-bottom: 100px;}
+
+.marginr-10 {margin-right: 10px;}
+.marginr-20 {margin-right: 20px;}
+.marginr-30 {margin-right: 30px;}
+.marginr-40 {margin-right: 40px;}
+.marginr-50 {margin-right: 50px;}
+.marginr-60 {margin-right: 60px;}
+.marginr-70 {margin-right: 70px;}
+.marginr-80 {margin-right: 80px;}
+.marginr-90 {margin-right: 90px;}
+.marginr-100 {margin-right: 100px;}
+
+.paddingt-10 {padding-top: 10px;}
+.paddingt-20 {padding-top: 20px;}
+.paddingt-30 {padding-top: 30px;}
+.paddingt-40 {padding-top: 40px;}
+.paddingt-50 {padding-top: 50px;}
+.paddingt-60 {padding-top: 60px;}
+.paddingt-70 {padding-top: 70px;}
+.paddingt-80 {padding-top: 80px;}
+.paddingt-90 {padding-top: 90px;}
+.paddingt-100 {padding-top: 100px;}
+
+.paddingl-10 {padding-left: 10px;}
+.paddingl-20 {padding-left: 20px;}
+.paddingl-30 {padding-left: 30px;}
+.paddingl-40 {padding-left: 40px;}
+.paddingl-50 {padding-left: 50px;}
+.paddingl-60 {padding-left: 60px;}
+.paddingl-70 {padding-left: 70px;}
+.paddingl-80 {padding-left: 80px;}
+.paddingl-90 {padding-left: 90px;}
+.paddingl-100 {padding-left: 100px;}
+
+.paddingb-10 {padding-bottom: 10px;}
+.paddingb-20 {padding-bottom: 20px;}
+.paddingb-30 {padding-bottom: 30px;}
+.paddingb-40 {padding-bottom: 40px;}
+.paddingb-50 {padding-bottom: 50px;}
+.paddingb-60 {padding-bottom: 60px;}
+.paddingb-70 {padding-bottom: 70px;}
+.paddingb-80 {padding-bottom: 80px;}
+.paddingb-90 {padding-bottom: 90px;}
+.paddingb-100 {padding-bottom: 100px;}
+
+.paddingr-10 {padding-right: 10px;}
+.paddingr-20 {padding-right: 20px;}
+.paddingr-30 {padding-right: 30px;}
+.paddingr-40 {padding-right: 40px;}
+.paddingr-50 {padding-right: 50px;}
+.paddingr-60 {padding-right: 60px;}
+.paddingr-70 {padding-right: 70px;}
+.paddingr-80 {padding-right: 80px;}
+.paddingr-90 {padding-right: 90px;}
+.paddingr-100 {padding-right: 100px;}
+
+/** 元素尺寸设置 **/
+.height {height: 100%;}
+.height0 {height: 0; line-height: 12px;}
+.height10 {height: 10px; line-height: 12px;}
+.height12 {height: 12px; line-height: 12px;}
+.height14 {height: 14px; line-height: 12px;}
+.height16 {height: 16px; line-height: 12px;}
+.height18 {height: 18px; line-height: 12px;}
+.height20 {height: 20px; line-height: 12px;}
+.height22 {height: 22px; line-height: 12px;}
+.height24 {height: 24px; line-height: 12px;}
+.height26 {height: 26px; line-height: 12px;}
+.height28 {height: 28px; line-height: 12px;}
+.height30 {height: 30px; line-height: 12px;}
+.height32 {height: 32px; line-height: 12px;}
+.height34 {height: 34px; line-height: 12px;}
+.height36 {height: 36px; line-height: 12px;}
+.height38 {height: 38px; line-height: 12px;}
+.height40 {height: 40px; line-height: 12px;}
+.height42 {height: 42px; line-height: 12px;}
+.height44 {height: 44px; line-height: 12px;}
+.height46 {height: 46px; line-height: 12px;}
+.height48 {height: 48px; line-height: 12px;}
+.height50 {height: 50px; line-height: 12px;}
+.height60 {height: 60px; line-height: 12px;}
+.height70 {height: 70px; line-height: 12px;}
+.height80 {height: 80px; line-height: 12px;}
+.height90 {height: 90px; line-height: 12px;}
+.height100 {height: 100px; line-height: 12px;}
+.height200 {height: 200px;}
+.height300 {height: 300px;}
+.height400 {height: 400px;}
+.height500 {height: 500px;}
+.height1080 {height: 1080px;}
+
+.width {width: 100%;}
+.width0 {width: 0;}
+.width10 {width: 10px;}
+.width12 {width: 12px;}
+.width14 {width: 14px;}
+.width16 {width: 16px;}
+.width18 {width: 18px;}
+.width20 {width: 20px;}
+.width22 {width: 22px;}
+.width24 {width: 24px;}
+.width26 {width: 26px;}
+.width28 {width: 28px;}
+.width30 {width: 30px;}
+.width32 {width: 32px;}
+.width34 {width: 34px;}
+.width36 {width: 36px;}
+.width38 {width: 38px;}
+.width40 {width: 40px;}
+.width42 {width: 42px;}
+.width44 {width: 44px;}
+.width46 {width: 46px;}
+.width48 {width: 48px;}
+.width50 {width: 50px;}
+.width60 {width: 60px;}
+.width70 {width: 70px;}
+.width80 {width: 80px;}
+.width90 {width: 90px;}
+.width100 {width: 100px;}
+.width120 {width: 120px;}
+.width150 {width: 150px;}
+.width180 {width: 180px;}
+.width200 {width: 200px;}
+.width250 {width: 250px;}
+.width300 {width: 300px;}
+.width350 {width: 350px;}
+.width400 {width: 400px;}
+.width450 {width: 450px;}
+.width500 {width: 500px;}
+.width600 {width: 600px;}
+.width700 {width: 700px;}
+.width800 {width: 800px;}
+.width900 {width: 900px;}
+.width1000 {width: 1000px;}
+.width1200 {width: 1200px;}
+.width1400 {width: 1400px;}
+.width1600 {width: 1600px;}
+.width1800 {width: 1800px;}
+.width1920 {width: 1920px;}
+.width1080 {width: 1080px;}
