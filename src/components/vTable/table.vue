@@ -109,8 +109,8 @@ export default {
   text-align: left;
   font-size: 16px;
   color: #333;
-  height: 50px;
-  line-height: 50px;
+  /* height: 50px;
+  line-height: 50px; */
 }
 .v-table th {
   height: 50px;
