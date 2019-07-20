@@ -341,5 +341,6 @@ export default {
   opacity: 0;
   background-color: rgba(0, 0, 0, 0.2);
   transition: top 0.2s,opacity 0.2s;
+  z-index: 9999999;
 }
 </style>
