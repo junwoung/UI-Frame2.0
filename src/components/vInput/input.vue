@@ -38,7 +38,7 @@
       <!-- 图标，当自定义图标的时候隐藏 -->
       <i v-if="!$slots.icon" @click="$refs.input.focus()" ref="icon" :class="iconStatus" class="v-input-icon" :style="setIcon()"></i>
       <!-- 自定义图标 -->
-      <i v-if="$slots.icon" @click="$refs.input.focus()"  class="v-input-icon" :style="setIcon(1)">
+      <i v-if="$slots.icon" @click="$refs.input.focus()" ref='diyIcon'  class="v-input-icon-diy" :style="setIcon(1)">
         <slot name="icon" class="v-input-slot-icon">
         </slot>
       </i>
@@ -156,8 +156,15 @@ export default {
           style['border-color'] = this.borderColor
         }
         //  输入框底图icon
-        if (this.icon && this.types.includes(this.icon)) {
+        if ((this.icon && this.types.includes(this.icon)) || this.$slots.icon) {
           style['padding-right'] = '40px'
+          if (!this.$slots.icon) return style
+          /* eslint-disable */
+          //  当自定义icon的时候，计算icon的尺寸再设置padding-right的长度
+          setTimeout(() => {
+            let ic = this.$refs.diyIcon
+            this.$refs.input.style['padding-right'] = ic.getBoundingClientRect().width + 10 + 'px'
+          }, 30)
         }
         return style
       }
@@ -299,7 +306,7 @@ export default {
           newVal = this.min
           this.showTip()
           //  负值转正之后再与最小值做判断
-          if (-val >= this.min) {
+          if (-val >= this.min && (-val <= this.max || !this.max)) {
             event.target.value = val
             //  必须要将值赋给current
             this.current = -val
@@ -367,10 +374,11 @@ export default {
   position: relative;
   box-sizing: border-box;
   display: inline-block;
-  width: 300px;
+  width: 260px;
   height: 40px;
   line-height: 38px;
   border-radius: 4px;
+  font-size: 14px;
 }
 .v-input-inner {
   box-sizing: border-box;
@@ -381,13 +389,14 @@ export default {
   box-sizing: border-box;
   float: left;
   width: 100%;
+  font-size: 14px;
   border: none;
   border-width: 1px;
   border-style: solid;
   border-color: #dcdcdc;
   color: #333;
   outline: none;
-  padding: 0 5% 0 5%;
+  padding: 0 10px;
   height: 100%;
   transition: border-color .3s, box-shadow 0.3s;
 }
@@ -446,25 +455,29 @@ export default {
   user-select: none;
   background-color: transparent;
 }
-.v-input-icon {
+.v-input-icon,.v-input-icon-diy {
   display: inline-block;
   position: absolute;
   text-align: right;
   right: 2%;
-  width: 40px;
+  color: #dcdcdc;
   max-width: 40px;
   overflow: hidden;
   height: 100%;
   font-style: normal;
+  font-size: 12px!important;
   background-repeat: no-repeat;
   background-position: center center;
   transform: rotate(0deg);
   transition: transform 0.3s;
 }
+.v-input-icon {
+  width: 40px;
+}
 .v-input-icon-active {
   transform: rotate(180deg);
 }
-.v-input-icon * {
+.v-input-icon-diy * {
   font-size: 12px;
   user-select: none;
 }
