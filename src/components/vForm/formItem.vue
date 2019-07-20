@@ -20,7 +20,7 @@ export default {
   methods: {
     init: function () {
       let prop = this.$attrs.prop
-      if (prop !== undefined && prop !== null) {
+      if (this.rules && prop !== undefined && prop !== null) {
         this.errorMsg = this.rules[prop] && this.rules[prop].error
       }
       let dom = this.$refs.formItem.children[1]
@@ -94,9 +94,8 @@ export default {
 
 <style scoped>
 .v-form-item {
-  display: inline-block;
+  float: left;
   position: relative;
-  margin-bottom: 30px;
 }
 .v-clearfix {
   zoom: 1;

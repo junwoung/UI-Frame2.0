@@ -1,6 +1,6 @@
 <!-- created by wangjun on 2019-07-10 -->
 <template>
-  <div class="v-form-control">
+  <div class="v-form-control v-clearfix">
     <slot></slot>
   </div>
 </template>
@@ -33,5 +33,21 @@ export default {
 </script>
 
 <style scoped>
-
+.v-form-control {
+  display: block;
+  margin-bottom: 20px;
+}
+.v-clearfix {
+  zoom: 1;
+}
+.v-clearfix::after {
+  content: '';
+  clear: both;
+  display: block;
+}
+.v-form-item-error {
+  position: absolute;
+  font-size: 12px;
+  color: #f56c6c;
+}
 </style>
