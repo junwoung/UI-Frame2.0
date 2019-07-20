@@ -1,9 +1,9 @@
 <!-- created by wangjun on 2019-03-06 -->
 <template>
   <div>
-    <baidu-map style="width:500px;height:250px;" :center="{lng:116,lat:29}" :zoom="12">
+    <!-- <baidu-map style="width:500px;height:250px;" :center="{lng:116,lat:29}" :zoom="12">
       <bm-navigation anchor='BMAP_ANCHOR_TOP_RIGHT'></bm-navigation>
-    </baidu-map>
+    </baidu-map> -->
     <div class="div">
       <v-select :select='select' @callback='getSelect'></v-select>
       <button class="btn btn-default btn-small" @click="change">change</button>
