@@ -15,6 +15,7 @@ import form from '@/business/form'
 import table from '@/business/table'
 import btnGroup from '@/business/btnGroup'
 import input from '@/business/text'
+import dropdown from '@/business/dropdown'
 
 //  导入具体指令业务
 import direcNumber from '@/business/input'
@@ -104,6 +105,10 @@ export default [
   {
     path: '/input',
     component: input
+  },
+  {
+    path: '/dropdown',
+    component: dropdown
   }
   // ,
   // {

@@ -59,6 +59,10 @@ const list = [
       {
         name: '输入框',
         url: 'input'
+      },
+      {
+        name: '下拉列表',
+        url: 'dropdown'
       }
     ]
   },
@@ -290,6 +294,10 @@ const crumbs = {
   input: [
     {name: '组件'},
     {name: '输入框'}
+  ],
+  dropdown: [
+    {name: '组件'},
+    {name: '下拉选择'}
   ]
 }
 

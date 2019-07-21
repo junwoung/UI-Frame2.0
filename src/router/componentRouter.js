@@ -15,6 +15,7 @@ import vLandmark from '../components/vLandmark/landmark.js'
 import vStep from '../components/vStep/step.js'
 import $window from '../components/window/window.js'
 import vInput from '../components/vInput/input.js'
+import vDropdown from '../components/vDropdown/dropdown.js'
 //  表单组件及其附属组件已一起注册，这边直接引入
 import '../components/vForm/inject.js'
 //  表格组件及其附属组件已一起注册，直接引入
@@ -49,3 +50,4 @@ Vue.use(vCarousel)
 Vue.use(vLandmark)
 Vue.use(vStep)
 Vue.use(vInput)
+Vue.use(vDropdown)
