@@ -370,6 +370,9 @@ export default {
 </script>
 
 <style scoped>
+input {
+  outline: none;
+}
 .v-input {
   position: relative;
   box-sizing: border-box;
