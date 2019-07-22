@@ -25,6 +25,7 @@
     <!-- 下拉icon -->
     <i class="v-dropd-icon"
       :class="{'v-drop-icon-active': flags.active}"
+      :style="{cursor: $attrs.disabled !== undefined ? 'not-allowed' : ''}"
       @click="triggerInputClick"
       @mouseenter="hoverInput"
       @mouseleave="leaveInput"></i>
@@ -85,7 +86,7 @@ export default {
     selected: [String, Number],
     //  是否处于错误状态
     error: {
-      type: Boolean,
+      type: [Boolean, String, Number],
       default: false
     },
     //  选项数据
@@ -211,11 +212,9 @@ export default {
     },
     //  点击图标出发激活选项操作
     async triggerInputClick () {
+      if (this.$attrs.disabled !== undefined) return
       this.flags.active = !this.flags.active
       if (this.flags.active) this.$refs.input.focus()
-      // if (this.flags.active) this.flags.active = false
-      // await this.sleep(100)
-      // if (!this.flags.active) this.$refs.input.focus()
     },
     //  监听输入事件，触发选项过滤
     input (event) {
@@ -387,6 +386,7 @@ li {list-style: none;}
   box-sizing: border-box;
   width: 100%;
   height: 100%;
+  font-size: 14px;
   outline: none;
   border-radius: 4px;
   padding: 0 40px 0 10px;
