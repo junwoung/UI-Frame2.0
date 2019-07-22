@@ -36,6 +36,17 @@
     style="width: 200px;height: 40px;border-color: #999;border-radius: 10px;"></v-dropdown>
     <button class="btn btn-default btn-small" @click="getVal3">get val3</button>
 
+    <v-dropdown
+    v-model="form.val2"
+    :data="dropdown.data1"
+    :config="dropdown.config"
+    :clearable='true'
+    :require='true'
+    @callback="getOption3"
+    disabled
+    :placeholder="'请选择'"
+    style="width: 200px;height: 40px;border-color: #999;border-radius: 10px;"></v-dropdown>
+
     <div class="form-control clearfix" style="margin-top: 30px;">
       <label class="label">使用</label>
       <textarea class="textarea" readonly style="width: 400px;height: 250px;">
