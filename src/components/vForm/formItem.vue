@@ -14,7 +14,10 @@ export default {
       model: null,
       rules: null,
       scope: null,
-      errorMsg: ''
+      //  报错信息
+      errorMsg: '',
+      //  缓存上一次传入的表单值，方便做diff
+      oldVal: null
     }
   },
   methods: {
@@ -23,9 +26,9 @@ export default {
       if (this.rules && prop !== undefined && prop !== null) {
         this.errorMsg = this.rules[prop] && this.rules[prop].error
       }
-      let dom = this.$refs.formItem.children[1]
-      let type = this.$attrs.trigger
-      if (dom && type) this.bindEvent(dom, type)
+      // let dom = this.$refs.formItem.children[1]
+      // let type = this.$attrs.trigger
+      // if (dom && type) this.bindEvent(dom, type)
     },
     //  计算报错信息提示偏移量
     computePosition () {
@@ -38,29 +41,29 @@ export default {
         let containerRect = container.getBoundingClientRect()
         return `${inputRect.left - containerRect.left}px`
       }
-    },
-    bindEvent (dom, type) {
-      //  定义允许绑定的事件类型
-      let allowsType = ['blur', 'focus', 'input', 'keydown', 'keyup', 'keypress', 'change', 'click']
-      if (allowsType.includes(type)) {
-        if (dom) {
-          //  bind延迟执行（注意第一传入参数是作用域对象）
-          // dom['on' + type] = debounce(this.scope.$validate.check.bind(this.scope, this.model, this.rules, this.scope, [this.$attrs.prop]), 300)
-          dom.addEventListener(type, debounce(this.scope.$validate.check.bind(this.scope, this.model, this.rules, this.scope, [this.$attrs.prop]), 300))
-        }
-      }
-      //  防抖函数，默认500ms
-      function debounce (fn, wait = 500) {
-        let timer = null
-        return function () {
-          if (timer) return clearTimeout(timer)
-          timer = setTimeout(() => {
-            fn && fn.call(this, ...arguments)
-            timer = null
-          }, wait)
-        }
-      }
     }
+    // bindEvent (dom, type) {
+    //   //  定义允许绑定的事件类型
+    //   let allowsType = ['blur', 'focus', 'input', 'keydown', 'keyup', 'keypress', 'change', 'click']
+    //   if (allowsType.includes(type)) {
+    //     if (dom) {
+    //       //  bind延迟执行（注意第一传入参数是作用域对象）
+    //       // dom['on' + type] = debounce(this.scope.$validate.check.bind(this.scope, this.model, this.rules, this.scope, [this.$attrs.prop]), 300)
+    //       dom.addEventListener(type, debounce(this.scope.$validate.check.bind(this.scope, this.model, this.rules, this.scope, [this.$attrs.prop]), 300))
+    //     }
+    //   }
+    //   //  防抖函数，默认500ms
+    //   function debounce (fn, wait = 500) {
+    //     let timer = null
+    //     return function () {
+    //       if (timer) return clearTimeout(timer)
+    //       timer = setTimeout(() => {
+    //         fn && fn.call(this, ...arguments)
+    //         timer = null
+    //       }, wait)
+    //     }
+    //   }
+    // }
   },
   mounted () {
     //  延迟执行，避免先于父组件（formControl)先赋值，而造成值为null情况
@@ -68,10 +71,33 @@ export default {
       this.model = this.$parent.model
       this.rules = this.$parent.rules
       this.scope = this.$parent.scope
+      this.oldVal = JSON.parse(JSON.stringify(this.model))
       this.init()
     }, 10)
   },
   watch: {
+    //  （深度）监听校验的值的变化
+    'model': {
+      handler (newVal) {
+        //  比较得到变动的属性
+        let keys = []
+        diff(newVal, this.oldVal)
+        keys.length && this.$validate.check(this.model, this.rules, this.scope, keys)
+        function diff (newVal, oldVal) {
+          for (let key in newVal) {
+            if (typeof newVal[key] !== 'object') {
+              if (newVal[key] !== oldVal[key]) {
+                keys.push(key)
+              }
+            } else {
+              keys.push(key)
+            }
+          }
+        }
+        this.oldVal = JSON.parse(JSON.stringify(newVal))
+      },
+      deep: true
+    },
     //  监听error变化，及时呈现报错信息
     '$parent.rules.rules_timestamp': function (val) {
       let prop = this.$attrs.prop
@@ -107,6 +133,7 @@ export default {
 }
 .v-form-item-error {
   position: absolute;
+  top: 100%;
   font-size: 12px;
   color: #f56c6c;
 }

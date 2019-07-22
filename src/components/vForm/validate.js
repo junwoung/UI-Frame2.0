@@ -23,6 +23,7 @@ export default class validate {
    * @same 该值与指定属性值保持一致
    * @bind 该值校验依赖于其他值
    * @reg 传入正则表达式，校验属性值是否满足正则规则（非正则表达式无效）
+   * @in 传入一个数组，校验值必须在这数组范围内
    */
   static check (vals, rules, scope, some = []) {
     //  是否通过验证标签
@@ -30,7 +31,7 @@ export default class validate {
     let keys = []
     if (some && some.length) keys = some
     else keys = Object.keys(rules)
-    validate.clearError(rules, keys)
+    validate.clearError(rules, keys, scope)
     keys.map(key => {
       let rule = rules[key]
       let val = vals[key]
@@ -71,6 +72,13 @@ export default class validate {
             scope.$set(rule, 'error', `${rule.title}值不能小于${rule.min}`)
           }
         }
+        //  数组范围校验
+        if (rule.in) {
+          if (!rule.in.includes(val)) {
+            flag = false
+            scope.$set(rule, 'error', `${rule.title}值必须在给定范围内${rule.in.join(',')}`)
+          }
+        }
         //  校验正则
         if (rule.reg && {}.toString.call(rule.reg) === '[object RegExp]' && !rule.reg.test(val)) {
           flag = false
@@ -93,9 +101,13 @@ export default class validate {
    * @param {Object} rules
    * @param {Array} kyes
    */
-  static clearError (rules, kyes = []) {
+  static clearError (rules, kyes = [], scope) {
     kyes.map(key => {
-      if (rules[key].error !== undefined) delete rules[key].error
+      if (rules[key].error !== undefined) {
+        scope.$set(rules[key], 'error', '')
+        delete rules[key].error
+      }
     })
+    scope.$set(rules, 'rules_timestamp', +new Date())
   }
 }
