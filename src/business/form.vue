@@ -84,6 +84,10 @@ export default {
       let res = this.$validate.check(this.form, this.rules, this)
       console.log('这是validate验证类定义的函数验证的：' + res)
       console.log(this.form)
+      setTimeout(() => {
+        this.$set(this.rules.name, 'error', '')
+        this.$validate.clearError(this.rules, ['name'], this)
+      }, 3000)
     }
   },
   mounted () {
