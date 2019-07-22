@@ -21,7 +21,6 @@
       @blur="blur"
       @change="change"
       @select="select"
-      @keydown="keydown"
       @input="input"
       @mousedown="mousedown"
       @mousewheel="mousewheel"
@@ -32,6 +31,7 @@
       @mousemove="mousemove"
       @mouseover="mouseover"
       @keyup="keyup"
+      @keydown="keydown"
       @keypress="keypress"
       @dblclick="dbclick"
       >
@@ -86,7 +86,7 @@ export default {
     //  字底
     placeholder: {
       type: String,
-      default: '请输入内容'
+      default: ''
     },
     //  输入框类型
     type: {
@@ -119,7 +119,7 @@ export default {
       default: false
     },
     error: {
-      type: Boolean,
+      type: [Boolean, String, Number],
       default: false
     }
   },
@@ -370,9 +370,6 @@ export default {
 </script>
 
 <style scoped>
-input {
-  outline: none;
-}
 .v-input {
   position: relative;
   box-sizing: border-box;
@@ -462,7 +459,7 @@ input {
   display: inline-block;
   position: absolute;
   text-align: right;
-  right: 2%;
+  right: 4px;
   color: #dcdcdc;
   max-width: 40px;
   overflow: hidden;
