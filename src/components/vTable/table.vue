@@ -38,9 +38,7 @@
         </td>
       </tr>
       <!-- 如果有需要固定底部，可以在这配置 -->
-      <tr>
-        <slot name="footerRow"></slot>
-      </tr>
+      <slot name="footerRow"></slot>
     </tbody>
   </table>
 </template>
