@@ -35,6 +35,7 @@ export default class validate {
     keys.map(key => {
       let rule = rules[key]
       let val = vals[key]
+      if (!rule) return
       //  如果有依赖于其他值，则将依赖值赋予val做校验
       if (rule.bind) {
         let arr = rule.bind.split('.')
@@ -43,7 +44,7 @@ export default class validate {
           val = val[item]
         })
       }
-      if (rule.must && !val) {
+      if (rule.must && !isSet(val)) {
         flag = false
         scope.$set(rule, 'error', `${rule.title}必填`)
       }
@@ -94,6 +95,12 @@ export default class validate {
     //  给当前校验增加当前时间戳，便于通知子组件验证结果已经更新
     scope.$set(rules, 'rules_timestamp', +new Date())
     return flag
+
+    //  判断值是否设置
+    function isSet (val) {
+      if (val === undefined || val === null) return false
+      return true
+    }
   }
 
   /**
@@ -103,7 +110,7 @@ export default class validate {
    */
   static clearError (rules, kyes = [], scope) {
     kyes.map(key => {
-      if (rules[key].error !== undefined) {
+      if (rules[key] && rules[key].error !== undefined) {
         scope.$set(rules[key], 'error', '')
         delete rules[key].error
       }
