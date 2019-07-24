@@ -6,6 +6,7 @@
     -->
     <v-dropdown
     v-model="form.val"
+    :loading='dropdown.loading'
     :data="dropdown.data"
     :config="dropdown.config"
     :disable='[1,3]'
@@ -72,6 +73,16 @@
       </v-thead-col>
     </v-table>
     <span class="tips">可以通过设置style来改变输入框的外形</span>
+    <v-dropdown
+    v-model="form.val1"
+    :error='false'
+    :data="dropdown.data2"
+    :config="dropdown.config2"
+    :clearable='false'
+    readonly
+    @callback="getOption2"
+    :placeholder="'请选择'"
+    style="width: 200px;height: 40px;border-color: #999;border-radius: 10px;"></v-dropdown>
   </div>
 </template>
 
@@ -86,6 +97,7 @@ export default {
         val2: 1
       },
       dropdown: {
+        loading: false,
         config: {
           id: 'id',
           name: 'name'
@@ -96,15 +108,15 @@ export default {
           name: 'namex'
         },
         data: [
-          {id: 1, name: '分页'},
-          {id: 2, name: '文件上传'},
-          {id: 3, name: '表格'},
-          {id: 5, name: '评分'},
-          {id: 4, name: '时间'},
-          {id: 51, name: '分页3'},
-          {id: 6, name: '里程碑'},
-          {id: 34, name: '分页2'},
-          {id: 8, name: '轮播'}
+          // {id: 1, name: '分页'},
+          // {id: 2, name: '文件上传'},
+          // {id: 3, name: '表格'},
+          // {id: 5, name: '评分'},
+          // {id: 4, name: '时间'},
+          // {id: 51, name: '分页3'},
+          // {id: 6, name: '里程碑'},
+          // {id: 34, name: '分页2'},
+          // {id: 8, name: '轮播'}
         ],
         data1: ['龙须面', '狮子头', '红烧乳鸽'],
         data2: [
@@ -128,7 +140,24 @@ export default {
   methods: {
     init: function () {
       this.addOne()
+      this.getOptions()
       this.getData()
+    },
+    async getOptions () {
+      this.dropdown.loading = true
+      await this.$utils.sleep(2000)
+      this.dropdown.loading = false
+      this.dropdown.data = [
+        {id: 1, name: '分页'},
+        {id: 2, name: '文件上传'},
+        {id: 3, name: '表格'},
+        {id: 5, name: '评分'},
+        {id: 4, name: '时间'},
+        {id: 51, name: '分页3'},
+        {id: 6, name: '里程碑'},
+        {id: 34, name: '分页2'},
+        {id: 8, name: '轮播'}
+      ]
     },
     getVal () {
       console.log(this.form.val)
