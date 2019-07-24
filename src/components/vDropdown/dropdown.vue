@@ -37,9 +37,24 @@
       <i @click="clearSelected" class="v-dropd-clear-inner"></i>
     </i>
     <!-- 选项数据展示部分 -->
-    <em class="v-dropd-options-tri" v-if="flags.active"></em>
-    <ul class="v-dropd-options" :class="{'v-dropd-options-active': flags.active}" ref="options">
-      <li
+    <em
+      class="v-dropd-options-tri"
+      :class="{'v-dropd-options-tri': flags.direc, 'v-dropd-options-up-tri': !flags.direc}"
+      v-if="flags.active"></em>
+    <!-- <ul class="v-dropd-options" :class="{'v-dropd-options-active': flags.active}" ref="options">setPoistion -->
+    <ul
+      class="v-dropd-options"
+      :class="{'v-dropd-options-active': flags.active, 'v-dropd-options': flags.direc, 'v-dropd-options-up': !flags.direc}"
+      :style="setPosition"
+      ref="options">
+      <!-- 数据加载等待动画 -->
+      <div v-if="loading" class="v-dropd-loading">
+        <svg viewBox="25 25 50 50" class="v-dropd-cirular">
+          <circle cx="50" cy="50" r="20" fill="none" class="v-dropd-path"></circle>
+        </svg>
+      </div>
+      <div v-if="!loading">
+        <li
         :class="{'v-dropd-option-selected': isOptionSelected(option), 'v-dropd-option-disable': isOptionDisable(option), 'v-dropd-option-hover': isOptionHover(idx)}"
         @click="setOption(option, idx)"
         @mouseenter="flags.idx = -1"
@@ -47,6 +62,7 @@
         :style="{display: getFilterResult(option)}"
         :title="getOption(option)"
         :key="idx">{{getOption(option)}}</li>
+      </div>
     </ul>
   </div>
 </template>
@@ -74,7 +90,9 @@ export default {
         //  和hover搭配
         timer: null,
         //  配合键盘事件
-        idx: -1
+        idx: -1,
+        //  选项位置,true位于输入框下方，false位于输入框上方
+        direc: true
       },
       copyError: this.error
     }
@@ -117,6 +135,10 @@ export default {
     },
     //  是否必须
     require: {
+      type: Boolean,
+      default: false
+    },
+    loading: {
       type: Boolean,
       default: false
     }
@@ -170,6 +192,28 @@ export default {
         if (!this.currentVal) return false
         if (this.flags.hover) return true
         return false
+      }
+    },
+    //  调整选项位置，当下拉列表过于靠页面下方，则调整到输入框的上方
+    setPosition: {
+      get: function () {
+        //  过滤掉未展示的情况下
+        if (!this.flags.active) return
+        let oph
+        //  加载状态固定高度40
+        if (this.loading) oph = 40
+        else oph = this.data.length * 34 + 10
+        let ipRect = this.$refs.input.getBoundingClientRect()
+        let wh = window.innerHeight
+        //  计算输入框距可视底边距剩余高度，除去空隙高度
+        let restH = wh - ipRect.bottom - ipRect.height * 0.2
+        if (oph > restH) {
+          /* eslint-disable */
+          this.flags.direc = false
+        } else {
+          this.flags.direc = true
+        }
+        return ''
       }
     }
   },
@@ -278,11 +322,13 @@ export default {
       if (this.$attrs.readonly !== undefined) return
       this.initCurrentVal()
     },
+    //  鼠标进入输入框范围
     hoverInput () {
       this.flags.hover = true
       clearTimeout(this.flags.timer)
       this.flags.timer = null
     },
+    //  鼠标离开输入框范围
     leaveInput () {
       if (this.flags.timer) return
       this.flags.timer = setTimeout(() => {
@@ -427,7 +473,7 @@ li {list-style: none;}
 .v-drop-icon-active {
   transform: rotate(180deg);
 }
-.v-dropd-options-tri {
+.v-dropd-options-tri,.v-dropd-options-up-tri {
   position: absolute;
   display: inline-block;
   border-bottom: 6px solid #dcdcdc;
@@ -436,7 +482,12 @@ li {list-style: none;}
   bottom: -22%;
   left: 20px;
 }
-.v-dropd-options-tri::before {
+.v-dropd-options-up-tri {
+  border-bottom: none;
+  border-top: 6px solid #dcdcdc;
+  top: -22%;
+}
+.v-dropd-options-tri::before,.v-dropd-options-up-tri::before {
   content: '';
   position: absolute;
   display: inline-block;
@@ -447,7 +498,12 @@ li {list-style: none;}
   right: -6px;
   z-index: 101;
 }
-.v-dropd-options {
+.v-dropd-options-up-tri::before {
+  border-bottom: none;
+  border-top: 6px solid #ffffff;
+  top: -7px;
+}
+.v-dropd-options,.v-dropd-options-up {
   position: absolute;
   box-sizing: border-box;
   padding: 5px 0;
@@ -469,11 +525,17 @@ li {list-style: none;}
   transform-origin: top;
   transition: transform 0.2s, opacity 0.3s;
 }
+/* 位于输入框上方的样式 */
+.v-dropd-options-up {
+  bottom: 120%;
+  top: unset;
+  transform-origin: bottom;
+}
 .v-dropd-options-active {
   opacity: 1;
   transform: scaleY(1);
 }
-.v-dropd-options > li {
+.v-dropd-options li,.v-dropd-options-up li {
   box-sizing: border-box;
   width: 100%;
   height: 34px;
@@ -482,11 +544,12 @@ li {list-style: none;}
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: left;
   white-space: nowrap;
   max-width: 100%;
   transition: color 0.3s;
 }
-.v-dropd-options > li:hover,.v-dropd-option-hover {
+.v-dropd-options li:hover,.v-dropd-option-hover,.v-dropd-options-up li:hover {
   background-color: #edf0f5;
 }
 .v-dropd-option-selected {
@@ -537,5 +600,41 @@ li {list-style: none;}
   top: 50%;
   transform: translateY(-50%);
   transition: border 0.2s;
+}
+.v-dropd-loading {
+  text-align: center;
+  padding: 10px 0;
+}
+.v-dropd-cirular {
+  height: 20px;
+  width: 20px;
+  animation: loading-rotate 2s linear infinite;
+}
+.v-dropd-path {
+  stroke-dasharray: 90,150;
+  stroke-dashoffset: 0;
+  stroke-width: 2;
+  stroke: #bbbbbb;
+  stroke-linecap: round;
+  animation: loading-inner-rotate 1.5s ease-in-out infinite;
+}
+@keyframes loading-rotate {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+@keyframes loading-inner-rotate {
+  0% {
+    stroke-dasharray: 1,200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90,150;
+    stroke-dashoffset: -40px;
+  }
+  100% {
+    stroke-dasharray: 90,150;
+    stroke-dashoffset: -120px;
+  }
 }
 </style>
