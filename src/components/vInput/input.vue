@@ -365,6 +365,11 @@ export default {
   },
   mounted () {
     this.init()
+  },
+  watch: {
+    'value': function (val) {
+      this.current = val
+    }
   }
 }
 </script>
