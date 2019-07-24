@@ -37,4 +37,5 @@
 31、 2019-07-18 完善input组件；优化table组件
 32、 2019-07-21 上传dropdown组件
 33、 2019-07-22 优化form组件、validate验证；优化dropdown、input组件配合表单验证报错
+34、 2019-07-24 优化dropdown、table组件
 ```
