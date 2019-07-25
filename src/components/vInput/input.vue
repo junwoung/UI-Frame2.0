@@ -22,21 +22,39 @@
       @change="change"
       @select="select"
       @input="input"
-      @mousedown="mousedown"
-      @mousewheel="mousewheel"
-      @mouseenter="mouseenter"
-      @mouseout="mouseout"
-      @mouseup="mouseup"
-      @mouseleave="mouseleave"
-      @mousemove="mousemove"
-      @mouseover="mouseover"
-      @keyup="keyup"
-      @keydown="keydown"
-      @keypress="keypress"
+      @mousedown="mouse($event, 'down')"
+      @mousewheel="mouse($event, 'wheel')"
+      @mouseenter="mouse($event, 'enter')"
+      @mouseout="mouse($event, 'out')"
+      @mouseup="mouse($event, 'up')"
+      @mouseleave="mouse($event, 'leave')"
+      @mousemove="mouse($event, 'move')"
+      @mouseover="mouse($event, 'over')"
+      @keyup="key($event, 'up')"
+      @keyup.enter='key($event, "up", "enter")'
+      @keyup.up='key($event, "up", "up")'
+      @keyup.down='key($event, "up", "down")'
+      @keyup.left='key($event, "up", "left")'
+      @keyup.right='key($event, "up", "right")'
+      @keyup.delete='key($event, "up", "delete")'
+      @keydown="key($event, 'down')"
+      @keydown.enter='key($event, "down", "enter")'
+      @keydown.up='key($event, "down", "up")'
+      @keydown.down='key($event, "down", "down")'
+      @keydown.left='key($event, "down", "left")'
+      @keydown.right='key($event, "down", "right")'
+      @keydown.delete='key($event, "down", "delete")'
+      @keypress="key($event, 'press')"
+      @keypress.enter='key($event, "press", "enter")'
+      @keypress.up='key($event, "press", "up")'
+      @keypress.down='key($event, "press", "down")'
+      @keypress.left='key($event, "press", "left")'
+      @keypress.right='key($event, "press", "right")'
+      @keypress.delete='key($event, "press", "delete")'
       @dblclick="dbclick"
       >
       <!-- 图标，当自定义图标的时候隐藏 -->
-      <i v-if="!$slots.icon" @click="$refs.input.focus()" ref="icon" :class="iconStatus" class="v-input-icon" :style="setIcon()"></i>
+      <i v-if="!$slots.icon && icon" @click="$refs.input.focus()" ref="icon" :class="iconStatus" class="v-input-icon" :style="setIcon()"></i>
       <!-- 自定义图标 -->
       <i v-if="$slots.icon" @click="$refs.input.focus()" ref='diyIcon'  class="v-input-icon-diy" :style="setIcon(1)">
         <slot name="icon" class="v-input-slot-icon">
@@ -247,38 +265,16 @@ export default {
     click (event) {
       this.$emit('click')
     },
-    mouseover (event) {
-      this.$emit('mouseover')
+    //  集中处理鼠标事件
+    mouse (event, type) {
+      this.$emit(`mouse${type}`)
     },
-    mousedown (event) {
-      this.$emit('mousedown')
-    },
-    mouseleave (event) {
-      this.$emit('mouseleave')
-    },
-    mouseup (event) {
-      this.$emit('mouseup')
-    },
-    mouseenter (event) {
-      this.$emit('mouseenter')
-    },
-    mousemove (event) {
-      this.$emit('mousemove')
-    },
-    mousewheel (event) {
-      this.$emit('mousewheel')
-    },
-    mouseout (event) {
-      this.$emit('mouseout')
-    },
-    keyup (event) {
-      this.$emit('keyup')
-    },
-    keydown (event) {
-      this.$emit('keydown')
-    },
-    keypress (event) {
-      this.$emit('keypress')
+    //  集中处理键盘事件
+    key (event, type, decration) {
+      if (decration) {
+        this.$emit(`key${type}-${decration}`)
+      }
+      this.$emit(`key${type}`)
     },
     dbclick (event) {
       this.$emit('dbclick')
@@ -379,6 +375,7 @@ export default {
   position: relative;
   box-sizing: border-box;
   display: inline-block;
+  vertical-align: middle;
   width: 260px;
   height: 40px;
   line-height: 38px;
