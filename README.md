@@ -38,4 +38,5 @@
 32、 2019-07-21 上传dropdown组件
 33、 2019-07-22 优化form组件、validate验证；优化dropdown、input组件配合表单验证报错
 34、 2019-07-24 优化dropdown、table组件
+35、 2019-07-25 上传row、col组件；优化input组件对键盘事件修饰符进行监听
 ```
