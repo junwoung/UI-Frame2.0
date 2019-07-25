@@ -347,8 +347,8 @@ body {
  * 默认文字右对齐
  */
 .label {
-  height: 36px;
-  line-height: 36px;
+  height: 40px;
+  line-height: 40px;
   display: inline-block;
   font-size: 14px;
   color: #555;
