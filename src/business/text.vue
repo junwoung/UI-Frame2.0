@@ -52,7 +52,8 @@
       </v-thead-col>
     </v-table>
     <p>除了以上属性值外，还支持一系列文本框支持的原生方法（click、blur、focus、change等事件）</p>
-    <p>内置icon样式不够用的情况，不建议直接修改插件，而是直接利用slot改写icon，参见<span @click="go" class="a a-link">“使用2”</span></p>
+    <p>对于键盘事件修饰符，目前只支持enter、delete、up、down、left、right六种常用修饰符,但是使用上和原生有点区别（比如：原生：@keydown.enter；插件：@keydown-enter）</p>
+    <p>内置icon样式不够用的情况，不建议直接修改插件，而是利用slot改写icon，参见<span @click="go" class="a a-link">“使用2”</span></p>
     <p><span class="tips">输入框进行简单配置可以达到一定数据校验需求。但是，特殊数据格式要求，还是建议自己在业务层面进行控制，未达到要求的则通过设置<span class="a">:error</span>属性值，来提醒用户非法</span></p>
   </div>
 </template>
