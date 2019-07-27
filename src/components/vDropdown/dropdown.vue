@@ -390,6 +390,7 @@ export default {
           hover.click()
           // this.setOption(op, idx)
           this.flags.active = false
+          event.preventDefault()
           break
         }
         default: return false
@@ -423,7 +424,6 @@ export default {
         _this.flags.idx = getId(next)
         //  如果选项数不大于7没必要触发滚动事件
         let currentIdx = newShow.findIndex(item => next === item)
-        console.log(currentIdx)
         if (show.length <= 7) return
         if ((direc === 1 && currentIdx <= 3) || (direc === -1 && currentIdx >= show.length - 4)) return
         if (direc === 1) {
