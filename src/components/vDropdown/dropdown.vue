@@ -15,9 +15,9 @@
       @click="setActive"
       @mouseenter="hoverInput"
       @mouseleave="leaveInput"
-      @keyup.down="keyEvent('down')"
-      @keyup.up="keyEvent('up')"
-      @keyup.enter="keyEvent('enter')"
+      @keydown.down="keyEvent($event, 'down')"
+      @keydown.up="keyEvent($event, 'up')"
+      @keydown.enter="keyEvent($event, 'enter')"
       type="text"
       class="v-dropd-input"
       :class="{'v-dropd-input-error': copyError}"
@@ -46,6 +46,7 @@
       class="v-dropd-options"
       :class="{'v-dropd-options-active': flags.active, 'v-dropd-options': flags.direc, 'v-dropd-options-up': !flags.direc}"
       :style="setPosition"
+      @mouseenter="flags.idx = -1"
       ref="options">
       <!-- 数据加载等待动画 -->
       <div v-if="loading" class="v-dropd-loading">
@@ -54,13 +55,14 @@
         </svg>
       </div>
       <div v-if="!loading">
+        <!-- 前置插入自定义选项，但是不推荐混合使用（使用数组情况下就避免使用自定义选项，反之亦然） -->
+        <slot></slot>
         <li
-        :class="{'v-dropd-option-selected': isOptionSelected(option), 'v-dropd-option-disable': isOptionDisable(option), 'v-dropd-option-hover': isOptionHover(idx)}"
+        :class="getClassName(option, idx)"
         @click="setOption(option, idx)"
-        @mouseenter="flags.idx = -1"
-        v-for="(option, idx) in copyData"
-        :style="{display: getFilterResult(option)}"
+        v-for="(option, idx) in getCopyData"
         :title="getOption(option)"
+        :data-id='getId(option)'
         :key="idx">{{getOption(option)}}</li>
       </div>
     </ul>
@@ -151,37 +153,40 @@ export default {
         return op[key]
       }
     },
-    //  判断选项是否被选中
-    isOptionSelected (op) {
-      return (op) => {
+    //  计算每个选项该呈现的样式
+    getClassName (op, idx) {
+      return (op, idx) => {
         let id = this.config.id || 'id'
+        let cname = {'v-dropd-normal': true, 'v-dropd-show': true}
+        //  判断选项是否被选中
         if (op[id] === this.current) {
-          return true
+          cname['v-dropd-option-selected'] = true
         }
+        //  判断选项是否被禁用
+        if (this.disable.includes(op[id])) {
+          cname['v-dropd-option-disable'] = true
+          cname['v-dropd-normal'] = false
+        }
+        //  判断选项是否处于hover状态
+        if ((op[id] + '') === this.flags.idx) {
+          cname['v-dropd-option-hover'] = true
+        }
+        //  过滤掉不符合输入的选项
+        if (this.$attrs.readonly === undefined && this.flags.onfilter) {
+          let name = this.config.name || 'name'
+          if (!(op[name] + '').includes(this.currentVal)) {
+            cname['v-dropd-hidden'] = true
+            cname['v-dropd-normal'] = false
+            cname['v-dropd-show'] = false
+          }
+        }
+        return cname
       }
     },
-    //  判断选项是否被禁用
-    isOptionDisable (op) {
+    getId (op) {
       return (op) => {
         let id = this.config.id || 'id'
-        if (this.disable.includes(op[id])) return true
-      }
-    },
-    //  判断选项是否处于hover状态
-    isOptionHover (idx) {
-      return (idx) => {
-        if (idx === this.flags.idx) return true
-      }
-    },
-    //  过滤掉不符合输入的选项
-    getFilterResult (op) {
-      return (op) => {
-        //  如果是非过滤情况下，则展示全部选项
-        if (this.$attrs.readonly !== undefined || !this.flags.onfilter) return 'block'
-        //  输入数据只要命中name部分，就返回block，否则返回none
-        let name = this.config.name || 'name'
-        if ((op[name] + '').includes(this.currentVal)) return 'block'
-        return 'none'
+        return op[id]
       }
     },
     //  控制清空选项是否展示
@@ -214,6 +219,13 @@ export default {
           this.flags.direc = true
         }
         return ''
+      }
+    },
+    //  获取需要展示的选项数据
+    getCopyData: {
+      get: function () {
+        //  过滤掉明确不需要展示的数据
+        return this.copyData.filter(item => item.flag !== false)
       }
     }
   },
@@ -304,6 +316,9 @@ export default {
       let id = this.config.id || 'id'
       let name = this.config.name || 'name'
       if (this.disable.includes(op[id])) return
+      //  计算索引的时候考虑到自定义的选项数据
+      let diyLen = this.$refs.options.querySelectorAll('.v-dropd-diy').length
+      idx = idx + diyLen
       this.current = op[id]
       this.currentVal = op[name]
       this.change()
@@ -344,52 +359,83 @@ export default {
       if (this.require) this.copyError = true
     },
     //  监听键盘事件
-    keyEvent (type) {
+    keyEvent (event, type) {
+      if (!this.flags.active) return
       let _this = this
       let ops = this.$refs.options
-      let len = this.copyData.length - 1
-      if (!this.flags.active) return
+      //  正常可接收选择的选项集合
+      let normal = this.$refs.options.querySelectorAll('.v-dropd-normal')
+      let newNormal = [].slice.call(normal)
+      //  能展示出来的选项集合
+      let show = this.$refs.options.querySelectorAll('.v-dropd-show')
+      let newShow = [].slice.call(show)
+      //  当前hover展示的选项
+      let hover = this.$refs.options.querySelector('.v-dropd-option-hover')
       switch (type) {
         case 'up': {
           scroll(ops, -1)
+          event.preventDefault()
           break
         }
         case 'down': {
           scroll(ops, 1)
+          event.preventDefault()
           break
         }
         case 'enter': {
+          if (this.flags.idx === -1 || this.flags.idx === null) return
           let id = this.config.id || 'id'
-          let sid = null
-          let op = this.copyData[this.flags.idx]
-          if (op) sid = op[id]
-          if (sid !== null && !this.disable.includes(sid)) {
-            this.setOption(op, this.flags.idx)
-            this.flags.active = false
-          }
+          let idx = this.copyData.findIndex(item => item[id] + '' === this.flags.idx)
+          let op = this.copyData[idx]
+          hover.click()
+          // this.setOption(op, idx)
+          this.flags.active = false
           break
         }
         default: return false
       }
       function scroll (dom, direc) {
-        //  单个选项的高度,direc为1表示向下滚动，否则向上滚动
-        let h = direc === 1 ? 34 : -34
-        _this.flags.idx += direc
-        if (_this.flags.idx < 0) {
-          _this.flags.idx = len
-          h = 34 * len
+        let next, i
+        let func = direc === 1 ? 'nextSibling' : 'previousSibling'
+        if (hover) {
+          next = hover[func]
+          if (!next) {
+            if (direc === -1) {
+              next = normal[normal.length - 1]
+              dom.scrollBy(0, show.length * 34)
+            } else {
+              next = normal[0]
+              dom.scrollBy(0, -show.length * 34)
+            }
+          }
+          while (!newNormal.includes(next)) {
+            if (next) {
+              next = next[func]
+            } else {
+              next = normal[normal.length - 1]
+              dom.scrollBy(0, show.length * 34)
+            }
+          }
+        } else {
+          next = normal[0]
+          dom.scrollBy(0, -show.length * 34)
         }
-        if (_this.flags.idx < 4) return
-        if (_this.flags.idx > len) {
-          _this.flags.idx = 0
-          h = -34 * len
+        _this.flags.idx = getId(next)
+        //  如果选项数不大于7没必要触发滚动事件
+        let currentIdx = newShow.findIndex(item => next === item)
+        console.log(currentIdx)
+        if (show.length <= 7) return
+        if ((direc === 1 && currentIdx <= 3) || (direc === -1 && currentIdx >= show.length - 4)) return
+        if (direc === 1) {
+          dom.scrollBy(0, 34)
+        } else {
+          dom.scrollBy(0, -34)
         }
-        let op = _this.copyData[_this.flags.idx]
-        let name = _this.config.name || 'name'
-        if (_this.flags.onfilter && !op[name].includes(_this.currentVal)) {
-          scroll(dom, direc)
+      }
+      function getId (dom) {
+        if (dom) {
+          return dom.getAttribute('data-id')
         }
-        dom.scrollBy(0, h)
       }
     }
   },
@@ -398,7 +444,7 @@ export default {
     this.init()
   },
   watch: {
-    'data': function () {
+    'data': function (val) {
       //  监听data数据，且当是处理后的数据，则在变化的时候重新处理数据
       if (this.data !== this.copyData) {
         this.dealData()
@@ -420,6 +466,9 @@ export default {
 <style scoped>
 input{outline: none;}
 li {list-style: none;}
+.v-dropd-hidden {
+  display: none;
+}
 .v-dropdown {
   display: inline-block;
   position: relative;
