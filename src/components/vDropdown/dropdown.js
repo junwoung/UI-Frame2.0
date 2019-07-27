@@ -5,6 +5,7 @@
 */
 
 import vDropdown from './dropdown.vue'
+import vDropOption from './dropOption.vue'
 
 const dropdown = {
   name: 'v-dropdown',
@@ -13,4 +14,13 @@ const dropdown = {
   }
 }
 
-export default dropdown
+export {dropdown}
+
+const dropOption = {
+  name: 'v-drop-option',
+  install: function (Vue) {
+    Vue.component('v-drop-option', vDropOption)
+  }
+}
+
+export {dropOption}
