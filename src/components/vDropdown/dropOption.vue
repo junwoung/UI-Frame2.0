@@ -4,7 +4,7 @@
     @click="getOptionVal"
     :data-id='id'
     :class="getClassName">
-    <slot></slot>
+    <slot>{{name}}</slot>
   </li>
 </template>
 
@@ -26,9 +26,15 @@ export default {
     prevent: Boolean
   },
   computed: {
+    //  判断ID和name有没有设置
+    justifyIdAndName: {
+      get: function () {
+        if (this.id !== null && this.id !== undefined && this.name !== null && this.name !== undefined) return true
+      }
+    },
     getClassName: {
       get: function () {
-        if (!this.id || !this.name) return {'v-dropd-label': true}
+        if (!this.justifyIdAndName) return {'v-dropd-label': true}
         let cname = {'v-dropd-show': true, 'v-dropd-normal': true, 'v-dropd-diy': true}
         //  禁用、选中、预选中、过滤不显示
         let p = this.$parent
@@ -68,7 +74,7 @@ export default {
   },
   async mounted () {
     this.init()
-    if (!this.id || !this.name) return
+    if (!this.justifyIdAndName) return
     //  标记选项不显示
     let item = {flag: false}
     let pconf = this.$parent.config
