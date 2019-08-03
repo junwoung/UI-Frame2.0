@@ -84,7 +84,9 @@ export default {
 
 <style scoped>
 .v-col {
-  float: left;
+  /* float: left; */
+  display: inline-block;
+  /* vertical-align: middle; */
   box-sizing: border-box;
 }
 .v-col-clear {
