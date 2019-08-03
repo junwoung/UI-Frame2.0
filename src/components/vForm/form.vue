@@ -1,6 +1,6 @@
 <!-- created by wangjun on 2019-07-09 -->
 <template>
-  <form class="v-form" onsubmit='return false' autocomplete="off">
+  <form class="v-form" @keydown.enter="preventSubmit" onsubmit='return false' autocomplete="off">
     <slot></slot>
   </form>
 </template>
@@ -26,6 +26,10 @@ export default {
   methods: {
     init: function () {
 
+    },
+    //  防止输入框按回车提交表单
+    preventSubmit (e) {
+      e.preventDefault()
     }
   },
   mounted () {
