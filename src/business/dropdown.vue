@@ -87,10 +87,9 @@
             <span>我好饿</span><em style="float:right;font-size: 12px;">hhhhh</em>
           </v-drop-option>
           <v-drop-option @callback='getSelf' :id="234" :name="'车厘子'" :disable='true'>
-            车厘子
           </v-drop-option>
           <v-drop-option @callback='getSelf' :id="345" :name='"纸飞机"'>
-            <span>纸飞机</span>
+            <span>纸飞机(自定义)</span>
           </v-drop-option>
           <v-drop-option style="border-bottom: 1px dashed #ddd;">
             <span>组件</span>
@@ -174,7 +173,8 @@
       </v-thead-col>
       <tr slot="footerRow">
         <td colspan="6">
-          使用该组件，不指定id或者name，选项将不被视为一个可选择项，组件内部有内置的样式进行控制，自己改写样式的时候可能需要用<a class="a">!important</a>修饰符覆盖内置样式
+          使用该组件，不指定id或者name，选项将不被视为一个可选择项，组件内部有内置的样式进行控制，自己改写样式的时候可能需要用<a class="a">!important</a>修饰符覆盖内置样式<br/>
+          选项组件默认展示name的值，支持自定义选项内容
         </td>
       </tr>
     </v-table>
