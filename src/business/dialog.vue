@@ -122,9 +122,9 @@ export default {
           'font-size': '14px'
         },
         //  modal是否显示
-        modal: false,
+        modal: true,
         //  打开弹窗是否允许父级页面滑动
-        scroll: true
+        scroll: false
       })
     },
     openAlert: function () {
