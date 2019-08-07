@@ -120,7 +120,10 @@ export default {
     config: {
       type: Object,
       default: () => {
-        return {}
+        return {
+          id: 'id',
+          name: 'name'
+        }
       }
     },
     // 禁用部分选项
