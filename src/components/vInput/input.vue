@@ -1,7 +1,7 @@
 <!-- created by wangjun on 2019-07-09 -->
 <template>
   <div class="v-input" ref="vInput">
-    <div v-if="flag" class="v-input-inner" :style="justWidth()">
+    <div v-if="flag && type !== 'textarea'" class="v-input-inner" :style="justWidth()">
       <!-- 前缀 -->
       <span v-if="prefix" :title="prefix" :style="justPreStyle()" class="v-input-pre"><input readonly v-model="prefix"></span>
       <!-- 输入框 -->
@@ -62,6 +62,56 @@
       </i>
       <!-- 尾缀 -->
       <span v-if="tail" :title="tail" :style="justTailStyle()" class="v-input-tail"><input readonly v-model="tail"></span>
+    </div>
+    <!-- 文本域 -->
+    <div v-if="flag && type === 'textarea'" class="v-input-inner">
+      <textarea
+      :class="{'v-input-error': error || errorFlag}"
+      :style="justStyle()"
+      :type="type"
+      :value="current"
+      :disabled="disabled"
+      :readonly="readonly"
+      :autocomplete='autocomplete'
+      :placeholder="placeholder"
+      v-bind="$attrs"
+      ref="input"
+      @click="click"
+      @focus="focus"
+      @blur="blur"
+      @change="change"
+      @select="select"
+      @input="input"
+      @mousedown="mouse($event, 'down')"
+      @mousewheel="mouse($event, 'wheel')"
+      @mouseenter="mouse($event, 'enter')"
+      @mouseout="mouse($event, 'out')"
+      @mouseup="mouse($event, 'up')"
+      @mouseleave="mouse($event, 'leave')"
+      @mousemove="mouse($event, 'move')"
+      @mouseover="mouse($event, 'over')"
+      @keyup="key($event, 'up')"
+      @keyup.enter='key($event, "up", "enter")'
+      @keyup.up='key($event, "up", "up")'
+      @keyup.down='key($event, "up", "down")'
+      @keyup.left='key($event, "up", "left")'
+      @keyup.right='key($event, "up", "right")'
+      @keyup.delete='key($event, "up", "delete")'
+      @keydown="key($event, 'down')"
+      @keydown.enter='key($event, "down", "enter")'
+      @keydown.up='key($event, "down", "up")'
+      @keydown.down='key($event, "down", "down")'
+      @keydown.left='key($event, "down", "left")'
+      @keydown.right='key($event, "down", "right")'
+      @keydown.delete='key($event, "down", "delete")'
+      @keypress="key($event, 'press')"
+      @keypress.enter='key($event, "press", "enter")'
+      @keypress.up='key($event, "press", "up")'
+      @keypress.down='key($event, "press", "down")'
+      @keypress.left='key($event, "press", "left")'
+      @keypress.right='key($event, "press", "right")'
+      @keypress.delete='key($event, "press", "delete")'
+      @dblclick="dbclick"></textarea>
     </div>
   </div>
 </template>
@@ -387,7 +437,7 @@ export default {
   width: 100%;
   height: 100%;
 }
-.v-input-inner > input {
+.v-input-inner > input,.v-input-inner > textarea {
   box-sizing: border-box;
   float: left;
   width: 100%;
@@ -402,7 +452,15 @@ export default {
   height: 100%;
   transition: border-color .3s, box-shadow 0.3s;
 }
-.v-input-inner > input:disabled,.v-input-inner > input:disabled:hover {
+.v-input-inner > textarea {
+  padding: 5px 10px;
+  min-height: 50px;
+  resize: none;
+}
+.v-input-inner > input:disabled,
+.v-input-inner > input:disabled:hover,
+.v-input-inner > textarea:disabled,
+.v-input-inner > textarea:disabled:hover {
   background-color: #efefef;
   border-color: #ccc!important;
   cursor: not-allowed;
@@ -411,10 +469,10 @@ export default {
   border-color: #f56c6c!important;
   /* box-shadow: 0 0 4px 0 #f56c6c; */
 }
-.v-input-inner > input:hover {
+.v-input-inner > input:hover,.v-input-inner > textarea:hover {
   border-color: #409eff!important;
 }
-.v-input-inner > input:focus {
+.v-input-inner > input:focus,.v-input-inner > textarea:focus {
   border-color: #3896f8!important;
 }
 .v-input-pre {
