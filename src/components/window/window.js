@@ -6,6 +6,9 @@
 import Vue from 'vue'
 
 export default class wind {
+  constructor () {
+    this.options = null
+  }
   /**
   * @author: wangjun
   * @date: 2019-07-04 11:41:52
@@ -13,6 +16,7 @@ export default class wind {
   */
   static open (options) {
     let id = this.createId()
+    this.options = options
     //  require 引入模板文件，一定要在尾部加上default(或者其他抛出的模块名称)属性
     let FrameConstructor = Vue.extend(require('./window.vue').default)
     options.id = id
@@ -30,6 +34,9 @@ export default class wind {
   static close (id) {
     let dom = document.querySelector(`#${id}`)
     dom && dom.parentElement.removeChild(dom)
+    if (!this.options.scroll) {
+      document.body.style.overflow = ''
+    }
   }
   //  关闭所有弹窗
   static closeAll () {

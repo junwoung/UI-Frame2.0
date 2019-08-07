@@ -113,9 +113,9 @@ export default {
   watch: {
     'modalFlag': function (val) {
       if (val && !this.options.scroll) {
-        document.body.style = 'overflow:hidden;'
+        document.body.style.overflow = 'hidden'
       } else {
-        document.body.style = ''
+        document.body.style.overflow = ''
       }
     }
   }
