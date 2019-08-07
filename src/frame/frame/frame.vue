@@ -6,7 +6,7 @@
       <div class="frame-header">
         <div class="frame-title">
           <img src="./imgs/logo.png">
-          <span>个人组件框架2.0</span>
+          <span>组件框架2.0</span>
           <div class="frame-user">
             <img class="frame-avatar" :src="avatar">
             <span>{{name}}</span>
