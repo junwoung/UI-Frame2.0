@@ -1,7 +1,7 @@
 <!-- created by wangjun on 2019-07-28 -->
 <template>
   <div class="v-upload v-upload-clear ">
-    <!-- 文件选择控价 -->
+    <!-- 文件选择控件 -->
     <input
       ref="file"
       type="file"
@@ -105,6 +105,11 @@ export default {
     autoHidden: {
       type: Boolean,
       default: false
+    },
+    //  将附加参数一起拼接提交
+    params: {
+      type: Object,
+      default: () => {}
     }
   },
   components: {
@@ -164,14 +169,6 @@ export default {
   },
   methods: {
     init: function () {
-      // console.log(this.serverAddr)
-      // console.log(this.size)
-      // console.log(this.uploadNum)
-      // console.log(this.disable)
-      // console.log(this.suffix)
-      // console.log(this.showPic)
-      // console.log(this.imgStyle)
-      // console.log(this.img)
       if (this.files && this.files.length) {
         this.imgs = this.files
         !this.copyInit && (this.copyInit = JSON.parse(JSON.stringify(this.files)))
@@ -301,6 +298,10 @@ export default {
     //  将文件上传到指定服务器
     async uploadToServer (file) {
       let form = new FormData()
+      //  拼接额外参数
+      for (let key in this.params) {
+        form.append(key, this.params[key])
+      }
       form.append('file', file)
       //  获取对应的图片对象
       let img
@@ -363,14 +364,20 @@ export default {
       handler (val) {
         //  diff前后新增或更改的文件，打上tag
         let arr = val.map((item, idx) => {
-          if (!this.copyInit.some(init => init.src === item.src)) {
+          if (item.src) {
+            if (!this.copyInit.some(init => init.src === item.src)) {
+              this.$set(item, 'over', true)
+              this.$set(item, 'success', true)
+            }
+          } else {
             this.$set(item, 'over', true)
-            this.$set(item, 'success', true)
+            this.$set(item, 'error', true)
           }
           return item
         })
         this.imgs = arr
-      }
+      },
+      deep: true
     }
   }
 }
@@ -452,6 +459,7 @@ export default {
   transform: scale(0.7);
 }
 .v-upload-error {
+  position: absolute;
   display: block;
   white-space: nowrap;
   font-size: 12px;
@@ -459,6 +467,7 @@ export default {
   transform-origin: top;
   transform: scaleY(1);
   animation: show-disapear 0.2s;
+  z-index: 888;
 }
 .v-upload-imgs {
   display: flex;
