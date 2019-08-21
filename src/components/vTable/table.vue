@@ -33,7 +33,7 @@
           <!-- 将要替换的显示信息包含在slot插槽闭口内，可以被替换 -->
           <!-- 过滤掉default插槽，避免参数名为default而引入匿名插槽 -->
           <slot :name="h === 'default' ? '' : h" :item="item">
-            <span>{{item[h]}}</span>
+            <span v-html="showCeil(item[h])"></span>
           </slot>
         </td>
       </tr>
@@ -71,6 +71,22 @@ export default {
     loading: {
       type: Boolean,
       default: false
+    },
+    //  空数据显示字段
+    empty: {
+      type: String,
+      default: ''
+    }
+  },
+  computed: {
+    //  控制表格单元格内容显示
+    showCeil (html) {
+      return (html) => {
+        if (html === null || html === undefined || html === '') {
+          return this.empty
+        }
+        return html
+      }
     }
   },
   methods: {
@@ -151,7 +167,7 @@ export default {
   left: 0;
   right: 0;
   background-color: rgba(254, 254, 254, 0.5);
-  z-index: 9999;
+  z-index: 998;
 }
 .v-data-loading > span {
   position: absolute;
