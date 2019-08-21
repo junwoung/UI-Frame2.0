@@ -330,6 +330,7 @@ export default {
         'item': this.data[idx],
         'error': this.copyError
       })
+      // console.log(op)
       //  取消过滤状态
       await this.sleep(300)
       this.flags.onfilter = false
