@@ -43,7 +43,9 @@
       <v-thead-col width="40%">样例值</v-thead-col>
       <v-thead-col width="10%">默认值</v-thead-col>
     </v-table>
-    <p><span class="tips">列表按照配置规则可以渲染常规列表。有特殊字段或者特殊操作的，可以通过配置slot并指定name(与要替换的列键名相同)，来自定义列显示；<br/>可以配置slot并指定name为caption/footerRow来设置表头和表尾</span></p>
+    <p><span class="tips">列表按照配置规则可以渲染常规列表。有特殊字段或者特殊操作的，可以通过配置slot并指定name(与要替换的列键名相同)，来自定义列显示；<br/>
+    可以配置slot并指定name为caption/footerRow来设置表头和表尾</span></p>
+    <p>列表内容渲染支持html文本渲染，可以自定义渲染内容，但是涉及到事件操作还是建议通过slot改写相关字段</p>
 
     <v-table :data='table.data'>
       <template slot="caption">
@@ -67,7 +69,8 @@ export default {
         data: [
           {arg: 'data', type: 'Array', desc: '要渲染的数组', must: 'true', exp: `[{id: 1, name: '王俊', addr: '安徽省合肥市', phone: 15013890200},{id: 2, name: 'WANGJUN', addr: '广东省深圳市', phone: 15271924481}]`, default: 'null'},
           {arg: 'header', type: 'Array', desc: '要渲染的键名', must: 'true', exp: `['name', 'addr', 'phone', 'operations']`, default: 'null'},
-          {arg: 'loading', type: 'Boolean', desc: '列表内置加载状态', must: 'false', exp: 'true', default: 'false'}
+          {arg: 'loading', type: 'Boolean', desc: '列表内置加载状态', must: 'false', exp: 'true', default: 'false'},
+          {arg: 'empty', type: 'String', desc: '列表空单元格显示内容', must: 'false', exp: '-', default: ''}
         ]
       }
     }
