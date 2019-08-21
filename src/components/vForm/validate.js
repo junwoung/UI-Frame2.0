@@ -98,7 +98,7 @@ export default class validate {
 
     //  判断值是否设置
     function isSet (val) {
-      if (val === undefined || val === null) return false
+      if (val === undefined || val === null || val === '') return false
       return true
     }
   }
