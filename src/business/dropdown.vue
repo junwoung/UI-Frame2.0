@@ -3,7 +3,7 @@
   <div>
     <v-row>
       <v-col>
-        <label class="label label-require">带禁用、可过滤</label>
+        <label class="label label-require">带禁用、可过滤、带加载</label>
         <v-dropdown
         v-model="form.val"
         :loading='dropdown.loading'
@@ -333,6 +333,7 @@ export default {
         {arg: ':clearable', type: 'Boolean', desc: '选择值是否可以被清除', must: 'false', exp: 'true', default: 'false'},
         {arg: ':require', type: 'Boolean', desc: '是否必选（必选情况下，未选择值再失焦状态下，有报错提示）', must: 'false', exp: 'true', default: 'false'},
         {arg: ':error', type: 'Boolean', desc: '是否处于报错状态（给外部方便控制下拉框状态）', must: 'false', exp: 'true', default: 'false'},
+        {arg: ':loading', type: 'Boolean', desc: '选项是否处于加载状态，适用于动态ajax改变选项数据', must: false, exp: 'true', deafult: ''},
         {arg: 'disabled', type: 'Boolean', desc: '输入框是否被禁用（控件原生属性）', must: 'false', exp: 'disabled', default: 'null'},
         {arg: 'readonly', type: 'Boolean', desc: '输入框是否只读（控件原生属性）', must: 'false', exp: 'readonly', default: 'null'},
         {arg: '@callback', type: 'Function', desc: '选项被点击触发回调，会携带一个Object参数，方便自定义操作', must: 'false', exp: ``, default: ''}
