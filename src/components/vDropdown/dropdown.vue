@@ -7,7 +7,7 @@
     <input
       :title="currentVal"
       :value="currentVal"
-      ref="input"
+      ref="dropInput"
       @input="input"
       @change="change"
       @focus="activeOptions"
@@ -211,7 +211,7 @@ export default {
         //  加载状态固定高度40
         if (this.loading) oph = 40
         else oph = this.data.length * 34 + 10
-        let ipRect = this.$refs.input.getBoundingClientRect()
+        let ipRect = this.$refs.dropInput.getBoundingClientRect()
         let wh = window.innerHeight
         //  计算输入框距可视底边距剩余高度，除去空隙高度
         let restH = wh - ipRect.bottom - ipRect.height * 0.2
@@ -273,7 +273,7 @@ export default {
     async triggerInputClick () {
       if (this.$attrs.disabled !== undefined) return
       this.flags.active = !this.flags.active
-      if (this.flags.active) this.$refs.input.focus()
+      if (this.flags.active) this.$refs.dropInput.focus()
     },
     //  监听输入事件，触发选项过滤
     input (event) {
@@ -300,7 +300,7 @@ export default {
     //  隐藏选项
     async hideOptions () {
       //  防止隐藏的过快，导致click事件未被触发
-      await this.sleep(150)
+      await this.sleep(200)
       this.flags.active = false
       this.justifyIllegal()
       // await this.sleep(300)
@@ -316,6 +316,7 @@ export default {
     },
     //  选中选项，将值实时显现出来
     async setOption (op, idx) {
+      console.log(op, idx)
       let id = this.config.id || 'id'
       let name = this.config.name || 'name'
       if (this.disable.includes(op[id])) return
@@ -330,7 +331,6 @@ export default {
         'item': this.data[idx],
         'error': this.copyError
       })
-      // console.log(op)
       //  取消过滤状态
       await this.sleep(300)
       this.flags.onfilter = false
@@ -572,7 +572,7 @@ li {list-style: none;}
   top: 120%;
   z-index: 100;
   max-height: 250px;
-  overflow-y: scroll;
+  overflow-y: auto;
   opacity: 0;
   transform: scaleY(0);
   transform-origin: top;
@@ -590,6 +590,7 @@ li {list-style: none;}
 }
 .v-dropd-options li,.v-dropd-options-up li {
   box-sizing: border-box;
+  font-size: 14px;
   width: 100%;
   height: 34px;
   line-height: 34px;
