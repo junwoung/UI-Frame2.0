@@ -102,7 +102,7 @@ export default {
       let dom = document.querySelector(`#${this.options.id} .v-window-content`)
       if (dom) {
         dom.style['max-height'] = height + 'px'
-        dom.style = `max-height:${height}px;overflow-y:scroll;`
+        dom.style = `max-height:${height}px;overflow-y: auto;`
       }
     }
   },
