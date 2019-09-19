@@ -33,7 +33,8 @@
           <!-- 将要替换的显示信息包含在slot插槽闭口内，可以被替换 -->
           <!-- 过滤掉default插槽，避免参数名为default而引入匿名插槽 -->
           <slot :name="h === 'default' ? '' : h" :item="item">
-            <span v-html="showCeil(item[h])"></span>
+            <!-- 将数组索引通过$index参数返回 -->
+            <span v-html="showCeil(item[h])">{{item.$index = idx}}</span>
           </slot>
         </td>
       </tr>
@@ -123,8 +124,8 @@ export default {
   text-align: left;
   font-size: 16px;
   color: #333;
-  /* height: 50px;
-  line-height: 50px; */
+  /* height: 30px;
+  line-height: 30px; */
 }
 .v-table th {
   height: 50px;
@@ -167,7 +168,7 @@ export default {
   left: 0;
   right: 0;
   background-color: rgba(254, 254, 254, 0.5);
-  z-index: 998;
+  z-index: 1;
 }
 .v-data-loading > span {
   position: absolute;
