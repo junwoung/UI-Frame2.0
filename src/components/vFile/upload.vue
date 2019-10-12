@@ -110,6 +110,11 @@ export default {
     params: {
       type: Object,
       default: () => {}
+    },
+    //  针对业务特殊需求,名称控制需求
+    nameCtrl: {
+      type: String,
+      default: ''
     }
   },
   components: {
@@ -199,6 +204,13 @@ export default {
         if (this.size) {
           if (this.size < file.size) {
             this.innerError = `文件【${file.name}】过大（不大于${this.getLegalSize}）`
+            return
+          }
+        }
+        //  过滤文件名
+        if (this.nameCtrl) {
+          if (file.name !== this.nameCtrl) {
+            this.innerError = `只能上传同名文件`
             return
           }
         }
@@ -364,14 +376,16 @@ export default {
       handler (val) {
         //  diff前后新增或更改的文件，打上tag
         let arr = val.map((item, idx) => {
-          if (item.src) {
-            if (!this.copyInit.some(init => init.src === item.src)) {
+          if (item.res) {
+            if (item.src) {
+              if (!this.copyInit.some(init => init.src === item.src)) {
+                this.$set(item, 'over', true)
+                this.$set(item, 'success', true)
+              }
+            } else {
               this.$set(item, 'over', true)
-              this.$set(item, 'success', true)
+              this.$set(item, 'error', true)
             }
-          } else {
-            this.$set(item, 'over', true)
-            this.$set(item, 'error', true)
           }
           return item
         })
@@ -491,6 +505,7 @@ export default {
   white-space: nowrap;
   font-size: 12px;
   color: #777;
+  text-align: center;
 }
 .v-upload-progress {
   position: absolute;

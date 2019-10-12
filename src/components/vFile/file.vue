@@ -18,7 +18,7 @@ created by wangjun on 2019-07-30
     </div>
     <!-- 替换、删除模态 -->
     <div class="v-upload-img-modal">
-      <em @click="seeInitPic(file.src)" title="查看" class="v-upload-icon-see"></em>
+      <em v-if="showSee(file.src)" @click="seeInitPic(file.src)" title="查看" class="v-upload-icon-see"></em>
       <em @click="downloadPic(file.src, file.name)" title="下载" class="v-upload-icon-download">
         <!-- <a :href="file.src" download='_target' style="display:inline-block;width:100%;height:100%;"></a> -->
       </em>
@@ -43,7 +43,8 @@ export default {
       flags: {
         //  是否显示大图
         showInit: false
-      }
+      },
+      showAllows: ['jpg', 'jpeg', 'gif', 'png', 'mp4', 'ogg', 'webm']
     }
   },
   props: {
@@ -71,6 +72,14 @@ export default {
           }
         }, 10)
         return ''
+      }
+    },
+    //  只有浏览器能够正常播放的文件才显示查看图标
+    showSee (src) {
+      return src => {
+        if (!src) return
+        let tail = src.substr(src.lastIndexOf('.') + 1)
+        return this.showAllows.includes(tail)
       }
     }
   },
@@ -117,13 +126,15 @@ export default {
       this.$emit('replace', this.index, this.file)
     },
     //  下载图片
-    downloadPic (src, name) {
+    async downloadPic (src, name) {
       this.$emit('download', this.file)
+      // let res = await this.getUrlBase64(src)
+      // console.log(res)
       // return
       // if (src) {
       //   if (this.flag === 'image') {
       //     let image = new Image()
-      //     // image.setAttribute('crossOrigin', 'anonymous')
+      //     image.setAttribute('crossOrigin', 'anonymous')
       //     image.onload= function () {
       //       let canvas = document.createElement('canvas')
       //       canvas.width = image.width
@@ -138,22 +149,43 @@ export default {
       //     }
       //     image.src = src
       //     console.log(image)
-      //   } else {
-      //     let a = document.createElement('a')
-      //     a.href = src
-      //     a.download = name
-      //     let event = new MouseEvent('click')
-      //     console.log(a)
-      //     a.dispatchEvent(event)
-      //     // a.click()
-      //   }      
-      // }
+      //   }
+      let tail = src.substr(src.lastIndexOf('.') + 1)
+      let a = document.createElement('a')
+      a.href = src
+      a.download = name
+      if (this.showAllows.includes(tail)) {
+        a.target = '_blank'
+      }
+      a.click()
     },
     //  关闭原图查看
     hideInitPic () {
       this.flags.showInit = false
       let dom = document.documentElement || document.body
       dom.style.overflow = ''
+    },
+    //  避免canvas跨域请求出现问题，将请求到的图片转化为base64
+    getUrlBase64 (url) {
+      return new Promise((reslove, reject) => {
+        let xhr = new XMLHttpRequest()
+        xhr.open('get', url, true)
+        xhr.responseType = 'blob'
+        xhr.onload = function () {
+          if (this.status === 200) {
+            let blob = this.response
+            let fileReader = new FileReader()
+            fileReader.onload = function (e) {
+              reslove(e.target.result)
+            }
+            fileReader.readAsDataURL(blob)
+          }
+        }
+        xhr.onerror = function () {
+          reject('请求出错了')
+        }
+        xhr.send()
+      })
     }
   },
   mounted () {
