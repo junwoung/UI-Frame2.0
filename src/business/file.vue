@@ -1,7 +1,7 @@
 <!-- created by wangjun on 2019-07-28 -->
 <template>
   <div>
-    <!--
+    <!-- <v-file
       :files='files'
       :disable='false'
       :size='30 * 1024 * 1024'
@@ -16,8 +16,8 @@
       multiple
       @callback='getFiles'
       @download='download'
-      :serverAddr='"/upload/upload/img"'
-    -->
+      :params="{chunk: 0, fbid: 'F793000'}"
+      :serverAddr='"/upload/upload/img"'> -->
     <v-row>
       <v-file
         :files='files'
@@ -88,22 +88,28 @@ export default {
     getFiles (files) {
       console.log(files)
       let arr = files.map(file => {
-        let src
         if (file.res) {
-          if (file.res.addr) {
-            src = file.res.abs_addr
-            return {
-              name: file.name,
-              src: src || file.src
-            }
-          } else {
-            return {
-              name: file.name,
-              error: true
-            }
-          }
+          file.src = file.res.abs_addr
+        } else {
+          file.error = true
         }
         return file
+        // let src
+        // if (file.res) {
+        //   if (file.res.addr) {
+        //     src = file.res.abs_addr
+        //     return {
+        //       name: file.name,
+        //       src: src || file.src
+        //     }
+        //   } else {
+        //     return {
+        //       name: file.name,
+        //       error: true
+        //     }
+        //   }
+        // }
+        // return file
       })
       this.files = arr
       console.log(this.files)
