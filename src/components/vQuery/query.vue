@@ -41,7 +41,7 @@ export default {
       //  存放对应checkedJson
       checkedJson: [],
       //  用于展示关闭选项用
-      showTextFlag: null,
+      showTextFlag: false,
       //  存放每次取消的选项数据
       cancelItems: []
     }
@@ -87,6 +87,10 @@ export default {
           if (request.status === 200) {
             //  抛出结果
             this.data = JSON.parse(request.responseText)
+            //  初始化节点完成后，执行初始化函数操作
+            this.$nextTick(() => {
+              if (this.query.init && typeof this.query.init === 'function') this.query.init()
+            })
             console.log(this.data)
           }
         }
