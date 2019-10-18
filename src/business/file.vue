@@ -45,15 +45,6 @@
         :files="[{name: 'aaaaaa.jpg', src: 'http://localhost:8080/public/uploads/190730/aa5b318fd32f7d6fffbf1628c9b55a63.mp4'}]"
         :imgStyle="{width: '150px', height: '120px'}"></v-file>
     </v-row> -->
-    <v-row style="position:relative;height: 60px;">
-      <v-loading :color='"#3896f8"' :size='50' :loading='true' :text="'加载中'"></v-loading>
-    </v-row>
-
-    <v-row>
-      <v-divider :align='"right"' :color="'#ddd'">
-        <span>分割线</span>
-      </v-divider>
-    </v-row>
   </div>
 </template>
 
