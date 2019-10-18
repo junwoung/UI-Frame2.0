@@ -66,7 +66,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 99999;
+  z-index: 9;
 }
 .v-data-loading > span {
   position: absolute;
