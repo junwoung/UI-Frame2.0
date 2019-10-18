@@ -21,6 +21,7 @@
  * @sleep {[毫秒数]} @desc 睡眠指定毫秒数
  * @flatten {[数组]} @desc 数组扁平化
  * @merge {[参与merge的对象]} @desc 合并多个对象，并返回新对象
+ * @formatNum {[要格式化的数值, 保留的小数位]} @desc 格式化数值，返回保留指定小数位数的数值
  */
 
 export default class utils {
@@ -426,5 +427,15 @@ export default class utils {
       }
       return ret
     })
+  }
+
+  //  格式化数值
+  static formatNumber (number, points) {
+    let arr = Array.from({length: points}).fill(10)
+    let tmp = arr.reduce((total, cur) => {
+      total *= cur
+      return total
+    }, 1)
+    return Math.round(+number * tmp) / tmp
   }
 }
