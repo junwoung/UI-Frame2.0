@@ -1,6 +1,6 @@
 <!-- created by wangjun on 2019-03-11 -->
 <template>
-  <div class="v-pagination" v-if="pagination">
+  <div class="v-pagination" v-if="pagination && pagination.total">
     <span :class="{'v-pagination-disable': pagination.current === 1}" @click="go(1)">首页</span>
     <span :class="{'v-pagination-disable': pagination.current === 1}" @click="go(pagination.current-1)">&lt;</span>
     <span
