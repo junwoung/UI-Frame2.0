@@ -433,6 +433,7 @@ export default {
   border-width: 1px;
   border-color: #bcbcbc;
   color: #666;
+  background-color: #fff;
   cursor: pointer;
 }
 .v-upload-btn-disable {
