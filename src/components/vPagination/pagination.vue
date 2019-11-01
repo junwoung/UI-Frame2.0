@@ -118,6 +118,9 @@
 				}
 			},
 			go: function (num) {
+				if (event) {
+					if (event.target.getAttribute('class').includes('v-pagination-disable')) return
+				}
 				//  页数跳转
 				if (num <= 0) num = 1
 				if (num > this.totalPages) num = this.totalPages
