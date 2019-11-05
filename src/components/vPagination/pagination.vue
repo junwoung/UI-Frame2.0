@@ -1,4 +1,5 @@
 <!-- created by wangjun on 2019-03-11 -->
+<!--  eslint-disable -->
 <template>
 	<div class="v-pagination" v-if="pagination && pagination.total">
 		<span :class="{'v-pagination-disable': pagination.current === 1}" @click="go(1)">首页</span>
@@ -41,6 +42,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 	export default {
 		name: '',
 		data() {
@@ -118,7 +120,7 @@
 				}
 			},
 			go: function (num) {
-				if (event) {
+				if (event && event.target.getAttribute('class')) {
 					if (event.target.getAttribute('class').includes('v-pagination-disable')) return
 				}
 				//  页数跳转
