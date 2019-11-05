@@ -58,7 +58,7 @@ export default {
       pagination2: {
         current: 1, //  当前页
         pagesize: 7, //  每页展示条目数
-        total: 151, //  总页数
+        total: 1001, //  总页数
         showPages: 6, //  显示分页页码数目
         detail: true // 是否显示详细的分页信息
       }
