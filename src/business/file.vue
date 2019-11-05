@@ -69,9 +69,11 @@
       </textarea>
     </v-row>
     <v-row>
-      <p><label class="label">提示1</label><span>多个文件上传，上传状态可以通过设置files里面的每一条对象中的success和false属性来控制上传状态</span></p>
-      <p><label class="label">提示2</label><span>插件内置了预览、删除、替换、下载功能，若不需要可自行修改插件（二次开发或者直接注释相关代码）</span></p>
-      <p><label class="label">提示3</label><span>以上内置功能，除了下载功能有点特殊以外，其余功能都内部实现了，没有对外抛出相关功能入口，需要的可自行开发。下载功能涉及到浏览器可解析的文件，会自动变成预览，且可能存在跨域（无法通过canvas来下载异域的图片）情况，所以抛出下载入口，共开发者自行开发</span></p>
+      <p><label class="label">提示1</label><span>插件有默认上传按钮，也可以通过在闭口标签内部自己定义一个上传按钮</span></p>
+      <p><label class="label">提示2</label><span>插件会自动解析浏览器可预览的文件，并展示预览图。其他文件统一以默认的文件缩略图展示</span></p>
+      <p><label class="label">提示3</label><span>多个文件上传，上传状态可以通过设置files里面的每一条对象中的success和error属性来控制上传状态</span></p>
+      <p><label class="label">提示4</label><span>插件内置了预览、删除、替换、下载功能，若不需要可自行修改插件（二次开发或者直接注释相关代码）</span></p>
+      <p><label class="label">提示5</label><span>以上内置功能，除了下载功能有点特殊以外，其余功能都内部实现了，没有对外抛出相关功能入口，需要的可自行开发。下载功能涉及到浏览器可解析的文件，会自动变成预览，且可能存在跨域（无法通过canvas来下载异域的图片）情况，所以抛出下载入口，共开发者自行开发</span></p>
     </v-row>
     <v-table :data='table.data' :header='table.headers'>
       <template slot="caption"><p style="text-align:center;">v-file 使用介绍</p></template>
@@ -190,6 +192,14 @@ export default {
             must: 'false',
             exp: `true`,
             default: 'false'
+          },
+          {
+            arg: ':nameCtrl',
+            type: 'String',
+            desc: '名称必须为',
+            must: 'false',
+            exp: `a.jpg`,
+            default: '-'
           },
           {
             arg: ':params',
