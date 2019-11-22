@@ -13,7 +13,7 @@
       <div v-for="(img, index) in imgs" :key="index" class="v-upload-img-wrap">
         <!-- <img :style="imgStyle" :src="img.src"> -->
         <v-upl-file :index='index' :file='img' :disable='disable' :style="imgStyle" @download='download' @replace='replace' @delete='deletePic'></v-upl-file>
-        <span :title="img.name" class='v-upload-img-name'>{{img.name}}</span>
+        <span :title="img.name || getImgName(img.src)" class='v-upload-img-name'>{{img.name || getImgName(img.src)}}</span>
         <!-- 进度事件 -->
         <div class="v-upload-progress" v-if="isShowProgress(img)" :ref="'progress' + index">
           <span class="v-upload-progress-base"></span>
@@ -169,6 +169,14 @@ export default {
           }, 2000)
         }
         return img.progress
+      }
+    },
+    //  如果无名称，则自动根据资源连接提取资源名称
+    getImgName (src) {
+      return src => {
+        if(!src) return
+        let srcArr = src.split('?')[0].split('/')
+        return srcArr.pop()
       }
     }
   },
@@ -359,10 +367,13 @@ export default {
     replace (idx, file) {
       this.flags.onReplace = idx
       this.$refs.file.click()
+      this.$emit('replace', idx)
     },
     //  删除文件
     deletePic (idx) {
       this.imgs.splice(idx, 1)
+      this.files.splice(idx, 1)
+      this.$emit('delete', idx)
     }
   },
   mounted () {
@@ -433,7 +444,6 @@ export default {
   border-width: 1px;
   border-color: #bcbcbc;
   color: #666;
-  background-color: #fff;
   cursor: pointer;
 }
 .v-upload-btn-disable {

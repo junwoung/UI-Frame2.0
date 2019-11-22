@@ -5,6 +5,7 @@
 */
 import Vue from 'vue'
 import vFile from './upload.vue'
+import download from './download'
 
 const file = {
   name: 'v-file',
@@ -14,3 +15,4 @@ const file = {
 }
 
 Vue.use(file)
+Vue.prototype.$download = download.downloadFile

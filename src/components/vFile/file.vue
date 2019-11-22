@@ -128,28 +128,7 @@ export default {
     //  下载图片
     async downloadPic (src, name) {
       this.$emit('download', this.file)
-      // let res = await this.getUrlBase64(src)
-      // console.log(res)
-      // return
-      // if (src) {
-      //   if (this.flag === 'image') {
-      //     let image = new Image()
-      //     image.setAttribute('crossOrigin', 'anonymous')
-      //     image.onload= function () {
-      //       let canvas = document.createElement('canvas')
-      //       canvas.width = image.width
-      //       canvas.height = image.height
-      //       let context= canvas.getContext('2d')
-      //       context.drawImage(image, 0, 0, image.width, image.height)
-      //       let url = canvas.toDataURL('image/png')
-      //       let a = document.createElement('a')
-      //       a.href = url
-      //       a.download = name
-      //       a.click()
-      //     }
-      //     image.src = src
-      //     console.log(image)
-      //   }
+      //  ------  服务器不允许跨域访问时使用（浏览器可解析会变成预览）  --------
       let tail = src.substr(src.lastIndexOf('.') + 1)
       let a = document.createElement('a')
       a.href = src
@@ -158,34 +137,14 @@ export default {
         a.target = '_blank'
       }
       a.click()
+      //  ------  服务器允许跨域访问时使用（会下载所有类型文件）  --------
+      // this.$download(src, name)
     },
     //  关闭原图查看
     hideInitPic () {
       this.flags.showInit = false
       let dom = document.documentElement || document.body
       dom.style.overflow = ''
-    },
-    //  避免canvas跨域请求出现问题，将请求到的图片转化为base64
-    getUrlBase64 (url) {
-      return new Promise((reslove, reject) => {
-        let xhr = new XMLHttpRequest()
-        xhr.open('get', url, true)
-        xhr.responseType = 'blob'
-        xhr.onload = function () {
-          if (this.status === 200) {
-            let blob = this.response
-            let fileReader = new FileReader()
-            fileReader.onload = function (e) {
-              reslove(e.target.result)
-            }
-            fileReader.readAsDataURL(blob)
-          }
-        }
-        xhr.onerror = function () {
-          reject('请求出错了')
-        }
-        xhr.send()
-      })
     }
   },
   mounted () {
@@ -220,7 +179,7 @@ export default {
   height: 100%;
 }
 .v-upl-file-video {
-  object-fit: cover;
+  object-fit: fill;
   line-height: 0;
 }
 .v-upl-video-play {
