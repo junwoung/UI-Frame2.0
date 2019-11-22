@@ -88,10 +88,13 @@ export default {
             //  抛出结果
             this.data = JSON.parse(request.responseText)
             //  初始化节点完成后，执行初始化函数操作
-            this.$nextTick(() => {
+            // this.$nextTick(() => {
+            //   if (this.query.init && typeof this.query.init === 'function') this.query.init()
+            // })
+            setTimeout(() => {
               if (this.query.init && typeof this.query.init === 'function') this.query.init()
-            })
-            console.log(this.data)
+            }, 100)
+            // console.log(this.data)
           }
         }
       }

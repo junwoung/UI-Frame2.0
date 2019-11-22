@@ -34,7 +34,7 @@ created by wangjun on 2019-07-30
 </template>
 
 <script>
-// import './download.js'
+import {isAllowCrossOrigin} from './config'
 export default {
   name: '',
   data () {
@@ -128,17 +128,20 @@ export default {
     //  下载图片
     async downloadPic (src, name) {
       this.$emit('download', this.file)
-      //  ------  服务器不允许跨域访问时使用（浏览器可解析会变成预览）  --------
-      let tail = src.substr(src.lastIndexOf('.') + 1)
-      let a = document.createElement('a')
-      a.href = src
-      a.download = name
-      if (this.showAllows.includes(tail)) {
-        a.target = '_blank'
+      if (!isAllowCrossOrigin) {
+        //  ------  服务器不允许跨域访问时使用（浏览器可解析会变成预览）  --------
+        let tail = src.substr(src.lastIndexOf('.') + 1)
+        let a = document.createElement('a')
+        a.href = src
+        a.download = name
+        if (this.showAllows.includes(tail)) {
+          a.target = '_blank'
+        }
+        a.click()
+      } else {
+        //  ------  服务器允许跨域访问时使用（会下载所有类型文件）  --------
+        this.$download(src, name)
       }
-      a.click()
-      //  ------  服务器允许跨域访问时使用（会下载所有类型文件）  --------
-      // this.$download(src, name)
     },
     //  关闭原图查看
     hideInitPic () {
