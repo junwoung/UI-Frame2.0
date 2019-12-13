@@ -1,0 +1,184 @@
+.js-dialog-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999999;
+}
+.js-dialog-confirm,.js-dialog-prompt {
+  position: absolute;
+  top: 200px;
+  box-sizing: border-box;
+  background-color: #fff;
+  max-width: 600px;
+  min-width: 500px;
+  border-radius: 4px;
+  transform: translateY(-30px);
+  opacity: 0;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.js-dialog-header-wrap {
+  font-size: 16px;
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 0 16px;
+  user-select: none;
+}
+.js-dialog-header {
+  display: inline-block;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+}
+.js-dialog-close {
+  float: right;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.4);
+  transform: scale(1.2);
+  transition: color 0.2s;
+}
+.js-dialog-close:hover {
+  color: rgba(0, 0, 0, 0.7);
+}
+.js-dialog-body {
+  padding: 20px 30px;
+  min-height: 60px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.js-dialog-footer {
+  height: 50px;
+  line-height: 50px;
+  text-align: right;
+  padding-right: 16px;
+  border-top: 1px solid #e8e8e8;
+  user-select: none;
+}
+.js-dialog-footer > button {
+  outline: none;
+  height: 32px;
+  border-radius: 4px;
+  padding: 0 20px;
+  letter-spacing: 2px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.2s, background-color 0.2s, border 0.2s;
+}
+.js-dialog-btn-ensure {
+  color: #fff;
+  background-color: #3896f8;
+  border: 1px solid #3896f8;
+}
+.js-dialog-btn-ensure:hover {
+  background-color: #40a9ff;
+  border: 1px solid #40a9ff;
+}
+.js-dialog-btn-cancel {
+  color: rgba(0, 0, 0, 0.7);
+  background-color: #fff;
+  border-color: rgba(0, 0, 0, 0.3);
+}
+.js-dialog-btn-cancel:hover {
+  color: #40a9ff;
+  border: 1px solid #40a9ff;
+}
+.js-dialog-tips {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  background-color: #fff;
+  height: 0;
+  justify-content: center;
+  font-size: 14px;
+  z-index: 99999999;
+}
+.js-dialog-tips-content {
+  box-sizing: border-box;
+  position: absolute;
+  top: 100px;
+  min-width: 150px;
+  max-width: 500px;
+  padding: 20px 20px 20px 30px;
+  border-radius: 8px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  transform: translateY(-30px);
+  opacity: 0;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.js-dialog-tips-content-wrap {
+  max-height: 400px;
+  overflow-y: auto;
+}
+.js-dialog-success {
+  top: 120px;
+  background-color: #f6ffed;
+  border: 1px solid #b7eb8f;
+  background-image: url('./imgs/success.png');
+}
+.js-dialog-error {
+  top: 50px;
+  background-color: #fff1f0;
+  border: 1px solid #ffa39e;
+  background-image: url('./imgs/error.png');
+}
+.js-dialog-msg {
+  top: 190px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+}
+.js-dialog-loading {
+  position: absolute;
+  top: 240px;
+  box-sizing: border-box;
+  min-width: 180px;
+  min-height: 140px;
+  max-width: 220px;
+  background-color: #fff;
+  border-radius: 16px;
+  text-align: center;
+  padding: 100px 20px 20px 20px;
+  background-image: url('./imgs/loading.gif');
+  background-repeat: no-repeat;
+  background-position: center 40px;
+  background-size: 40px 40px;
+  transform: translateY(-100px);
+  opacity: 0;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.js-dialog-input,.js-dialog-textarea {
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  padding: 0 10px;
+  border: 1px solid #dfdfdf;
+  border-radius: 4px;
+  color: #666;
+  transition: border 0.3s;
+}
+.js-dialog-input:hover, .js-dialog-input:focus,.js-dialog-textarea:hover,.js-dialog-textarea:focus {
+  border: 1px solid #3896f8;
+}
+.js-dialog-textarea {
+  max-width: 540px;
+  max-height: 300px;
+  padding: 10px 10px;
+  min-height: 120px;
+  min-width: 440px;
+}
