@@ -433,8 +433,9 @@ export default {
   clear: both;
 }
 .v-upload-btn-wrap {
+  float: left;
   position: relative;
-  display: inline-block;
+  /* display: inline-block; */
   user-select: none;
 }
 .v-upload-btn {
@@ -509,6 +510,7 @@ export default {
 }
 .v-upload-img-name {
   position: absolute;
+  left: 0;
   display: inline-block;
   width: 100%;
   overflow: hidden;
