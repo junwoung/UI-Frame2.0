@@ -148,6 +148,8 @@ export default {
   box-sizing: border-box;
   height: 60px;
   padding: 5px 10px;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 .v-table .v-tbody > tr {
   transition: background-color .3s;
